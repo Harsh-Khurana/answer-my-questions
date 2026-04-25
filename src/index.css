@@ -1,0 +1,107 @@
+:root {
+  --primary: rgb(8, 126, 164);
+  --primary-bg: rgb(230, 247, 255);
+  --form-elements-bg: rgba(153, 161, 179, 0.2);
+  --text: rgb(64, 71, 86);
+  --text-h: #08060d;
+  --bg: rgb(255, 255, 255);
+  --border: #e5e4e7;
+  --shadow:
+    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+
+  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --mono: ui-monospace, Consolas, monospace;
+
+  font: 18px/145% var(--sans);
+  letter-spacing: 0.18px;
+  color-scheme: light dark;
+  color: var(--text);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  @media (max-width: 1024px) {
+    font-size: 16px;
+  }
+}
+
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary: rgb(88, 196, 220);
+    --primary-bg: rgba(88, 175, 223, 0.1);
+    --form-elements-color: rgb(72, 73, 75);
+    --form-elements-bg: rgba(153, 161, 179, 0.2);
+    --text: rgb(235, 236, 240);
+    --text-h: #f3f4f6;
+    --bg: rgb(35, 39, 47);
+    --border: #2e303a;
+    --shadow:
+      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+  }
+}
+
+#root {
+  width: 1126px;
+  max-width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  border-inline: 1px solid var(--border);
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+
+  @media screen and (max-width: 400px) {
+    padding: 0 8px;
+  }
+}
+
+body {
+  margin: 0;
+}
+
+h1,
+h2 {
+  font-family: var(--heading);
+  font-weight: 500;
+  color: var(--text-h);
+}
+
+input, select, textarea, option {
+  color: var(--text);
+  background-color: var(--form-elements-bg);
+  border-radius: 4px;
+  border: none;
+  padding: 8px 12px;
+  font-size: 24px;
+  outline: none; 
+}
+
+select, option {
+  font-size: 16px;
+}
+
+option {
+  background-color: var(--bg);
+}
+
+
+button {
+  margin: 2px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  color: var(--primary);
+  background-color: var(--primary-bg);
+  font-weight: bold;
+  font-size: 16px;
+
+  &:active {
+    transform: translate(1px, 1px);
+  }
+}
