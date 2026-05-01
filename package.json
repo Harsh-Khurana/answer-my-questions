@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@dnd-kit/helpers": "^0.4.0",
+    "@dnd-kit/react": "^0.4.0",
     "@reduxjs/toolkit": "^2.11.2",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",

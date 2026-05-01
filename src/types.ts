@@ -1,13 +1,15 @@
-export enum QuestionType {
-  MCQ,
-  Subjective,
-  Boolean,
-}
+export const QuestionType = {
+  MCQ: "MCQ",
+  Subjective: "Subjective",
+  Boolean: "Boolean",
+} as const
+
+export type QuestionType = (typeof QuestionType)[keyof typeof QuestionType]
 
 export type MCQQuestion = {
   id: number
   question: string
-  type: QuestionType.MCQ
+  type: typeof QuestionType.MCQ
   options: string[]
   answer: number
 }
@@ -15,14 +17,14 @@ export type MCQQuestion = {
 export type SubjectiveQuestion = {
   id: number
   question: string
-  type: QuestionType.Subjective
+  type: typeof QuestionType.Subjective
   answer: string
 }
 
 export type BooleanQuestion = {
   id: number
   question: string
-  type: QuestionType.Boolean
+  type: typeof QuestionType.Boolean
   answer: boolean
 }
 
@@ -38,3 +40,13 @@ export type Answer = {
   id: number
   answer: AnswerType
 }
+
+export const PageType = {
+  Home: "Home",
+  Questionnaire: "Questionnaire",
+  QuestionsReview: "QuestionsReview",
+  AnswerSheet: "AnswerSheet",
+  Result: "Result",
+} as const
+
+export type PageType = (typeof PageType)[keyof typeof PageType]
