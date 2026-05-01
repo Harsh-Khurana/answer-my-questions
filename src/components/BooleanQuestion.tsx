@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import QuestionInput from "./QuestionInput"
 import QuestionFooter from "./QuestionFooter"
 import { QuestionType, type DistributiveOmit, type BooleanQuestion } from "../types"
-import { addQuestion } from "../store/questionsSlice"
+import { addQuestion, editQuestion } from "../store/questionsSlice"
 import type { AppDispatch, AppState } from "../store"
 import { changeQuestionNumber } from "../store/viewSlice"
 
@@ -58,12 +58,16 @@ export default function BooleanQuestion() {
     } as DistributiveOmit<BooleanQuestion, "id">
 
     setErrors({})
-    dispatch(addQuestion(question))
+    if (selectedQuestion) {
+      dispatch(editQuestion({ ...question, id: selectedQuestion.id }))
+    } else {
+      dispatch(addQuestion(question))
+    }
     dispatch(changeQuestionNumber(selectedQuestionNumber + 1))
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="question-form" onSubmit={handleSubmit}>
       <QuestionInput
         ref={questionInputRef}
         error={errors.question}

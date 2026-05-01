@@ -22,12 +22,19 @@ const questionsSlice = createSlice({
         state[selectedQuestionIndex] = action.payload
       }
     },
+    deleteQuestion(state, action: PayloadAction<Question["id"]>) {
+      const selectedQuestionIndex = state.findIndex(question => question.id === action.payload)!
+      if (selectedQuestionIndex !== -1) {
+        state.splice(selectedQuestionIndex, 1)
+      }
+    },
     replaceQuestions(_, action: PayloadAction<Question[]>) {
       return action.payload
     },
   },
 })
 
-export const { addQuestion, editQuestion, replaceQuestions } = questionsSlice.actions
+export const { addQuestion, editQuestion, deleteQuestion, replaceQuestions } =
+  questionsSlice.actions
 
 export default questionsSlice.reducer

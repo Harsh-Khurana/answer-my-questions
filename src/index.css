@@ -1,6 +1,13 @@
+
 :root {
   --primary: rgb(8, 126, 164);
   --primary-bg: rgb(230, 247, 255);
+  --warning: yellow;
+  --warning-light: rgba(255, 255, 0, 0.2);
+  --success: green;
+  --success-light: rgba(0, 128, 0, 0.2);
+  --error: red;
+  --error-light: rgba(255, 0, 0, 0.2);
   --form-elements-bg: rgba(153, 161, 179, 0.2);
   --text: rgb(64, 71, 86);
   --text-h: #08060d;
@@ -70,6 +77,10 @@ h2 {
   color: var(--text-h);
 }
 
+main {
+  margin: 40px 2%;
+}
+
 input, select, textarea, option {
   color: var(--text);
   background-color: var(--form-elements-bg);
@@ -99,6 +110,19 @@ button {
   background-color: var(--primary-bg);
   font-weight: bold;
   font-size: 16px;
+
+  &.warning {
+    color: var(--warning);
+    background-color: var(--warning-light);
+  }
+  &.success {
+    color: var(--success);
+    background-color: var(--success-light);
+  }
+  &.error {
+    color: var(--error);
+    background-color: var(--error-light);
+  }
 
   &:active {
     transform: translate(1px, 1px);

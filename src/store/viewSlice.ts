@@ -1,12 +1,14 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit"
-import { QuestionType } from "../types"
+import { PageType, QuestionType } from "../types"
 
 const initialState: {
   globalQuestionNumber: number
   globalQuestionType: QuestionType | "Mix"
+  page: PageType
 } = {
   globalQuestionNumber: 0,
   globalQuestionType: "Mix",
+  page: PageType.Questionnaire,
 }
 
 const viewSlice = createSlice({
@@ -19,9 +21,12 @@ const viewSlice = createSlice({
     changeQuestionType(state, action: PayloadAction<QuestionType>) {
       state.globalQuestionType = action.payload
     },
+    changePage(state, action: PayloadAction<PageType>) {
+      state.page = action.payload
+    },
   },
 })
 
-export const { changeQuestionNumber, changeQuestionType } = viewSlice.actions
+export const { changeQuestionNumber, changeQuestionType, changePage } = viewSlice.actions
 
 export default viewSlice.reducer

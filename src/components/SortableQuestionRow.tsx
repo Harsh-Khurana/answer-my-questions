@@ -14,9 +14,13 @@ export default function SortableQuestionRow({ question, index }: SortableQuestio
   })
 
   return (
-    <div ref={ref} key={question.id} className="review-question-wrapper">
+    <div
+      ref={ref}
+      key={question.id}
+      className={`review-question-wrapper${isDragging ? " drag-active" : ""}`}
+    >
       <span>Q{index + 1}.</span>
-      <div style={{ flex: 1, opacity: isDragging ? 0 : 1 }}>
+      <div className={`review-question-card-wrapper${isDragging ? " drag-active" : ""}`}>
         <ReviewQuestionCard question={question} />
       </div>
     </div>

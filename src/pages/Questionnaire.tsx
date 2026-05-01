@@ -6,7 +6,7 @@ import SubjectiveQuestion from "../components/SubjectiveQuestion"
 import BooleanQuestion from "../components/BooleanQuestion"
 import { QuestionType } from "../types"
 import type { AppState } from "../store"
-import Alert from "../components/Alert"
+import Alert from "../ui/Alert"
 
 type QuestionnaireProps = {
   onSubmit: () => void
@@ -43,7 +43,7 @@ export default function Questionnaire({ onSubmit }: QuestionnaireProps) {
   return (
     <>
       <header>
-        <span>
+        <span className="flex">
           Question type:{" "}
           <select
             name="question-type"

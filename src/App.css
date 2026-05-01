@@ -2,7 +2,20 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  margin: 8px 0;
+  margin: 16px 0 32px 0;
+  flex-wrap: wrap;
+
+  span {
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+    select {
+      margin-left: 4px;
+    }
+  }
+
+  p {
+    text-align: center;
+  }
 }
 
 .relative-wrapper {
@@ -14,6 +27,7 @@ header {
     right: 0;
     display: flex;
     flex-direction: column;
+    z-index: 10;
   }
 }
 
@@ -23,13 +37,8 @@ header {
   align-items: center;
 }
 
-form {
-  width: 80%;
-
-
-  @media screen and (max-width: 500px) {
-    width: 90%;
-  }
+.question-form {
+  width: 100%;
 }
 
 .input-wrapper {
@@ -39,7 +48,7 @@ form {
 }
 
 .input-error{
-  color: rgb(255, 0, 0);
+  color: var(--error);
   font-size: 16px;
 }
 
@@ -74,12 +83,7 @@ span.option.selected{
 }
 
 footer {
-  position: absolute;
-  /* @todo may need changes later */
-  bottom: 30%;
-  left: 10%;
-  width: 80%;
-
+  margin-top: 80px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -107,38 +111,123 @@ footer {
     border: 2px solid var(--primary);
   }
   &.warning {
-    background-color: rgba(255, 255, 0, 0.2);
-    color: yellow;
-    border: 2px solid yellow;
+    background-color: var(--warning-light);
+    color: var(--warning);
+    border: 2px solid var(--warning);
   }
   &.success {
-    background-color: rgba(0, 128, 0, 0.2);
-    color: green;
-    border: 2px solid green;
+    background-color: var(--success-light);
+    color: var(--success);
+    border: 2px solid var(--success);
   }
   &.danger {
-    background-color: rgba(255, 0, 0, 0.2);
-    color: red;
-    border: 2px solid red;
+    background-color: var(--error-light);
+    color: var(--error);
+    border: 2px solid var(--error);
   }
 }
 
 .review-questions-list{
   display: grid;
   gap: 16px;
-  border: 1px solid red;
 }
 
 .review-question-wrapper{
   display: flex;
   align-items: center;
-  border: 1px solid blue;
+  /* THE FIX: Tells mobile browsers NOT to scroll when touching this item */
+  touch-action: "none";
+  /* 2. Stops iOS Safari/Chrome from popping up the "Save Image" menu */
+  -webkit-touch-callout: "none";
+
+  &.drag-active {
+    opacity: 0.3;
+  }
+
+  >span{
+    margin-right: 8px;
+  }
 }
 
+.review-question-card-wrapper{
+  flex: 1;
+  
+  &.drag-active {
+    opacity: 0;
+  }
+}
 
 .review-question-card {
+  position: relative;
   background-color: rgb(44, 44, 44);
   border: 4px solid black;
-  padding: 0 16px;
+  padding: 0 8px;
   border-radius: 8px;
+
+  .question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .answer {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    background-color: var(--success);
+    width: 90%;
+    border-radius: 0 0 8px 8px;
+    border: 4px solid rgb(0, 70, 0);
+    padding: 0 16px;
+
+    &.show {
+      display: block;
+      transform: translate(-50%, 104%);
+    }
+  }
+
+  .actions {
+    margin: 4px 0;
+    display: flex;
+    align-items: center;
+    button {
+      margin: 4px; 
+
+      &.success {
+        display: flex;
+        align-items: center;
+        align-self: stretch;
+      }
+    }
+
+    @media screen and (max-width: 600px) {
+      flex-direction: column;
+
+      button.success {
+        height: 34px;
+      }
+    }
+  }
+}
+
+dialog[open] {
+  display: flex;
+  align-items: flex-start;
+  border-radius: 16px;
+}
+
+#dialog-content{
+  padding: 24px 16px 24px 32px;
+  text-align: center;
+}
+
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5); 
+  backdrop-filter: blur(2px); 
+}
+
+.rotate180 {
+  transform: rotate(180deg);
 }

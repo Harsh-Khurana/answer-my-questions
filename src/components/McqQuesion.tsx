@@ -114,7 +114,7 @@ export default function McqQuestion() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="question-form" onSubmit={handleSubmit}>
       <QuestionInput
         ref={questionInputRef}
         error={errors.question}
@@ -153,7 +153,7 @@ export default function McqQuestion() {
               >
                 {option}
               </span>
-              <button type="button" onClick={() => handleRemoveOption(idx)}>
+              <button type="button" className="error" onClick={() => handleRemoveOption(idx)}>
                 X
               </button>
             </li>
