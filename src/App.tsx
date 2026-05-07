@@ -7,13 +7,16 @@ import { useDispatch, useSelector } from "react-redux"
 import type { AppDispatch, AppState } from "./store"
 import { changePage, changeQuestionNumber } from "./store/viewSlice"
 import AnswerSheet from "./pages/AnswerSheet"
+import { initialiseAnswers } from "./store/answersSlice"
 
 function App() {
   const currentPage = useSelector((state: AppState) => state.view.page)
+  const allQuestionIds = useSelector((state: AppState) => state.questions.map(q => q.id))
   const dispatch = useDispatch<AppDispatch>()
 
   function handleQuestionsSubmit() {
     dispatch(changeQuestionNumber(0))
+    dispatch(initialiseAnswers(allQuestionIds))
     dispatch(changePage(PageType.AnswerSheet))
   }
 
@@ -26,7 +29,10 @@ function App() {
       {currentPage === PageType.QuestionsReview && (
         <QuestionsReview onSubmit={handleQuestionsSubmit} />
       )}
-      {currentPage === PageType.AnswerSheet && <AnswerSheet />}
+      {currentPage === PageType.AnswerSheet && (
+        <AnswerSheet onSubmit={() => dispatch(changePage(PageType.Result))} />
+      )}
+      {currentPage === PageType.Result && <div>Here are the results</div>}
     </>
   )
 }

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type SubmitEvent } from "react"
 import { useDispatch, useSelector } from "react-redux"
 
 import QuestionInput from "./QuestionInput"
-import QuestionFooter from "./QuestionFooter"
+import QuestionFooter from "./QuestionAnswerFooter"
 import { QuestionType, type DistributiveOmit, type SubjectiveQuestion } from "../types"
 import { addQuestion, editQuestion } from "../store/questionsSlice"
 import type { AppDispatch, AppState } from "../store"
@@ -80,7 +80,7 @@ export default function SubjectiveQuestion() {
         />
         {errors.answer && <span className="input-error">{errors.answer}</span>}
       </div>
-      <QuestionFooter hasQuestionChanges={hasQuestionChanges} />
+      <QuestionFooter hasChanges={hasQuestionChanges} />
     </form>
   )
 }

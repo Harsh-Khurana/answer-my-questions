@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 
 import type { AppDispatch, AppState } from "../store"
 import { addQuestion, editQuestion } from "../store/questionsSlice"
-import QuestionFooter from "./QuestionFooter"
+import QuestionFooter from "./QuestionAnswerFooter.tsx"
 import { QuestionType, type DistributiveOmit, type MCQQuestion } from "../types.ts"
 import QuestionInput from "./QuestionInput.tsx"
 import { changeQuestionNumber } from "../store/viewSlice.ts"
@@ -162,7 +162,7 @@ export default function McqQuestion() {
         </ul>
       </div>
 
-      <QuestionFooter hasQuestionChanges={hasQuestionChanges} />
+      <QuestionFooter hasChanges={hasQuestionChanges} />
     </form>
   )
 }

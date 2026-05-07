@@ -1,24 +1,21 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit"
-import type { Answer } from "../types"
+import type { Answer, AnswerType, Question } from "../types"
 
-const initialState: Answer[] = []
+const initialState: Record<Question["id"], AnswerType | undefined> = {}
 
 const answersSlice = createSlice({
   name: "answers",
   initialState,
   reducers: {
-    changeQuestionNumber(state, action: PayloadAction<Answer>) {
-      state.push(action.payload)
+    initialiseAnswers(_, action: PayloadAction<Question["id"][]>) {
+      return action.payload.reduce((answers, id) => ({ ...answers, [id]: undefined }), {})
     },
-    changeQuestionType(state, action: PayloadAction<Answer>) {
-      const selectedAnswerIndex = state.findIndex(answer => answer.id === action.payload.id)!
-      if (selectedAnswerIndex !== -1) {
-        state[selectedAnswerIndex] = action.payload
-      }
+    saveAnswer(state, action: PayloadAction<Answer>) {
+      state[action.payload.id] = action.payload.answer
     },
   },
 })
 
-export const { changeQuestionNumber, changeQuestionType } = answersSlice.actions
+export const { initialiseAnswers, saveAnswer } = answersSlice.actions
 
 export default answersSlice.reducer

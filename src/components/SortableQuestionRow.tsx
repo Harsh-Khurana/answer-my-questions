@@ -8,7 +8,7 @@ type SortableQuestionRowProps = {
 }
 
 export default function SortableQuestionRow({ question, index }: SortableQuestionRowProps) {
-  const { ref, isDragging } = useSortable({
+  const { ref, handleRef, isDragging } = useSortable({
     id: question.id,
     index,
   })
@@ -20,9 +20,7 @@ export default function SortableQuestionRow({ question, index }: SortableQuestio
       className={`review-question-wrapper${isDragging ? " drag-active" : ""}`}
     >
       <span>Q{index + 1}.</span>
-      <div className={`review-question-card-wrapper${isDragging ? " drag-active" : ""}`}>
-        <ReviewQuestionCard question={question} />
-      </div>
+      <ReviewQuestionCard question={question} handleRef={handleRef} />
     </div>
   )
 }

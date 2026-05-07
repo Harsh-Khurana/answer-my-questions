@@ -6,21 +6,25 @@ import { changePage, changeQuestionNumber } from "../store/viewSlice"
 import { deleteQuestion } from "../store/questionsSlice"
 import SixDotsIcon from "../assets/SixDots"
 import DropdownArrowIcon from "../assets/DropdownArrow"
+import StaggerList from "../ui/StaggerList"
+import { useState } from "react"
 // import StaggerList from "../ui/StaggerList"
 
 type ReviewQuestionCardProps = {
   question: Question | null
-  showAnswer?: boolean
+  handleRef?: (element: Element | null) => void
   hideActions?: boolean
 }
 
 export default function ReviewQuestionCard({
   question,
-  showAnswer,
+  handleRef,
   hideActions = false,
 }: ReviewQuestionCardProps) {
   const questions = useSelector((state: AppState) => state.questions)
   const dispatch = useDispatch<AppDispatch>()
+
+  const [showAnswer, setShowAnswer] = useState(false)
 
   if (!question) return null
 
@@ -37,49 +41,67 @@ export default function ReviewQuestionCard({
     }
   }
 
+  function handleAnswerToggle() {
+    setShowAnswer(prevShow => !prevShow)
+  }
+
+  let answer = question.answer
+
+  if (question.type === "MCQ") {
+    answer = question.options[question.answer]
+  }
+  if (question.type === "Boolean") {
+    answer = question.answer ? "Yes" : "No"
+  }
+
   return (
     <div className="review-question-card">
       <div className="question">
         <h3>{question.question}</h3>
         {!hideActions && (
-          <div className="actions">
-            {/* <StaggerList
+          <span className="actions">
+            <StaggerList
               label={
-                <button title="Drag question">
+                <button title="Drag question or Reveal actions" ref={handleRef}>
                   <SixDotsIcon height={12} width={12} />
                 </button>
               }
             >
-              <button className="warning" title="Edit question" onClick={handleEditQuestion}>
-                <span>Edit</span>
-                <PencilIcon height={12} width={12} />
+              <button
+                className="warning bordered"
+                title="Edit question"
+                onClick={handleEditQuestion}
+              >
+                Edit <PencilIcon height={12} width={12} />
               </button>
-              <button className="error" title="Delete question" onClick={handleDeleteQuestion}>
-                Delete X
+              <button
+                className="error bordered"
+                title="Delete question"
+                onClick={handleDeleteQuestion}
+              >
+                Delete <span>X</span>
               </button>
-              <button className="success">
-                Show answer
-                <DropdownArrowIcon height={12} width={12} />
+              <button
+                className="bordered"
+                title={showAnswer ? "Hide answer" : "Show answer"}
+                onClick={handleAnswerToggle}
+              >
+                {showAnswer ? "Hide" : "Show"} answer{" "}
+                <DropdownArrowIcon
+                  height={12}
+                  width={12}
+                  className={showAnswer ? "rotate180" : ""}
+                />
               </button>
-            </StaggerList> */}
-            <button title="Drag question">
-              <SixDotsIcon height={12} width={12} />
-            </button>
-            <button className="warning" title="Edit question" onClick={handleEditQuestion}>
-              <PencilIcon height={12} width={12} />
-            </button>
-            <button className="error" title="Delete question" onClick={handleDeleteQuestion}>
-              X
-            </button>
-            <button className="success">
-              <DropdownArrowIcon height={12} width={12} />
-            </button>
-          </div>
+            </StaggerList>
+          </span>
         )}
       </div>
-      <div className={`answer${showAnswer ? " show" : ""}`}>
-        <p>{question.answer}</p>
-      </div>
+      {showAnswer && (
+        <div className="answer">
+          <p>{answer}</p>
+        </div>
+      )}
     </div>
   )
 }

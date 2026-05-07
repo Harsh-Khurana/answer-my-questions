@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from "react-redux"
-import { useState } from "react"
+import { Fragment, useState } from "react"
 import { DragDropProvider, DragOverlay, type DragEndEvent, PointerSensor } from "@dnd-kit/react"
 import { PointerActivationConstraints } from "@dnd-kit/dom"
 import { RestrictToWindow } from "@dnd-kit/dom/modifiers"
 
 import type { AppDispatch, AppState } from "../store"
-import { QuestionType } from "../types"
+import { PageType, QuestionType } from "../types"
 import Alert from "../ui/Alert"
 import ReviewQuestionCard from "../components/ReviewQuestionCard"
 import SortableQuestionRow from "../components/SortableQuestionRow"
@@ -13,6 +13,8 @@ import { move } from "@dnd-kit/helpers"
 import { replaceQuestions } from "../store/questionsSlice"
 import Modal from "../ui/Modal"
 import Timer from "../ui/Timer"
+import { changePage } from "../store/viewSlice"
+import SixDotsIcon from "../assets/SixDots"
 
 type QuestionsReviewProps = {
   onSubmit: () => void
@@ -51,18 +53,26 @@ export default function QuestionsReview({ onSubmit }: QuestionsReviewProps) {
           </span>
           {(Object.keys(questionByTypeCount) as QuestionType[]).map(type =>
             questionByTypeCount[type] ? (
-              <>
+              <Fragment key={type}>
                 , {type}: <strong>{questionByTypeCount[type]}</strong>
-              </>
+              </Fragment>
             ) : (
               ""
             ),
           )}
         </p>
-        <button onClick={() => setShowSubmitDialog(true)}>Submit questions</button>
+        <div className="flex">
+          <button className="mr-8" onClick={() => dispatch(changePage(PageType.Questionnaire))}>
+            Add more questions
+          </button>
+          <button onClick={() => setShowSubmitDialog(true)}>Submit questions</button>
+        </div>
       </header>
       <Alert>
-        Review your questions below. Drag to reorder, or use the buttons to edit and delete.
+        <span>
+          Review your questions below. <SixDotsIcon height={14} width={10} /> Hold & drag to
+          reorder, or click to reveal actions.
+        </span>
       </Alert>
       <DragDropProvider
         onDragEnd={handleDragEnd}
@@ -70,8 +80,8 @@ export default function QuestionsReview({ onSubmit }: QuestionsReviewProps) {
           ...defaults,
           PointerSensor.configure({
             activationConstraints: [
-              new PointerActivationConstraints.Distance({ value: 5 }),
-              new PointerActivationConstraints.Delay({ value: 200, tolerance: { x: 10, y: 5 } }),
+              new PointerActivationConstraints.Distance({ value: 10 }),
+              new PointerActivationConstraints.Delay({ value: 500, tolerance: { x: 10, y: 5 } }),
             ],
           }),
         ]}
@@ -89,15 +99,13 @@ export default function QuestionsReview({ onSubmit }: QuestionsReviewProps) {
           }}
         </DragOverlay>
       </DragDropProvider>
-      {showSubmitDialog && (
-        <Modal isOpen={showSubmitDialog} onClose={() => setShowSubmitDialog(false)}>
-          <p>All set! You can now pass the device to the person answering the questions.</p>
-          <button onClick={onSubmit}>Answer now</button>
-          <p>
-            Test will automatically start in <Timer onComplete={onSubmit} />
-          </p>
-        </Modal>
-      )}
+      <Modal isOpen={showSubmitDialog} onClose={() => setShowSubmitDialog(false)}>
+        <p>All set! You can now pass the device to the person answering the questions.</p>
+        <button onClick={onSubmit}>Answer now</button>
+        <p>
+          Test will automatically start in <Timer onComplete={onSubmit} />
+        </p>
+      </Modal>
     </>
   )
 }
