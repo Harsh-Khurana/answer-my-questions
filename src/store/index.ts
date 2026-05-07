@@ -22,3 +22,7 @@ export const selectCurrentQuestion = createSelector(
   (state: AppState) => state.view.globalQuestionNumber,
   (questions, selectedQuestionNumber) => questions[selectedQuestionNumber],
 )
+
+export * from "./answersSlice"
+export * from "./questionsSlice"
+export * from "./viewSlice"

@@ -1,4 +1,5 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit"
+
 import { PageType, QuestionType } from "../types"
 
 const initialState: {

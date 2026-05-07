@@ -1,9 +1,8 @@
 import { useEffect, useRef } from "react"
 import { useDispatch, useSelector } from "react-redux"
 
-import type { AppDispatch, AppState } from "../store"
-import type { SubjectiveQuestion } from "../types"
-import { saveAnswer } from "../store/answersSlice"
+import { saveAnswer, type AppDispatch, type AppState } from "../../store"
+import type { SubjectiveQuestion } from "../../types"
 
 export default function SubjectiveAnswer() {
   const questionNumber = useSelector((state: AppState) => state.view.globalQuestionNumber)

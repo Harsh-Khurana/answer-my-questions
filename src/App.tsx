@@ -1,13 +1,15 @@
-import "./App.css"
-import Home from "./pages/Home"
-import Questionnaire from "./pages/Questionnaire"
-import { PageType } from "./types"
-import QuestionsReview from "./pages/QuestionsReview"
 import { useDispatch, useSelector } from "react-redux"
-import type { AppDispatch, AppState } from "./store"
-import { changePage, changeQuestionNumber } from "./store/viewSlice"
-import AnswerSheet from "./pages/AnswerSheet"
-import { initialiseAnswers } from "./store/answersSlice"
+
+import "./App.css"
+import { Home, Questionnaire, QuestionsReview, AnswerSheet } from "./pages"
+import { PageType } from "./types"
+import {
+  initialiseAnswers,
+  changePage,
+  changeQuestionNumber,
+  type AppDispatch,
+  type AppState,
+} from "./store"
 
 function App() {
   const currentPage = useSelector((state: AppState) => state.view.page)

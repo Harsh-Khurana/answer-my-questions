@@ -1,4 +1,5 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit"
+
 import type { Answer, AnswerType, Question } from "../types"
 
 const initialState: Record<Question["id"], AnswerType | undefined> = {}

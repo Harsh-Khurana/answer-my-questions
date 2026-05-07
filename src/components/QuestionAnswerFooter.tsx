@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
-import type { AppDispatch, AppState } from "../store"
-import { changeQuestionNumber } from "../store/viewSlice"
+
 import { PageType } from "../types"
+import { changeQuestionNumber, type AppDispatch, type AppState } from "../store"
 
 type QuestionAnswerFooterProps = {
   hasChanges?: boolean

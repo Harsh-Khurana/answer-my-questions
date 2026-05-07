@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux"
-import type { AppState } from "../store"
 import type { ComponentPropsWithRef } from "react"
+
+import type { AppState } from "../../store"
 
 type QuestionInputProps = {
   error?: string

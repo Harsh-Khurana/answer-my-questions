@@ -1,12 +1,16 @@
 import { useEffect, useRef, useState, type KeyboardEvent, type SubmitEvent } from "react"
 import { useDispatch, useSelector } from "react-redux"
 
-import type { AppDispatch, AppState } from "../store"
-import { addQuestion, editQuestion } from "../store/questionsSlice"
-import QuestionFooter from "./QuestionAnswerFooter.tsx"
-import { QuestionType, type DistributiveOmit, type MCQQuestion } from "../types.ts"
+import QuestionFooter from "../QuestionAnswerFooter.tsx"
 import QuestionInput from "./QuestionInput.tsx"
-import { changeQuestionNumber } from "../store/viewSlice.ts"
+import { QuestionType, type DistributiveOmit, type MCQQuestion } from "../../types"
+import {
+  addQuestion,
+  changeQuestionNumber,
+  editQuestion,
+  type AppDispatch,
+  type AppState,
+} from "../../store"
 
 export default function McqQuestion() {
   const optionInputRef = useRef<HTMLInputElement>(null)

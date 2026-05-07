@@ -1,12 +1,10 @@
 import { useState } from "react"
 import { useSelector } from "react-redux"
 
-import McqQuestion from "../components/McqQuesion"
-import SubjectiveQuestion from "../components/SubjectiveQuestion"
-import BooleanQuestion from "../components/BooleanQuestion"
+import { Alert } from "../ui"
+import { McqQuestion, SubjectiveQuestion, BooleanQuestion } from "../components"
 import { QuestionType } from "../types"
 import type { AppState } from "../store"
-import Alert from "../ui/Alert"
 
 type QuestionnaireProps = {
   onSubmit: () => void

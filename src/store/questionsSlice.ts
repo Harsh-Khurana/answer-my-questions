@@ -1,4 +1,5 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit"
+
 import type { DistributiveOmit, Question } from "../types"
 
 let id = -1

@@ -1,9 +1,8 @@
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 
-import type { AppDispatch, AppState } from "../store"
-import type { BooleanQuestion } from "../types"
-import { saveAnswer } from "../store/answersSlice"
+import { saveAnswer, type AppDispatch, type AppState } from "../../store"
+import type { BooleanQuestion } from "../../types"
 
 export default function BooleanAnswer() {
   const questionNumber = useSelector((state: AppState) => state.view.globalQuestionNumber)

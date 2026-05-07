@@ -3,18 +3,13 @@ import { Fragment, useState } from "react"
 import { DragDropProvider, DragOverlay, type DragEndEvent, PointerSensor } from "@dnd-kit/react"
 import { PointerActivationConstraints } from "@dnd-kit/dom"
 import { RestrictToWindow } from "@dnd-kit/dom/modifiers"
-
-import type { AppDispatch, AppState } from "../store"
-import { PageType, QuestionType } from "../types"
-import Alert from "../ui/Alert"
-import ReviewQuestionCard from "../components/ReviewQuestionCard"
-import SortableQuestionRow from "../components/SortableQuestionRow"
 import { move } from "@dnd-kit/helpers"
-import { replaceQuestions } from "../store/questionsSlice"
-import Modal from "../ui/Modal"
-import Timer from "../ui/Timer"
-import { changePage } from "../store/viewSlice"
-import SixDotsIcon from "../assets/SixDots"
+
+import { SixDotsIcon } from "../assets"
+import { Alert, Modal, Timer } from "../ui"
+import { ReviewQuestionCard, SortableQuestionRow } from "../components"
+import { PageType, QuestionType } from "../types"
+import { changePage, replaceQuestions, type AppDispatch, type AppState } from "../store"
 
 type QuestionsReviewProps = {
   onSubmit: () => void

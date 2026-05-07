@@ -1,4 +1,4 @@
-import StaggerList from "../ui/StaggerList"
+import { StaggerList } from "../ui"
 
 export default function Home() {
   return (

@@ -1,14 +1,16 @@
 import { useDispatch, useSelector } from "react-redux"
-import PencilIcon from "../assets/Pencil"
-import { PageType, type Question } from "../types"
-import type { AppDispatch, AppState } from "../store"
-import { changePage, changeQuestionNumber } from "../store/viewSlice"
-import { deleteQuestion } from "../store/questionsSlice"
-import SixDotsIcon from "../assets/SixDots"
-import DropdownArrowIcon from "../assets/DropdownArrow"
-import StaggerList from "../ui/StaggerList"
 import { useState } from "react"
-// import StaggerList from "../ui/StaggerList"
+
+import { DropdownArrowIcon, PencilIcon, SixDotsIcon } from "../../assets"
+import { StaggerList } from "../../ui"
+import { PageType, type Question } from "../../types"
+import {
+  deleteQuestion,
+  changePage,
+  changeQuestionNumber,
+  type AppDispatch,
+  type AppState,
+} from "../../store"
 
 type ReviewQuestionCardProps = {
   question: Question | null

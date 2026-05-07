@@ -1,5 +1,6 @@
-import type { Question } from "../types"
 import { useSortable } from "@dnd-kit/react/sortable"
+
+import type { Question } from "../../types"
 import ReviewQuestionCard from "./ReviewQuestionCard"
 
 type SortableQuestionRowProps = {

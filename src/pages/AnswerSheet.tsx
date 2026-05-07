@@ -1,14 +1,15 @@
 import { useState } from "react"
 import { useSelector } from "react-redux"
 
-import Modal from "../ui/Modal"
-import Timer from "../ui/Timer"
-import type { AppState } from "../store"
+import { Modal, Timer } from "../ui"
+import {
+  McqAnswer,
+  SubjectiveAnswer,
+  BooleanAnswer,
+  QuestionAnswerFooter as AnswerFooter,
+} from "../components"
 import { QuestionType } from "../types"
-import McqAnswer from "../components/McqAnswer"
-import SubjectiveAnswer from "../components/SubjectiveAnswer"
-import BooleanAnswer from "../components/BooleanAnswer"
-import AnswerFooter from "../components/QuestionAnswerFooter"
+import type { AppState } from "../store"
 
 type AnswerSheetProps = {
   onSubmit: () => void
