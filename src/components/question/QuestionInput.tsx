@@ -15,11 +15,11 @@ export default function QuestionInput({
 
   return (
     <div className="input-wrapper">
-      <label htmlFor="question">Q{currentQuestionNumber + 1}.</label>
+      <label htmlFor="question-input">Q{currentQuestionNumber + 1}.</label>
       <input
         type="text"
-        name="question"
-        id="question"
+        name="question-input"
+        id="question-input"
         placeholder="Fill in your question"
         {...inputProps}
       />

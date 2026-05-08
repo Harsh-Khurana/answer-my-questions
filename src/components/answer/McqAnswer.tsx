@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, type KeyboardEvent } from "react"
 import { useDispatch, useSelector } from "react-redux"
 
 import { saveAnswer, type AppDispatch, type AppState } from "../../store"
@@ -23,6 +23,15 @@ export default function McqAnswer() {
     dispatch(saveAnswer({ id: selectedQuestion.id, answer: idx }))
   }
 
+  // Helper function to allow keyboard users to select options
+  function handleOptionKeyDown(event: KeyboardEvent<HTMLSpanElement>, optionIdx: number) {
+    // Standard behavior: Spacebar or Enter selects the item
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault() // Stops the page from scrolling on Spacebar
+      handleAnswerSelect(optionIdx)
+    }
+  }
+
   return (
     <>
       <h3>
@@ -34,6 +43,7 @@ export default function McqAnswer() {
             <span
               className={`option${selectedAnswerOption === idx ? " selected" : ""}`}
               onClick={() => handleAnswerSelect(idx)}
+              onKeyDown={e => handleOptionKeyDown(e, idx)}
             >
               {option}
             </span>

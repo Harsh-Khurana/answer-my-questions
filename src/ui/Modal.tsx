@@ -26,7 +26,7 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
     <dialog ref={dialogRef} onClose={onClose}>
       <div id="dialog-content">{children}</div>
       <form method="dialog">
-        <button>X</button>
+        <button aria-label="Close modal">X</button>
       </form>
     </dialog>,
     document.getElementById("modal")!,

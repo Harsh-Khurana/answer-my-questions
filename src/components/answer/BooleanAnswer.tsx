@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, type KeyboardEvent } from "react"
 import { useDispatch, useSelector } from "react-redux"
 
 import { saveAnswer, type AppDispatch, type AppState } from "../../store"
@@ -23,22 +23,37 @@ export default function BooleanAnswer() {
     dispatch(saveAnswer({ id: selectedQuestion.id, answer: value }))
   }
 
+  // Helper function to allow keyboard users to select option
+  function handleOptionKeyDown(event: KeyboardEvent<HTMLSpanElement>, value: boolean) {
+    // Standard behavior: Spacebar or Enter selects the item
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault() // Stops the page from scrolling on Spacebar
+      handleAnswerSelect(value)
+    }
+  }
+
   return (
     <>
       <h3>
         Q{questionNumber + 1}. {selectedQuestion.question}
       </h3>
       <div className="input-wrapper">
-        <label htmlFor="answer">Answer</label>
+        <label>Answer</label>
         <span
           className={`option${selectedAnswerOption === true ? " selected" : ""}`}
           onClick={() => handleAnswerSelect(true)}
+          onKeyDown={e => handleOptionKeyDown(e, true)}
+          tabIndex={0}
+          aria-checked={selectedAnswerOption === true}
         >
           Yes
         </span>
         <span
           className={`option${selectedAnswerOption === false ? " selected" : ""}`}
           onClick={() => handleAnswerSelect(false)}
+          onKeyDown={e => handleOptionKeyDown(e, true)}
+          tabIndex={0}
+          aria-checked={selectedAnswerOption === false}
         >
           No
         </span>

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type SubmitEvent } from "react"
+import { useEffect, useRef, useState, type KeyboardEvent, type SubmitEvent } from "react"
 import { useDispatch, useSelector } from "react-redux"
 
 import QuestionInput from "./QuestionInput"
@@ -35,6 +35,15 @@ export default function BooleanQuestion() {
     setHasQuestionChanges(true)
     setSelectedAnswerOption(value)
     setErrors(prevErrors => ({ ...prevErrors, answer: undefined }))
+  }
+
+  // Helper function to allow keyboard users to select option
+  function handleOptionKeyDown(event: KeyboardEvent<HTMLSpanElement>, value: boolean) {
+    // Standard behavior: Spacebar or Enter selects the item
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault() // Stops the page from scrolling on Spacebar
+      handleAnswerSelect(value)
+    }
   }
 
   function handleSubmit(e: SubmitEvent) {
@@ -78,16 +87,22 @@ export default function BooleanQuestion() {
         onChange={() => setHasQuestionChanges(true)}
       />
       <div className="input-wrapper">
-        <label htmlFor="answer">Answer</label>
+        <label>Answer</label>
         <span
           className={`option${selectedAnswerOption === true ? " selected" : ""}`}
           onClick={() => handleAnswerSelect(true)}
+          onKeyDown={e => handleOptionKeyDown(e, true)}
+          tabIndex={0}
+          aria-checked={selectedAnswerOption === true}
         >
           Yes
         </span>
         <span
           className={`option${selectedAnswerOption === false ? " selected" : ""}`}
           onClick={() => handleAnswerSelect(false)}
+          onKeyDown={e => handleOptionKeyDown(e, false)}
+          tabIndex={0}
+          aria-checked={selectedAnswerOption === false}
         >
           No
         </span>

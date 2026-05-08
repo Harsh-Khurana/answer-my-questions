@@ -9,7 +9,13 @@ import { SixDotsIcon } from "../assets"
 import { Alert, Modal, Timer } from "../ui"
 import { ReviewQuestionCard, SortableQuestionRow } from "../components"
 import { PageType, QuestionType } from "../types"
-import { changePage, replaceQuestions, type AppDispatch, type AppState } from "../store"
+import {
+  changePage,
+  changeQuestionNumber,
+  replaceQuestions,
+  type AppDispatch,
+  type AppState,
+} from "../store"
 
 type QuestionsReviewProps = {
   onSubmit: () => void
@@ -34,6 +40,11 @@ export default function QuestionsReview({ onSubmit }: QuestionsReviewProps) {
   )
   const totalQuestions = questions.length
 
+  function handleAddMore() {
+    dispatch(changeQuestionNumber(questions.length))
+    dispatch(changePage(PageType.Questionnaire))
+  }
+
   function handleDragEnd(event: DragEndEvent) {
     const reorderedQuestions = move(questions, event)
     dispatch(replaceQuestions(reorderedQuestions))
@@ -57,7 +68,7 @@ export default function QuestionsReview({ onSubmit }: QuestionsReviewProps) {
           )}
         </p>
         <div className="flex">
-          <button className="mr-8" onClick={() => dispatch(changePage(PageType.Questionnaire))}>
+          <button className="mr-8" onClick={handleAddMore}>
             Add more questions
           </button>
           <button onClick={() => setShowSubmitDialog(true)}>Submit questions</button>
@@ -98,7 +109,7 @@ export default function QuestionsReview({ onSubmit }: QuestionsReviewProps) {
         <p>All set! You can now pass the device to the person answering the questions.</p>
         <button onClick={onSubmit}>Answer now</button>
         <p>
-          Test will automatically start in <Timer onComplete={onSubmit} />
+          Test will automatically start in {showSubmitDialog && <Timer onComplete={onSubmit} />}
         </p>
       </Modal>
     </>

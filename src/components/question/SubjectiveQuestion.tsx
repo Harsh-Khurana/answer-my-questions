@@ -73,10 +73,10 @@ export default function SubjectiveQuestion() {
         onChange={() => setHasQuestionChanges(true)}
       />
       <div className="input-wrapper">
-        <label htmlFor="answer">Answer</label>
+        <label htmlFor="input-answer">Answer</label>
         <textarea
-          name="answer"
-          id="answer"
+          name="input-answer"
+          id="input-answer"
           ref={answerInputRef}
           placeholder="Fill in your answer"
           rows={10}

@@ -58,10 +58,20 @@ export default function McqQuestion() {
     optionInputRef.current.value = ""
   }
 
-  function handleKeyDown(event: KeyboardEvent<HTMLInputElement>) {
+  // Helper function to allow keyboard users to create option by clicking enter
+  function handleInputKeyDown(event: KeyboardEvent<HTMLInputElement>) {
     if (event.key === "Enter") {
       event.preventDefault()
       handleAddOption()
+    }
+  }
+
+  // Helper function to allow keyboard users to select options
+  function handleOptionKeyDown(event: KeyboardEvent<HTMLSpanElement>, optionIdx: number) {
+    // Standard behavior: Spacebar or Enter selects the item
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault() // Stops the page from scrolling on Spacebar
+      handleAnswerSelect(optionIdx)
     }
   }
 
@@ -126,15 +136,15 @@ export default function McqQuestion() {
       />
 
       <div className="input-wrapper">
-        <label htmlFor="option">Create options</label>
+        <label htmlFor="create-option">Create options</label>
         <input
           type="text"
-          name="option"
-          id="option"
+          name="create-option"
+          id="create-option"
           ref={optionInputRef}
           disabled={options.length >= 8}
           placeholder="Add valid options for your question"
-          onKeyDown={handleKeyDown}
+          onKeyDown={handleInputKeyDown}
         />
         {errors.option && <span className="input-error">{errors.option}</span>}
         <button
@@ -154,10 +164,18 @@ export default function McqQuestion() {
               <span
                 className={`option${selectedAnswerOption === idx ? " selected" : ""}`}
                 onClick={() => handleAnswerSelect(idx)}
+                onKeyDown={e => handleOptionKeyDown(e, idx)}
+                tabIndex={0}
+                aria-checked={selectedAnswerOption === idx}
               >
                 {option}
               </span>
-              <button type="button" className="error" onClick={() => handleRemoveOption(idx)}>
+              <button
+                type="button"
+                className="error"
+                onClick={() => handleRemoveOption(idx)}
+                aria-label="Delete option"
+              >
                 X
               </button>
             </li>

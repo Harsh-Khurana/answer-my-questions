@@ -36,7 +36,7 @@ export default function AnswerSheet({ onSubmit }: AnswerSheetProps) {
         </span>
         <button onClick={() => setShowSubmitDialog(true)}>Submit answers</button>
       </header>
-      <main>
+      <main key={questionNumber}>
         {questionType === QuestionType.MCQ && <McqAnswer />}
         {questionType === QuestionType.Subjective && <SubjectiveAnswer />}
         {questionType === QuestionType.Boolean && <BooleanAnswer />}
@@ -46,7 +46,8 @@ export default function AnswerSheet({ onSubmit }: AnswerSheetProps) {
         <p>Are you sure you want to submit your answers now?</p>
         <button onClick={onSubmit}>Yes, let's see the results</button>
         <p>
-          Test will automatically close in <Timer onComplete={onSubmit} />
+          Test will automatically close in{" "}
+          {showSubmitDialog && <Timer seconds={10} onComplete={onSubmit} />}
         </p>
       </Modal>
     </>
