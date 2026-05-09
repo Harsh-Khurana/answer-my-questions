@@ -9,19 +9,22 @@ import {
   QuestionAnswerFooter as AnswerFooter,
 } from "../components"
 import { QuestionType } from "../types"
-import type { AppState } from "../store"
+import {
+  selectCurrentQuestion,
+  selectGlobalQuestionNumber,
+  selectTotalAnswers,
+  selectTotalQuestions,
+} from "../store"
 
 type AnswerSheetProps = {
   onSubmit: () => void
 }
 
 export default function AnswerSheet({ onSubmit }: AnswerSheetProps) {
-  const questionNumber = useSelector((state: AppState) => state.view.globalQuestionNumber)
-  const questionType = useSelector((state: AppState) => state.questions[questionNumber].type)
-  const totalQuestions = useSelector((state: AppState) => state.questions.length)
-  const totalAnswers = useSelector(
-    (state: AppState) => Object.values(state.answers).filter(answer => answer !== undefined).length,
-  )
+  const questionNumber = useSelector(selectGlobalQuestionNumber)
+  const selectedQuestion = useSelector(selectCurrentQuestion)
+  const totalQuestions = useSelector(selectTotalQuestions)
+  const totalAnswers = useSelector(selectTotalAnswers)
 
   const [showSubmitDialog, setShowSubmitDialog] = useState(false)
 
@@ -37,9 +40,9 @@ export default function AnswerSheet({ onSubmit }: AnswerSheetProps) {
         <button onClick={() => setShowSubmitDialog(true)}>Submit answers</button>
       </header>
       <main key={questionNumber}>
-        {questionType === QuestionType.MCQ && <McqAnswer />}
-        {questionType === QuestionType.Subjective && <SubjectiveAnswer />}
-        {questionType === QuestionType.Boolean && <BooleanAnswer />}
+        {selectedQuestion.type === QuestionType.MCQ && <McqAnswer />}
+        {selectedQuestion.type === QuestionType.Subjective && <SubjectiveAnswer />}
+        {selectedQuestion.type === QuestionType.Boolean && <BooleanAnswer />}
         <AnswerFooter />
       </main>
       <Modal isOpen={showSubmitDialog} onClose={() => setShowSubmitDialog(false)}>

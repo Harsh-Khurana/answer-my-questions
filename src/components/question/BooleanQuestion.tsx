@@ -8,15 +8,14 @@ import {
   addQuestion,
   changeQuestionNumber,
   editQuestion,
+  selectCurrentQuestion,
+  selectGlobalQuestionNumber,
   type AppDispatch,
-  type AppState,
 } from "../../store"
 
 export default function BooleanQuestion() {
-  const selectedQuestionNumber = useSelector((state: AppState) => state.view.globalQuestionNumber)
-  const selectedQuestion = useSelector(
-    (state: AppState) => state.questions[selectedQuestionNumber] as BooleanQuestion,
-  )
+  const selectedQuestionNumber = useSelector(selectGlobalQuestionNumber)
+  const selectedQuestion = useSelector(selectCurrentQuestion) as BooleanQuestion
   const dispatch = useDispatch<AppDispatch>()
 
   const questionInputRef = useRef<HTMLInputElement>(null)

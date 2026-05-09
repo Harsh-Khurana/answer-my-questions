@@ -8,15 +8,14 @@ import {
   addQuestion,
   changeQuestionNumber,
   editQuestion,
+  selectCurrentQuestion,
+  selectGlobalQuestionNumber,
   type AppDispatch,
-  type AppState,
 } from "../../store"
 
 export default function McqQuestion() {
-  const selectedQuestionNumber = useSelector((state: AppState) => state.view.globalQuestionNumber)
-  const selectedQuestion = useSelector(
-    (state: AppState) => state.questions[selectedQuestionNumber] as MCQQuestion,
-  )
+  const selectedQuestionNumber = useSelector(selectGlobalQuestionNumber)
+  const selectedQuestion = useSelector(selectCurrentQuestion) as MCQQuestion
   const dispatch = useDispatch<AppDispatch>()
 
   const optionInputRef = useRef<HTMLInputElement>(null)

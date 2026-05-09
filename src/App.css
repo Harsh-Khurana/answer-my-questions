@@ -316,6 +316,11 @@ span.option.selected{
         padding: 16px;
       }
 
+      .danger{
+        background-color: var(--error);
+        border: 4px solid rgb(122, 1, 1)
+      }
+
 
       @media screen and (max-width: 600px) {
         grid-template-columns: 1fr;

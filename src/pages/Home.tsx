@@ -7,8 +7,10 @@ import {
   changeQuestionType,
   clearCategory,
   replaceQuestions,
+  selectGlobalQuestionCategory,
+  selectGlobalQuestionType,
+  selectHasSavedQuestions,
   type AppDispatch,
-  type AppState,
 } from "../store"
 import { QuestionCategories, QuestionType } from "../types"
 import { ALL_CATEGORY_QUESTIONS } from "../constants/questions"
@@ -19,11 +21,9 @@ type HomeProps = {
 }
 
 export default function Home({ onSubmit }: HomeProps) {
-  const hasSavedQuestions = useSelector((state: AppState) => !!state.questions.length)
-  const selectedQuestionType = useSelector((state: AppState) => state.view.globalQuestionType)
-  const selectedQuestionCategory = useSelector(
-    (state: AppState) => state.view.globalQuestionCategory,
-  )
+  const hasSavedQuestions = useSelector(selectHasSavedQuestions)
+  const selectedQuestionType = useSelector(selectGlobalQuestionType)
+  const selectedQuestionCategory = useSelector(selectGlobalQuestionCategory)
   const dispatch = useDispatch<AppDispatch>()
 
   const [showConfirmationDialog, setShowConfirmationDialog] = useState(false)

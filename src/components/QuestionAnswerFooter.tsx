@@ -1,22 +1,29 @@
 import { useDispatch, useSelector } from "react-redux"
 
 import { PageType } from "../types"
-import { changeQuestionNumber, type AppDispatch, type AppState } from "../store"
+import {
+  changeQuestionNumber,
+  selectCurrentPage,
+  selectGlobalQuestionNumber,
+  selectTotalQuestions,
+  type AppDispatch,
+} from "../store"
 
 type QuestionAnswerFooterProps = {
   hasChanges?: boolean
 }
 
 export default function QuestionAnswerFooter({ hasChanges }: QuestionAnswerFooterProps) {
-  const selectedQuestionNumber = useSelector((state: AppState) => state.view.globalQuestionNumber)
-  const totalQuestions = useSelector((state: AppState) => state.questions.length)
-  const isAnswerView = useSelector((state: AppState) => state.view.page === PageType.AnswerSheet)
+  const selectedQuestionNumber = useSelector(selectGlobalQuestionNumber)
+  const totalQuestions = useSelector(selectTotalQuestions)
+  const currentPage = useSelector(selectCurrentPage)
   const dispatch = useDispatch<AppDispatch>()
 
   // if doesn't have any changes AND you're on an existing question number
   const isMoveToNextAllowed = !hasChanges && selectedQuestionNumber < totalQuestions
 
-  const hideNextButton = isAnswerView && selectedQuestionNumber + 1 === totalQuestions
+  const hideNextButton =
+    currentPage === PageType.AnswerSheet && selectedQuestionNumber + 1 === totalQuestions
 
   function handleMoveToPreviousQuestion() {
     dispatch(changeQuestionNumber(selectedQuestionNumber - 1))

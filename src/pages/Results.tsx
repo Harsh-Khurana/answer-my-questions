@@ -6,15 +6,16 @@ import {
   changeQuestionType,
   clearCategory,
   replaceQuestions,
-  type AppState,
   initialiseAnswers,
+  selectQuestions,
+  selectAnswers,
 } from "../store"
 import { PageType } from "../types"
 import ResultItem from "../components/ResultItem"
 
 export default function Results() {
-  const questions = useSelector((state: AppState) => state.questions)
-  const answers = useSelector((state: AppState) => state.answers)
+  const questions = useSelector(selectQuestions)
+  const answers = useSelector(selectAnswers)
 
   const dispatch = useDispatch<AppDispatch>()
 

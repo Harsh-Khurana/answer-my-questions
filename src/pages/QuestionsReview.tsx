@@ -9,20 +9,14 @@ import { SixDotsIcon } from "../assets"
 import { Alert, Modal, Timer } from "../ui"
 import { ReviewQuestionCard, SortableQuestionRow } from "../components"
 import { PageType, QuestionType } from "../types"
-import {
-  changePage,
-  changeQuestionNumber,
-  replaceQuestions,
-  type AppDispatch,
-  type AppState,
-} from "../store"
+import { changePage, replaceQuestions, selectQuestions, type AppDispatch } from "../store"
 
 type QuestionsReviewProps = {
   onSubmit: () => void
 }
 
 export default function QuestionsReview({ onSubmit }: QuestionsReviewProps) {
-  const questions = useSelector((state: AppState) => state.questions)
+  const questions = useSelector(selectQuestions)
   const dispatch = useDispatch<AppDispatch>()
 
   const [showSubmitDialog, setShowSubmitDialog] = useState(false)
@@ -41,7 +35,6 @@ export default function QuestionsReview({ onSubmit }: QuestionsReviewProps) {
   const totalQuestions = questions.length
 
   function handleAddMore() {
-    dispatch(changeQuestionNumber(questions.length))
     dispatch(changePage(PageType.Questionnaire))
   }
 

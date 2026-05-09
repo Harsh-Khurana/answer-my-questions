@@ -1,17 +1,19 @@
 import { useEffect, useRef } from "react"
 import { useDispatch, useSelector } from "react-redux"
 
-import { saveAnswer, type AppDispatch, type AppState } from "../../store"
+import {
+  saveAnswer,
+  selectCurrentAnswer,
+  selectCurrentQuestion,
+  selectGlobalQuestionNumber,
+  type AppDispatch,
+} from "../../store"
 import type { SubjectiveQuestion } from "../../types"
 
 export default function SubjectiveAnswer() {
-  const questionNumber = useSelector((state: AppState) => state.view.globalQuestionNumber)
-  const selectedQuestion = useSelector(
-    (state: AppState) => state.questions[questionNumber],
-  ) as SubjectiveQuestion
-  const selectedAnswer = useSelector((state: AppState) => state.answers?.[selectedQuestion.id]) as
-    | string
-    | undefined
+  const questionNumber = useSelector(selectGlobalQuestionNumber)
+  const selectedQuestion = useSelector(selectCurrentQuestion) as SubjectiveQuestion
+  const selectedAnswer = useSelector(selectCurrentAnswer) as string | undefined
   const dispatch = useDispatch<AppDispatch>()
 
   const answerInputRef = useRef<HTMLTextAreaElement>(null)

@@ -9,14 +9,13 @@ import {
   addQuestion,
   editQuestion,
   type AppDispatch,
-  type AppState,
+  selectGlobalQuestionNumber,
+  selectCurrentQuestion,
 } from "../../store"
 
 export default function SubjectiveQuestion() {
-  const selectedQuestionNumber = useSelector((state: AppState) => state.view.globalQuestionNumber)
-  const selectedQuestion = useSelector(
-    (state: AppState) => state.questions[selectedQuestionNumber] as SubjectiveQuestion,
-  )
+  const selectedQuestionNumber = useSelector(selectGlobalQuestionNumber)
+  const selectedQuestion = useSelector(selectCurrentQuestion) as SubjectiveQuestion
 
   const questionInputRef = useRef<HTMLInputElement>(null)
   const answerInputRef = useRef<HTMLTextAreaElement>(null)

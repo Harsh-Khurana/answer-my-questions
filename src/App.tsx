@@ -8,17 +8,18 @@ import {
   changePage,
   changeQuestionNumber,
   type AppDispatch,
-  type AppState,
+  selectCurrentPage,
+  selectQuestions,
 } from "./store"
 
 function App() {
-  const currentPage = useSelector((state: AppState) => state.view.page)
-  const allQuestionIds = useSelector((state: AppState) => state.questions.map(q => q.id))
+  const currentPage = useSelector(selectCurrentPage)
+  const allQuestions = useSelector(selectQuestions)
   const dispatch = useDispatch<AppDispatch>()
 
   function handleQuestionsSubmit() {
     dispatch(changeQuestionNumber(0))
-    dispatch(initialiseAnswers(allQuestionIds))
+    dispatch(initialiseAnswers(allQuestions.map(q => q.id)))
     dispatch(changePage(PageType.AnswerSheet))
   }
 

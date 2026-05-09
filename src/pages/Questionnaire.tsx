@@ -4,7 +4,12 @@ import { useSelector } from "react-redux"
 import { Alert } from "../ui"
 import { McqQuestion, SubjectiveQuestion, BooleanQuestion } from "../components"
 import { QuestionType } from "../types"
-import { type AppState } from "../store"
+import {
+  selectCurrentQuestion,
+  selectGlobalQuestionNumber,
+  selectGlobalQuestionType,
+  selectTotalQuestions,
+} from "../store"
 import { DropdownArrowIcon } from "../assets"
 
 type QuestionnaireProps = {
@@ -13,10 +18,10 @@ type QuestionnaireProps = {
 }
 
 export default function Questionnaire({ onSubmit, onBack }: QuestionnaireProps) {
-  const globalQuestionType = useSelector((state: AppState) => state.view.globalQuestionType)
-  const selectedQuestionNumber = useSelector((state: AppState) => state.view.globalQuestionNumber)
-  const selectedQuestion = useSelector((state: AppState) => state.questions[selectedQuestionNumber])
-  const totalQuestions = useSelector((state: AppState) => state.questions.length)
+  const globalQuestionType = useSelector(selectGlobalQuestionType)
+  const selectedQuestionNumber = useSelector(selectGlobalQuestionNumber)
+  const selectedQuestion = useSelector(selectCurrentQuestion)
+  const totalQuestions = useSelector(selectTotalQuestions)
 
   const [chosenQuestionType, setChosenQuestionType] = useState<QuestionType>(
     globalQuestionType === "Mix" ? QuestionType.MCQ : globalQuestionType,

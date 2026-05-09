@@ -9,7 +9,7 @@ import {
   changePage,
   changeQuestionNumber,
   type AppDispatch,
-  type AppState,
+  selectQuestions,
 } from "../../store"
 
 type ReviewQuestionCardProps = {
@@ -23,7 +23,7 @@ export default function ReviewQuestionCard({
   handleRef,
   hideActions = false,
 }: ReviewQuestionCardProps) {
-  const questions = useSelector((state: AppState) => state.questions)
+  const questions = useSelector(selectQuestions)
   const dispatch = useDispatch<AppDispatch>()
 
   const [showAnswer, setShowAnswer] = useState(false)
@@ -39,7 +39,11 @@ export default function ReviewQuestionCard({
 
   function handleDeleteQuestion() {
     if (question) {
+      dispatch(changeQuestionNumber(questions.length - 1))
       dispatch(deleteQuestion(question.id))
+      if (questions.length === 1) {
+        dispatch(changePage(PageType.Questionnaire))
+      }
     }
   }
 

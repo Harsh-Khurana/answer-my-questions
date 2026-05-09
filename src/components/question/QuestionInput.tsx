@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux"
 import type { ComponentPropsWithRef } from "react"
 
-import type { AppState } from "../../store"
+import { selectGlobalQuestionNumber } from "../../store"
 
 type QuestionInputProps = {
   error?: string
@@ -11,7 +11,7 @@ export default function QuestionInput({
   error,
   ...inputProps
 }: QuestionInputProps & ComponentPropsWithRef<"input">) {
-  const currentQuestionNumber = useSelector((state: AppState) => state.view.globalQuestionNumber)
+  const currentQuestionNumber = useSelector(selectGlobalQuestionNumber)
 
   return (
     <div className="input-wrapper">

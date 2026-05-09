@@ -1,17 +1,19 @@
 import { useState, type KeyboardEvent } from "react"
 import { useDispatch, useSelector } from "react-redux"
 
-import { saveAnswer, type AppDispatch, type AppState } from "../../store"
+import {
+  saveAnswer,
+  selectCurrentAnswer,
+  selectCurrentQuestion,
+  selectGlobalQuestionNumber,
+  type AppDispatch,
+} from "../../store"
 import type { BooleanQuestion } from "../../types"
 
 export default function BooleanAnswer() {
-  const questionNumber = useSelector((state: AppState) => state.view.globalQuestionNumber)
-  const selectedQuestion = useSelector(
-    (state: AppState) => state.questions[questionNumber],
-  ) as BooleanQuestion
-  const selectedAnswer = useSelector((state: AppState) => state.answers?.[selectedQuestion.id]) as
-    | boolean
-    | undefined
+  const questionNumber = useSelector(selectGlobalQuestionNumber)
+  const selectedQuestion = useSelector(selectCurrentQuestion) as BooleanQuestion
+  const selectedAnswer = useSelector(selectCurrentAnswer) as boolean | undefined
   const dispatch = useDispatch<AppDispatch>()
 
   const [selectedAnswerOption, setSelectedAnswerOption] = useState<boolean | undefined>(

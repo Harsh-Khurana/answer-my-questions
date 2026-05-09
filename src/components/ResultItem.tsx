@@ -20,7 +20,7 @@ export default function ResultItem({ question, answer, index }: ResultItemProps)
   }
   if (question.type === "Boolean") {
     answer1 = question.answer ? "Yes" : "No"
-    answer2 = typeof answer === "boolean" && answer ? "Yes" : "No"
+    answer2 = typeof answer === "boolean" ? (answer ? "Yes" : "No") : answer2
   }
 
   return (
@@ -39,7 +39,7 @@ export default function ResultItem({ question, answer, index }: ResultItemProps)
           <span>Q{index + 1}.</span>
           <div className="answers">
             <div>{answer1}</div>
-            <div>{answer2}</div>
+            <div className={answer2 === "-" ? "danger" : ""}>{answer2}</div>
           </div>
         </div>
       )}
