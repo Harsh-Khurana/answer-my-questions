@@ -4,13 +4,15 @@ import { useSelector } from "react-redux"
 import { Alert } from "../ui"
 import { McqQuestion, SubjectiveQuestion, BooleanQuestion } from "../components"
 import { QuestionType } from "../types"
-import type { AppState } from "../store"
+import { type AppState } from "../store"
+import { DropdownArrowIcon } from "../assets"
 
 type QuestionnaireProps = {
   onSubmit: () => void
+  onBack: () => void
 }
 
-export default function Questionnaire({ onSubmit }: QuestionnaireProps) {
+export default function Questionnaire({ onSubmit, onBack }: QuestionnaireProps) {
   const globalQuestionType = useSelector((state: AppState) => state.view.globalQuestionType)
   const selectedQuestionNumber = useSelector((state: AppState) => state.view.globalQuestionNumber)
   const selectedQuestion = useSelector((state: AppState) => state.questions[selectedQuestionNumber])
@@ -41,6 +43,9 @@ export default function Questionnaire({ onSubmit }: QuestionnaireProps) {
   return (
     <>
       <header>
+        <button className="back" onClick={onBack}>
+          <DropdownArrowIcon height={14} width={14} /> Back
+        </button>
         <span className="flex">
           Question type:{" "}
           <select

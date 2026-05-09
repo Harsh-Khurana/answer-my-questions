@@ -13,16 +13,18 @@ import {
 } from "../../store"
 
 export default function BooleanQuestion() {
-  const questionInputRef = useRef<HTMLInputElement>(null)
-  const [selectedAnswerOption, setSelectedAnswerOption] = useState<boolean | undefined>(undefined)
-  const [errors, setErrors] = useState<{ question?: string; answer?: string }>({})
-  const [hasQuestionChanges, setHasQuestionChanges] = useState(false)
-
   const selectedQuestionNumber = useSelector((state: AppState) => state.view.globalQuestionNumber)
   const selectedQuestion = useSelector(
     (state: AppState) => state.questions[selectedQuestionNumber] as BooleanQuestion,
   )
   const dispatch = useDispatch<AppDispatch>()
+
+  const questionInputRef = useRef<HTMLInputElement>(null)
+  const [selectedAnswerOption, setSelectedAnswerOption] = useState<boolean | undefined>(undefined)
+  const [errors, setErrors] = useState<{ question?: string; answer?: string }>({})
+  const [hasQuestionChanges, setHasQuestionChanges] = useState(
+    selectedQuestion?.answer === undefined,
+  )
 
   useEffect(() => {
     if (selectedQuestion && questionInputRef.current) {

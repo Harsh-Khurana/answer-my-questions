@@ -30,7 +30,7 @@ export default function QuestionAnswerFooter({ hasChanges }: QuestionAnswerFoote
   }
 
   return (
-    <footer>
+    <div className="question-answer-footer">
       {selectedQuestionNumber && selectedQuestionNumber > 0 ? (
         <button type="button" onClick={handleMoveToPreviousQuestion}>
           Previous
@@ -43,6 +43,6 @@ export default function QuestionAnswerFooter({ hasChanges }: QuestionAnswerFoote
           {isMoveToNextAllowed ? "Next" : "Save"}
         </button>
       )}
-    </footer>
+    </div>
   )
 }

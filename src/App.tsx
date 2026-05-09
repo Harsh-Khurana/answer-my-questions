@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
 
 import "./App.css"
-import { Home, Questionnaire, QuestionsReview, AnswerSheet } from "./pages"
+import { Home, Questionnaire, QuestionsReview, AnswerSheet, Results } from "./pages"
 import { PageType } from "./types"
 import {
   initialiseAnswers,
@@ -24,9 +24,14 @@ function App() {
 
   return (
     <>
-      {currentPage === PageType.Home && <Home />}
+      {currentPage === PageType.Home && (
+        <Home onSubmit={() => dispatch(changePage(PageType.Questionnaire))} />
+      )}
       {currentPage === PageType.Questionnaire && (
-        <Questionnaire onSubmit={() => dispatch(changePage(PageType.QuestionsReview))} />
+        <Questionnaire
+          onSubmit={() => dispatch(changePage(PageType.QuestionsReview))}
+          onBack={() => dispatch(changePage(PageType.Home))}
+        />
       )}
       {currentPage === PageType.QuestionsReview && (
         <QuestionsReview onSubmit={handleQuestionsSubmit} />
@@ -34,7 +39,7 @@ function App() {
       {currentPage === PageType.AnswerSheet && (
         <AnswerSheet onSubmit={() => dispatch(changePage(PageType.Result))} />
       )}
-      {currentPage === PageType.Result && <div>Here are the results</div>}
+      {currentPage === PageType.Result && <Results />}
     </>
   )
 }

@@ -24,7 +24,7 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
 
   return createPortal(
     <dialog ref={dialogRef} onClose={onClose}>
-      <div id="dialog-content">{children}</div>
+      <div className="dialog-content">{children}</div>
       <form method="dialog">
         <button aria-label="Close modal">X</button>
       </form>

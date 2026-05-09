@@ -150,3 +150,12 @@ button {
     transform: translate(1px, 1px);
   }
 }
+
+button.back {
+  display: flex;
+  align-items: center;
+  svg{
+    margin-right: 8px;
+    transform: rotate(90deg);
+  }
+}

@@ -50,7 +50,7 @@ export default function ReviewQuestionCard({
   let answer = question.answer
 
   if (question.type === "MCQ") {
-    answer = question.options[question.answer]
+    answer = question.options[question.answer!]
   }
   if (question.type === "Boolean") {
     answer = question.answer ? "Yes" : "No"

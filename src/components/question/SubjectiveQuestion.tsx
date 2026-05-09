@@ -13,19 +13,27 @@ import {
 } from "../../store"
 
 export default function SubjectiveQuestion() {
-  const questionInputRef = useRef<HTMLInputElement>(null)
-  const answerInputRef = useRef<HTMLTextAreaElement>(null)
-  const [errors, setErrors] = useState<{ question?: string; answer?: string }>({})
-  const [hasQuestionChanges, setHasQuestionChanges] = useState(false)
-
   const selectedQuestionNumber = useSelector((state: AppState) => state.view.globalQuestionNumber)
   const selectedQuestion = useSelector(
     (state: AppState) => state.questions[selectedQuestionNumber] as SubjectiveQuestion,
   )
+
+  const questionInputRef = useRef<HTMLInputElement>(null)
+  const answerInputRef = useRef<HTMLTextAreaElement>(null)
+  const [errors, setErrors] = useState<{ question?: string; answer?: string }>({})
+  const [hasQuestionChanges, setHasQuestionChanges] = useState(
+    selectedQuestion?.answer === undefined,
+  )
+
   const dispatch = useDispatch<AppDispatch>()
 
   useEffect(() => {
-    if (selectedQuestion && questionInputRef.current && answerInputRef.current) {
+    if (
+      selectedQuestion &&
+      selectedQuestion.answer &&
+      questionInputRef.current &&
+      answerInputRef.current
+    ) {
       answerInputRef.current.value = selectedQuestion.answer
       questionInputRef.current.value = selectedQuestion.question
     }

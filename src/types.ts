@@ -11,21 +11,21 @@ export type MCQQuestion = {
   question: string
   type: typeof QuestionType.MCQ
   options: string[]
-  answer: number
+  answer?: number
 }
 
 export type SubjectiveQuestion = {
   id: number
   question: string
   type: typeof QuestionType.Subjective
-  answer: string
+  answer?: string
 }
 
 export type BooleanQuestion = {
   id: number
   question: string
   type: typeof QuestionType.Boolean
-  answer: boolean
+  answer?: boolean
 }
 
 export type Question = MCQQuestion | SubjectiveQuestion | BooleanQuestion
@@ -50,3 +50,13 @@ export const PageType = {
 } as const
 
 export type PageType = (typeof PageType)[keyof typeof PageType]
+
+export const QuestionCategories = {
+  Love: "Love",
+  Brains: "Brains",
+  Bollywood: "Bollywood",
+  Opinions: "Opinions",
+  Nostalgia: "Nostalgia",
+} as const
+
+export type QuestionCategories = (typeof QuestionCategories)[keyof typeof QuestionCategories]
