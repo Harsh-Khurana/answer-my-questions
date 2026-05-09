@@ -29,10 +29,7 @@ function App() {
         <Home onSubmit={() => dispatch(changePage(PageType.Questionnaire))} />
       )}
       {currentPage === PageType.Questionnaire && (
-        <Questionnaire
-          onSubmit={() => dispatch(changePage(PageType.QuestionsReview))}
-          onBack={() => dispatch(changePage(PageType.Home))}
-        />
+        <Questionnaire onSubmit={() => dispatch(changePage(PageType.QuestionsReview))} />
       )}
       {currentPage === PageType.QuestionsReview && (
         <QuestionsReview onSubmit={handleQuestionsSubmit} />

@@ -85,9 +85,10 @@ export default function Home({ onSubmit }: HomeProps) {
   return (
     <>
       <main className="main-home">
-        <h1>Answer my questions</h1>
+        <img src="/amq-logo.svg" alt="AMQ logo" />
+        <h1>Answer My Questions</h1>
         <p>
-          A simple question and answer game that can be played with anyone be it your partner,
+          A simple question and answer game that can be played with anyone, be it your partner,
           friends, or family.
         </p>
         <div className="flex">

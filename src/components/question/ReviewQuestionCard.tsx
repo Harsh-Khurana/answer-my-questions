@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
 import { useState } from "react"
 
-import { DropdownArrowIcon, PencilIcon, SixDotsIcon } from "../../assets"
+import { DropdownArrowIcon, PencilIcon, SixDotsIcon } from "../../assets/icons"
 import { StaggerList } from "../../ui"
 import { PageType, type Question } from "../../types"
 import {
@@ -73,11 +73,7 @@ export default function ReviewQuestionCard({
                 </button>
               }
             >
-              <button
-                className="warning bordered"
-                title="Edit question"
-                onClick={handleEditQuestion}
-              >
+              <button className="bordered" title="Edit question" onClick={handleEditQuestion}>
                 Edit <PencilIcon height={12} width={12} />
               </button>
               <button
@@ -88,7 +84,7 @@ export default function ReviewQuestionCard({
                 Delete <span>X</span>
               </button>
               <button
-                className="bordered"
+                className="success bordered"
                 title={showAnswer ? "Hide answer" : "Show answer"}
                 onClick={handleAnswerToggle}
               >

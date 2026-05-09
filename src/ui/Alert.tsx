@@ -1,6 +1,6 @@
 import type { ReactNode } from "react"
 
-import { AttentionIcon, ErrorIcon, InfoIcon, SuccessIcon } from "../assets"
+import { AttentionIcon, ErrorIcon, InfoIcon, SuccessIcon } from "../assets/icons"
 
 type AlertProps = {
   type?: "info" | "warning" | "success" | "danger"

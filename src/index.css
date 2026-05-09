@@ -1,24 +1,49 @@
+@font-face {
+  font-family: Linksans;
+  src: url('./assets/fonts/LinkSans-Regular.woff2')format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+    font-family: Linksans;
+    src: url('./assets/fonts/LinkSans-Medium.woff2')format("woff2");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+  font-family: Linksans;
+  src: url('./assets/fonts//LinkSans-ExtraBold.woff2')format("woff2");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
 
 :root {
-  --primary: rgb(8, 126, 164);
-  --primary-bg: rgb(230, 247, 255);
+  --primary: #6366f1;
+  --primary-bg: #818df832;
   --warning: yellow;
   --warning-light: rgba(255, 255, 0, 0.2);
   --success: green;
   --success-light: rgba(0, 128, 0, 0.2);
   --error: red;
   --error-light: rgba(255, 0, 0, 0.2);
-  --form-elements-bg: rgba(153, 161, 179, 0.2);
+  --form-elements-color: #FB7185;
+  --form-elements-bg: #fb718629;
   --dark-gray: rgb(44,44,44);
-  --text: rgb(64, 71, 86);
-  --text-h: #08060d;
-  --bg: rgb(255, 255, 255);
+  --text: #1E293B;
+  --text-h: #64748B;
+  --bg: #F8FAFC;
+  --card-bg: white;
   --border: #e5e4e7;
   --shadow:
     rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --sans: Linksans;
+  --heading: Linksans;
   --mono: ui-monospace, Consolas, monospace;
 
   font: 18px/145% var(--sans);
@@ -39,13 +64,14 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --primary: rgb(88, 196, 220);
-    --primary-bg: rgba(88, 175, 223, 0.1);
-    --form-elements-color: rgb(72, 73, 75);
-    --form-elements-bg: rgba(153, 161, 179, 0.2);
-    --text: rgb(235, 236, 240);
-    --text-h: #f3f4f6;
-    --bg: rgb(35, 39, 47);
+    --primary: #818CF8;
+    --primary-bg: #818df832;
+    --form-elements-color: #FDA4AF;
+    --form-elements-bg: #fda4ae2b;
+    --text: #F8FAFC;
+    --text-h: #94A3B8;
+    --bg: #0F172A;
+    --card-bg: rgb(44,44,44);
     --border: #2e303a;
     --shadow:
       rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
@@ -62,7 +88,7 @@
   flex-direction: column;
   box-sizing: border-box;
 
-  @media screen and (max-width: 400px) {
+  @media screen and (max-width: 600px) {
     padding: 0 8px;
   }
 }
@@ -74,8 +100,8 @@ body {
 h1,
 h2 {
   font-family: var(--heading);
-  font-weight: 500;
   color: var(--text-h);
+  font-weight: 900;
 }
 
 main {
@@ -83,6 +109,7 @@ main {
 }
 
 input, select, textarea, option {
+  font-family: var(--sans);
   color: var(--text);
   background-color: var(--form-elements-bg);
   border-radius: 4px;
@@ -107,6 +134,7 @@ textarea {
 
 
 button {
+  font-family: var(--sans);
   margin: 2px;
   padding: 8px 16px;
   border-radius: 8px;
@@ -116,6 +144,11 @@ button {
   background-color: var(--primary-bg);
   font-weight: bold;
   font-size: 16px;
+
+  &.big {
+    font-size: 20px;
+    padding: 12px 20px;
+  }
 
   &.bordered {
     border: 2px solid var(--primary);

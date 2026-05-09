@@ -5,8 +5,8 @@ import { PointerActivationConstraints } from "@dnd-kit/dom"
 import { RestrictToWindow } from "@dnd-kit/dom/modifiers"
 import { move } from "@dnd-kit/helpers"
 
-import { SixDotsIcon } from "../assets"
-import { Alert, Modal, Timer } from "../ui"
+import { SixDotsIcon } from "../assets/icons"
+import { Alert, BackBtn, Modal, Timer } from "../ui"
 import { ReviewQuestionCard, SortableQuestionRow } from "../components"
 import { PageType, QuestionType } from "../types"
 import { changePage, replaceQuestions, selectQuestions, type AppDispatch } from "../store"
@@ -46,6 +46,7 @@ export default function QuestionsReview({ onSubmit }: QuestionsReviewProps) {
   return (
     <>
       <header>
+        <BackBtn label="Back to main menu" />
         <p>
           <span>
             Total questions: <strong>{totalQuestions}</strong>

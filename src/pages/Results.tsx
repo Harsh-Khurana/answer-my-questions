@@ -48,7 +48,9 @@ export default function Results() {
             index={idx}
           />
         ))}
-        <button onClick={handleStartNew}>Start a new game</button>
+        <button onClick={handleStartNew} className="big">
+          Start a new game
+        </button>
       </main>
     </>
   )

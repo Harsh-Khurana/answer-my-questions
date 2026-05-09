@@ -3,12 +3,16 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  margin: 16px 0 32px 0;
+  margin: 16px 0 40px 0;
   flex-wrap: wrap;
 
   span {
     flex-wrap: wrap;
-    margin-bottom: 8px;
+    
+    @media screen and (max-width: 600px) {
+      margin: 8px 0;
+    }
+
     select {
       margin-left: 4px;
     }
@@ -16,6 +20,16 @@ header {
 
   p {
     text-align: center;
+  }
+
+  .back{
+    @media screen and (max-width: 600px) {
+      width: 100%;
+    }
+
+    button {
+      width: auto;
+    }
   }
 }
 
@@ -109,6 +123,7 @@ dialog::backdrop {
 
 /******************* MAIN HOME STYLES ******************/
 .main-home {
+  margin-top: 15vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -118,7 +133,14 @@ dialog::backdrop {
     line-height: 1.4;
   }
   p{
-    margin-bottom: 32px;
+    margin-bottom: 40px;
+  }
+  img {
+    width: 400px;
+
+    @media screen and (max-width: 600px) {
+      width: 60%;
+    }
   }
 }
 
@@ -159,14 +181,14 @@ span.option {
   margin: 8px 0;
   display: inline-block;
   cursor: pointer;
-  background-color: rgb(88, 156, 183);
+  background-color: var(--primary);
   padding: 8px 16px;
   border-radius: 6px;
   color: white;
 }
 
 span.option.selected{
-  background-color: rgb(47, 173, 47);
+  background-color: var(--success);
 }
 
 .question-answer-footer {
@@ -205,13 +227,15 @@ span.option.selected{
   
   &.drag-active {
     opacity: 0;
+    transform: rotate(3deg);
+    box-shadow: var(--shadow);
   }
 
   .question {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--dark-gray);
+    background-color: var(--card-bg);
     border: 4px solid black;
     padding: 0 8px;
     border-radius: 8px;
@@ -224,9 +248,9 @@ span.option.selected{
   .answer { 
     margin: 0 auto;
     width: 90%;
-    background-color: var(--success);
+    background-color: var(--success-light);
     border-radius: 0 0 8px 8px;
-    border: 4px solid rgb(0, 70, 0);
+    border: 4px solid var(--success);
     padding: 0 16px;
 
     @media screen and (max-width: 600px) {
@@ -241,7 +265,7 @@ span.option.selected{
       justify-content: space-between;
       align-items: center;
       min-width: max-content;
-      background-color: var(--dark-gray);
+      background-color: var(--bg);
 
       :last-child {
         margin-left: 8px;
@@ -275,12 +299,16 @@ span.option.selected{
     display: flex;
     align-items: center;
 
+    span {
+      margin-right: 8px;
+    }
+
     .question-card {
       display: flex;
       align-items: center;
       justify-content: space-between;
       flex: 1;
-      background-color: var(--dark-gray);
+      background-color: var(--card-bg);
       border: 4px solid black;
       padding: 0 8px;
       border-radius: 8px;
@@ -298,27 +326,27 @@ span.option.selected{
       opacity: 0;
     }
     .answers {
-      margin: 0 8px;
+      margin: 0 16px;
       display: grid;
       grid-template-columns: 1fr 1fr;
       flex: 1;
 
       :first-child {
-        background-color: var(--success);
+        background-color: var(--success-light);
         border-radius: 0 0 0 8px;
-        border: 4px solid rgb(0, 70, 0);
+        border: 4px solid var(--success);
         padding: 16px;
       }
       :last-child {
-        background-color: var(--primary);
+        background-color: var(--primary-bg);
         border-radius: 0 0 8px 0;
-        border: 4px solid rgb(6, 85, 111);
+        border: 4px solid var(--primary);
         padding: 16px;
       }
 
       .danger{
-        background-color: var(--error);
-        border: 4px solid rgb(122, 1, 1)
+        background-color: var(--error-light);
+        border: 4px solid var(--error);
       }
 
 

@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { DropdownArrowIcon } from "../assets"
+import { DropdownArrowIcon } from "../assets/icons"
 import type { AnswerType, Question } from "../types"
 
 type ResultItemProps = {
