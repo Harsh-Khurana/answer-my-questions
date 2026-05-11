@@ -1,6 +1,6 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit"
 
-import type { DistributiveOmit, Question } from "../types"
+import type { DistributiveOmit, Question } from "../constants/types"
 
 let id = -1
 function nextId() {

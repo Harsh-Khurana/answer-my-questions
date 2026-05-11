@@ -3,7 +3,7 @@ import { useState } from "react"
 
 import { DropdownArrowIcon, PencilIcon, SixDotsIcon } from "../../assets/icons"
 import { StaggerList } from "../../ui"
-import { PageType, type Question } from "../../types"
+import { PageType, type Question } from "../../constants/types"
 import {
   deleteQuestion,
   changePage,

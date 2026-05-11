@@ -8,7 +8,7 @@ import {
   BooleanAnswer,
   QuestionAnswerFooter as AnswerFooter,
 } from "../components"
-import { QuestionType } from "../types"
+import { QuestionType } from "../constants/types"
 import {
   selectCurrentQuestion,
   selectGlobalQuestionNumber,

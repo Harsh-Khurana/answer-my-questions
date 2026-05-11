@@ -1,6 +1,6 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit"
 
-import { PageType, QuestionCategories, QuestionType } from "../types"
+import { PageType, QuestionCategories, QuestionType } from "../constants/types"
 
 const initialState: {
   globalQuestionNumber: number

@@ -3,7 +3,7 @@ import { useSelector } from "react-redux"
 
 import { Alert, BackBtn } from "../ui"
 import { McqQuestion, SubjectiveQuestion, BooleanQuestion } from "../components"
-import { QuestionType } from "../types"
+import { QuestionType } from "../constants/types"
 import {
   selectCurrentQuestion,
   selectGlobalQuestionNumber,

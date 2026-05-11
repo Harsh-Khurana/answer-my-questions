@@ -10,7 +10,7 @@ import {
   selectQuestions,
   selectAnswers,
 } from "../store"
-import { PageType } from "../types"
+import { PageType } from "../constants/types"
 import ResultItem from "../components/ResultItem"
 
 export default function Results() {

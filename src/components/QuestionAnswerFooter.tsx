@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
 
-import { PageType } from "../types"
+import { PageType } from "../constants/types"
 import {
   changeQuestionNumber,
   selectCurrentPage,

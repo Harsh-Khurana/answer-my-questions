@@ -8,7 +8,7 @@ import {
   selectGlobalQuestionNumber,
   type AppDispatch,
 } from "../../store"
-import type { SubjectiveQuestion } from "../../types"
+import type { SubjectiveQuestion } from "../../constants/types"
 
 export default function SubjectiveAnswer() {
   const questionNumber = useSelector(selectGlobalQuestionNumber)

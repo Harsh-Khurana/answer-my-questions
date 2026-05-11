@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux"
 
 import { DropdownArrowIcon } from "../assets/icons"
 import { changePage, type AppDispatch } from "../store"
-import { PageType } from "../types"
+import { PageType } from "../constants/types"
 
 type BackBtnProps = {
   label?: string

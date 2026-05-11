@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux"
 
 import "./App.css"
 import { Home, Questionnaire, QuestionsReview, AnswerSheet, Results } from "./pages"
-import { PageType } from "./types"
+import { PageType } from "./constants/types"
 import {
   initialiseAnswers,
   changePage,

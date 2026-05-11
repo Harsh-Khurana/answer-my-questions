@@ -8,7 +8,7 @@ import { move } from "@dnd-kit/helpers"
 import { SixDotsIcon } from "../assets/icons"
 import { Alert, BackBtn, Modal, Timer } from "../ui"
 import { ReviewQuestionCard, SortableQuestionRow } from "../components"
-import { PageType, QuestionType } from "../types"
+import { PageType, QuestionType } from "../constants/types"
 import { changePage, replaceQuestions, selectQuestions, type AppDispatch } from "../store"
 
 type QuestionsReviewProps = {

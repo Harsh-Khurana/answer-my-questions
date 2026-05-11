@@ -8,7 +8,7 @@ import {
   selectGlobalQuestionNumber,
   type AppDispatch,
 } from "../../store"
-import type { MCQQuestion } from "../../types"
+import type { MCQQuestion } from "../../constants/types"
 
 export default function McqAnswer() {
   const questionNumber = useSelector(selectGlobalQuestionNumber)

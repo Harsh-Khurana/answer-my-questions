@@ -12,7 +12,7 @@ import {
   selectHasSavedQuestions,
   type AppDispatch,
 } from "../store"
-import { QuestionCategories, QuestionType } from "../types"
+import { QuestionCategories, QuestionType } from "../constants/types"
 import { ALL_CATEGORY_QUESTIONS } from "../constants/questions"
 import { useRef, useState } from "react"
 

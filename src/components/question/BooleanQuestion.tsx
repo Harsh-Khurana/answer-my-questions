@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 
 import QuestionInput from "./QuestionInput"
 import QuestionFooter from "../QuestionAnswerFooter"
-import { QuestionType, type DistributiveOmit, type BooleanQuestion } from "../../types"
+import { QuestionType, type DistributiveOmit, type BooleanQuestion } from "../../constants/types"
 import {
   addQuestion,
   changeQuestionNumber,

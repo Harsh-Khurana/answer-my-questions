@@ -1,4 +1,4 @@
-import { QuestionCategories, QuestionType, type Question } from "../types"
+import { QuestionCategories, QuestionType, type Question } from "./types"
 
 export const BOLLYWOOD_QUESTIONS: Question[] = [
   {

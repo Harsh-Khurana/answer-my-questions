@@ -8,7 +8,7 @@ import {
   selectGlobalQuestionNumber,
   type AppDispatch,
 } from "../../store"
-import type { BooleanQuestion } from "../../types"
+import type { BooleanQuestion } from "../../constants/types"
 
 export default function BooleanAnswer() {
   const questionNumber = useSelector(selectGlobalQuestionNumber)
