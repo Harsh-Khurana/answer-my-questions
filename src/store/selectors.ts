@@ -6,6 +6,11 @@ export const selectQuestions = (state: AppState) => state.questions
 
 export const selectTotalQuestions = createSelector(selectQuestions, questions => questions.length)
 
+export const selectTotalAnsweredQuestions = createSelector(
+  selectQuestions,
+  questions => questions.filter(q => q.answer !== undefined).length,
+)
+
 export const selectHasSavedQuestions = (state: AppState) => !!selectTotalQuestions(state)
 
 /*********************** ANSWERS SLICE RELEATED SELECTORS ***********************/
@@ -13,7 +18,7 @@ export const selectAnswers = (state: AppState) => state.answers
 
 export const selectTotalAnswers = createSelector(
   selectAnswers,
-  answers => Object.values(answers).filter(answer => typeof answer !== "undefined").length,
+  answers => Object.values(answers).filter(answer => answer !== undefined).length,
 )
 
 /*********************** VIEW SLICE RELEATED SELECTORS ***********************/

@@ -8,7 +8,7 @@ import {
   selectCurrentQuestion,
   selectGlobalQuestionNumber,
   selectGlobalQuestionType,
-  selectTotalQuestions,
+  selectTotalAnsweredQuestions,
 } from "../store"
 
 type QuestionnaireProps = {
@@ -19,7 +19,7 @@ export default function Questionnaire({ onSubmit }: QuestionnaireProps) {
   const globalQuestionType = useSelector(selectGlobalQuestionType)
   const selectedQuestionNumber = useSelector(selectGlobalQuestionNumber)
   const selectedQuestion = useSelector(selectCurrentQuestion)
-  const totalQuestions = useSelector(selectTotalQuestions)
+  const totalAnsweredQuestions = useSelector(selectTotalAnsweredQuestions)
 
   const [chosenQuestionType, setChosenQuestionType] = useState<QuestionType>(
     globalQuestionType === "Mix" ? QuestionType.MCQ : globalQuestionType,
@@ -28,7 +28,7 @@ export default function Questionnaire({ onSubmit }: QuestionnaireProps) {
   const [showMissingQuestionsAlert, setShowMissingQuestionsAlert] = useState(false)
 
   function handleReviewAndSubmit() {
-    if (totalQuestions === 0) {
+    if (totalAnsweredQuestions === 0) {
       setShowMissingQuestionsAlert(true)
     } else {
       onSubmit()

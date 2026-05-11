@@ -51,13 +51,13 @@ export default function ReviewQuestionCard({
     setShowAnswer(prevShow => !prevShow)
   }
 
-  let answer = question.answer
+  let answer = question.answer ?? "-"
 
-  if (question.type === "MCQ") {
+  if (question.type === "MCQ" && typeof answer === "number") {
     answer = question.options[question.answer!]
   }
-  if (question.type === "Boolean") {
-    answer = question.answer ? "Yes" : "No"
+  if (question.type === "Boolean" && typeof answer === "boolean") {
+    answer = answer ? "Yes" : "No"
   }
 
   return (
