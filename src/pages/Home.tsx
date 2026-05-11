@@ -16,6 +16,14 @@ import { QuestionCategories, QuestionType } from "../constants/types"
 import { ALL_CATEGORY_QUESTIONS } from "../constants/questions"
 import { useRef, useState } from "react"
 
+const QuestionCategoryLabelMap = {
+  [QuestionCategories.Love]: "💗 Love 💗",
+  [QuestionCategories.Bollywood]: "🕺 Bollywood 💃",
+  [QuestionCategories.Brains]: "Brains 🤓",
+  [QuestionCategories.Opinions]: "Hot takes and Unpopular Opinions 🔥",
+  [QuestionCategories.Nostalgia]: "Nostalgia 🌟",
+}
+
 type HomeProps = {
   onSubmit: () => void
 }
@@ -95,7 +103,7 @@ export default function Home({ onSubmit }: HomeProps) {
           <StaggerList label={<button>Choose question category</button>}>
             {Object.values(QuestionCategories).map(qc => (
               <button key={qc} onClick={() => handleCategoryClick(qc)}>
-                {qc === QuestionCategories.Opinions ? "Hot takes and Unpopular Opinions" : qc}
+                {QuestionCategoryLabelMap[qc]}
               </button>
             ))}
           </StaggerList>
