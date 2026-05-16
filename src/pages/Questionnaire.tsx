@@ -19,6 +19,9 @@ export default function Questionnaire({ onSubmit }: QuestionnaireProps) {
   const globalQuestionType = useSelector(selectGlobalQuestionType)
   const selectedQuestionNumber = useSelector(selectGlobalQuestionNumber)
   const selectedQuestion = useSelector(selectCurrentQuestion)
+  // @todo allow first user to also not answer questions if they have selecte a category instead of creating their own questions
+  // @todo and maybe we add a check in create your own questions review page that whether the user wants to allow
+  // questions to be answered always or it's fine leaving empty?
   const totalAnsweredQuestions = useSelector(selectTotalAnsweredQuestions)
 
   const [chosenQuestionType, setChosenQuestionType] = useState<QuestionType>(

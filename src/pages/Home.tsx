@@ -15,6 +15,7 @@ import {
 import { QuestionCategories, QuestionType } from "../constants/types"
 import { ALL_CATEGORY_QUESTIONS } from "../constants/questions"
 import { useRef, useState } from "react"
+import AnimatedAmqLogo from "../assets/icons/AnimatedAmqLogo"
 
 const QuestionCategoryLabelMap = {
   [QuestionCategories.Love]: "💗 Love 💗",
@@ -93,14 +94,17 @@ export default function Home({ onSubmit }: HomeProps) {
   return (
     <>
       <main className="main-home">
-        <img src="/amq-logo.svg" alt="AMQ logo" />
+        <AnimatedAmqLogo />
         <h1>Answer My Questions</h1>
         <p>
           A simple question and answer game that can be played with anyone, be it your partner,
           friends, or family.
         </p>
         <div className="flex">
-          <StaggerList label={<button>Choose question category</button>}>
+          <StaggerList
+            label={<button>Choose question category</button>}
+            staggerDirectionFrom="left"
+          >
             {Object.values(QuestionCategories).map(qc => (
               <button key={qc} onClick={() => handleCategoryClick(qc)}>
                 {QuestionCategoryLabelMap[qc]}
@@ -108,11 +112,11 @@ export default function Home({ onSubmit }: HomeProps) {
             ))}
           </StaggerList>
           <StaggerList label={<button>Create your own questions</button>}>
-            {Object.values(QuestionType).map(qt => (
-              <button key={qt} onClick={() => handleCreateQuestions(qt)}>
-                {qt === QuestionType.Boolean ? "Yes or No" : qt}
-              </button>
-            ))}
+            <button onClick={() => handleCreateQuestions(QuestionType.MCQ)}>MCQ</button>
+            <button onClick={() => handleCreateQuestions(QuestionType.Subjective)}>
+              Subjective
+            </button>
+            <button onClick={() => handleCreateQuestions(QuestionType.Boolean)}>Yes or no</button>
             <button onClick={() => handleCreateQuestions()}>Mix</button>
           </StaggerList>
         </div>

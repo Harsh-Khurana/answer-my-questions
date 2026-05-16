@@ -43,7 +43,12 @@ header {
     display: flex;
     flex-direction: column;
     z-index: 10;
+    margin: 2px;
     margin-top: 4px;
+
+    span > * {
+      width: 100%;
+    }
   }
 }
 
@@ -135,7 +140,7 @@ dialog::backdrop {
   p{
     margin-bottom: 40px;
   }
-  img {
+  svg {
     width: 400px;
 
     @media screen and (max-width: 600px) {
