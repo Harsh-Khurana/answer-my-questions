@@ -16,6 +16,7 @@ import { QuestionCategories, QuestionType } from "../constants/types"
 import { ALL_CATEGORY_QUESTIONS } from "../constants/questions"
 import { useRef, useState } from "react"
 import AnimatedAmqLogo from "../assets/icons/AnimatedAmqLogo"
+import { getRandomizedArray } from "../utils"
 
 const QuestionCategoryLabelMap = {
   [QuestionCategories.Love]: "💗 Love 💗",
@@ -68,7 +69,7 @@ export default function Home({ onSubmit }: HomeProps) {
       nextQuestionCategoryRef.current = category
       setShowConfirmationDialog(true)
     } else {
-      const categoryQuestions = ALL_CATEGORY_QUESTIONS[category]
+      const categoryQuestions = getRandomizedArray(ALL_CATEGORY_QUESTIONS[category]).slice(0, 10)
       dispatch(changeQuestionCategory(category))
       dispatch(replaceQuestions(categoryQuestions))
       onSubmit()
@@ -82,7 +83,9 @@ export default function Home({ onSubmit }: HomeProps) {
       dispatch(changeQuestionType(nextQuestionTypeRef.current))
     }
     if (nextQuestionCategoryRef.current) {
-      const categoryQuestions = ALL_CATEGORY_QUESTIONS[nextQuestionCategoryRef.current]
+      const categoryQuestions = getRandomizedArray(
+        ALL_CATEGORY_QUESTIONS[nextQuestionCategoryRef.current],
+      ).slice(0, 10)
       dispatch(replaceQuestions(categoryQuestions))
       dispatch(changeQuestionCategory(nextQuestionCategoryRef.current))
     }

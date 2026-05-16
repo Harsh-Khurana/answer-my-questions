@@ -264,7 +264,7 @@ span.option.selected{
   }
 
   .actions {
-    .absolute-wrapper > button {
+    .absolute-wrapper button {
       margin: 2px 0;
       display: flex;
       justify-content: space-between;

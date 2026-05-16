@@ -27,13 +27,10 @@ export default function SubjectiveQuestion() {
   const dispatch = useDispatch<AppDispatch>()
 
   useEffect(() => {
-    if (
-      selectedQuestion &&
-      selectedQuestion.answer &&
-      questionInputRef.current &&
-      answerInputRef.current
-    ) {
-      answerInputRef.current.value = selectedQuestion.answer
+    if (selectedQuestion && questionInputRef.current && answerInputRef.current) {
+      if (selectedQuestion.answer) {
+        answerInputRef.current.value = selectedQuestion.answer
+      }
       questionInputRef.current.value = selectedQuestion.question
     }
   }, [selectedQuestion])
