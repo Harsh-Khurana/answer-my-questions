@@ -95,7 +95,7 @@ export default function Home({ onSubmit }: HomeProps) {
     <>
       <main className="main-home">
         <AnimatedAmqLogo />
-        <h1>Answer My Questions</h1>
+        <h1>Answer My Question</h1>
         <p>
           A simple question and answer game that can be played with anyone, be it your partner,
           friends, or family.
