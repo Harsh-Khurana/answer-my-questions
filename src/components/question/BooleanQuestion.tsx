@@ -18,7 +18,7 @@ export default function BooleanQuestion() {
   const selectedQuestion = useSelector(selectCurrentQuestion) as BooleanQuestion
   const dispatch = useDispatch<AppDispatch>()
 
-  const questionInputRef = useRef<HTMLInputElement>(null)
+  const questionInputRef = useRef<HTMLTextAreaElement>(null)
   const [selectedAnswerOption, setSelectedAnswerOption] = useState<boolean | undefined>(undefined)
   const [errors, setErrors] = useState<{ question?: string; answer?: string }>({})
   const [hasQuestionChanges, setHasQuestionChanges] = useState(

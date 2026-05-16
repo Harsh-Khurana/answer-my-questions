@@ -17,7 +17,7 @@ export default function SubjectiveQuestion() {
   const selectedQuestionNumber = useSelector(selectGlobalQuestionNumber)
   const selectedQuestion = useSelector(selectCurrentQuestion) as SubjectiveQuestion
 
-  const questionInputRef = useRef<HTMLInputElement>(null)
+  const questionInputRef = useRef<HTMLTextAreaElement>(null)
   const answerInputRef = useRef<HTMLTextAreaElement>(null)
   const [errors, setErrors] = useState<{ question?: string; answer?: string }>({})
   const [hasQuestionChanges, setHasQuestionChanges] = useState(

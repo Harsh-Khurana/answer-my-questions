@@ -129,6 +129,7 @@ dialog::backdrop {
 /******************* MAIN HOME STYLES ******************/
 .main-home {
   margin-top: 15vh;
+  margin-bottom: 15vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -151,6 +152,14 @@ dialog::backdrop {
 
 
 /******************* QUESTION FORM STYLES ******************/
+#question-input {
+  field-sizing: content;
+
+  min-height: 2rem; /* Set a starting height */
+  max-height: 10rem; /* Stop expanding after a certain height */
+  resize: none; /* Hide the manual drag-to-resize handle */
+}
+
 .question-form {
   width: 100%;
 }

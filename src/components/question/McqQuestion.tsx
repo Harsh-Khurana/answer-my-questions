@@ -19,7 +19,7 @@ export default function McqQuestion() {
   const dispatch = useDispatch<AppDispatch>()
 
   const optionInputRef = useRef<HTMLInputElement>(null)
-  const questionInputRef = useRef<HTMLInputElement>(null)
+  const questionInputRef = useRef<HTMLTextAreaElement>(null)
   const [options, setOptions] = useState<string[]>([])
   const [selectedAnswerOption, setSelectedAnswerOption] = useState<number | undefined>(undefined)
   const [errors, setErrors] = useState<{ question?: string; answer?: string; option?: string }>({})
