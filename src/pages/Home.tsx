@@ -21,7 +21,7 @@ import { getRandomizedArray } from "../utils"
 const QuestionCategoryLabelMap = {
   [QuestionCategories.Love]: "💗 Love 💗",
   [QuestionCategories.Bollywood]: "🕺 Bollywood 💃",
-  [QuestionCategories.Brains]: "Brains 🤓",
+  [QuestionCategories.Brains]: "Shower thoughts 🧠",
   [QuestionCategories.Opinions]: "Hot takes and Unpopular Opinions 🔥",
   [QuestionCategories.Nostalgia]: "Nostalgia 🌟",
 }

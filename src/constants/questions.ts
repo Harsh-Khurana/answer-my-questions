@@ -3,126 +3,246 @@ import { QuestionCategories, QuestionType, type Question } from "./types"
 export const BOLLYWOOD_QUESTIONS: Question[] = [
   {
     id: 1,
-    question: "What is the name of Basanti's iconic horse in the epic movie 'Sholay'?",
+    question:
+      "Which classic Bollywood movie trope would you most want to happen in your real life?",
     type: QuestionType.MCQ,
-    options: ["Chetak", "Badal", "Dhanno", "Rani"],
+    options: [
+      "A sudden, perfectly choreographed flash mob",
+      "The dramatic wind blowing through your hair when you meet your crush",
+      "A massive, overly dramatic family reunion",
+      "Waking up in a ridiculously massive mansion",
+    ],
   },
   {
     id: 2,
-    question:
-      "Which iconic Bollywood song famously features Shah Rukh Khan and Malaika Arora dancing on top of a moving train?",
+    question: "If your life was a Bollywood movie, which director would you want to direct it?",
     type: QuestionType.MCQ,
-    options: ["Dard-E-Disco", "Chaiyya Chaiyya", "Ruk Ja O Dil Deewane", "Ek Pal Ka Jeena"],
+    options: [
+      "Karan Johar (Pure luxury, drama, and heartbreak)",
+      "Zoya Akhtar (Aesthetic road trips and deep self-discovery)",
+      "Rohit Shetty (Flying cars and explosive action)",
+      "Anurag Kashyap (Gritty, dark, and intense reality)",
+    ],
   },
   {
     id: 3,
-    question:
-      "In the movie '3 Idiots', what is Rancho's (Aamir Khan) actual real name revealed at the end?",
+    question: "What is the most unforgivable 'Red Flag' in a Bollywood character?",
     type: QuestionType.MCQ,
     options: [
-      "Phunsukh Wangdu",
-      "Chatur Ramalingam",
-      "Ranchoddas Shamaldas Chanchad",
-      "Viru Sahastrabudhhe",
+      "Rahul from Kuch Kuch Hota Hai (Only likes her when she's pretty)",
+      "Kabir Singh (Anger issues and toxic)",
+      "Ayan from Ae Dil Hai Mushkil (Can't take 'no' for an answer)",
+      "Radhe from Tere Naam (Obsessive stalker)",
     ],
   },
   {
     id: 4,
-    question:
-      "Which movie features the legendary dialogue: 'Bade bade deshon mein aisi chhoti chhoti baatein hoti rehti hai'?",
-    type: QuestionType.MCQ,
-    options: [
-      "Kuch Kuch Hota Hai",
-      "Dilwale Dulhania Le Jayenge",
-      "Kabhi Khushi Kabhie Gham",
-      "Mohabbatein",
-    ],
+    question: "Would you ever actually want a grand, over-the-top, 7-day Bollywood style wedding?",
+    type: QuestionType.Boolean,
   },
   {
     id: 5,
-    question:
-      "In 'Zindagi Na Milegi Dobara', what is the name of the festival where the three friends throw tomatoes at each other?",
-    type: QuestionType.MCQ,
-    options: ["La Tomatina", "Holi", "Festa del Redentore", "San Fermín"],
+    question: "Do you secretly judge people who say they don't like 'Dilwale Dulhania Le Jayenge'?",
+    type: QuestionType.Boolean,
   },
   {
     id: 6,
     question:
-      "Who holds the record for winning the most Filmfare Awards for Best Actor (tied at 8 wins each)?",
-    type: QuestionType.MCQ,
-    options: [
-      "Amitabh Bachchan & Rajesh Khanna",
-      "Shah Rukh Khan & Dilip Kumar",
-      "Salman Khan & Aamir Khan",
-      "Hrithik Roshan & Ranbir Kapoor",
-    ],
+      "True or False: The villain in a Bollywood movie is often way more interesting than the hero.",
+    type: QuestionType.Boolean,
   },
   {
     id: 7,
     question:
-      "In 'Jab We Met', what is the name of Geet's imaginary lover who she plans to run away with?",
-    type: QuestionType.MCQ,
-    options: ["Aditya", "Anshuman", "Roop", "Manjit"],
+      "If you were caught in a classic Bollywood love triangle, would you be the one making the sacrifice for your best friend?",
+    type: QuestionType.Boolean,
   },
   {
     id: 8,
     question:
-      "Which legendary playback singer has actually lent her voice to generations of actresses, from Madhubala to Kajol?",
+      "If you were going on a long road trip, which Bollywood playlist are you forcing everyone in the car to listen to?",
     type: QuestionType.MCQ,
-    options: ["Alka Yagnik", "Shreya Ghoshal", "Lata Mangeshkar", "Asha Bhosle"],
+    options: [
+      "Early 2000s party bangers (Desi Girl, It's the Time to Disco)",
+      "90s pure romance (Tujhe Dekha Toh, Pehla Nasha)",
+      "A.R. Rahman soulful masterpieces (Kun Faya Kun, Roja)",
+      "Sad heartbreak anthems (Channa Mereya, Tadap Tadap)",
+    ],
   },
   {
     id: 9,
-    question: "Who is the richest bollywood actor?",
+    question:
+      "Which iconic Bollywood college actually matches the vibe of your real-life college experience?",
     type: QuestionType.MCQ,
-    options: ["Sharukh Khan", "Salman Khan", "Akshay Kumar", "Amitabh Bachan", "Ranbir Kapoor"],
+    options: [
+      "St. Teresa's from SOTY (Pure fashion shows and rich kids)",
+      "Imperial College from 3 Idiots (High pressure and crazy professors)",
+      "National College from Main Hoon Na (Chaos, undercover agents, and guitar players)",
+      "None of them. My college looked like a government bank.",
+    ],
   },
   {
     id: 10,
-    question: "Do you like watching bollywood movies or shows?",
-    type: QuestionType.Boolean,
+    question: "You have to choose one Bollywood parent to adopt you. Who are you picking?",
+    type: QuestionType.MCQ,
+    options: [
+      "Anupam Kher in DDLJ (The ultimate chill, supportive dad)",
+      "Ratna Pathak Shah in Kapoor & Sons (Sarcastic, real, and slightly dramatic)",
+      "Amitabh Bachchan in K3G (Strict, wealthy, demands 'Parampara')",
+      "Rishi Kapoor in Do Dooni Chaar (Middle-class, struggling, but loves you endlessly)",
+    ],
   },
   {
     id: 11,
     question:
-      "Have you ever tried to confidently recreate a classic Bollywood dance step at a wedding?",
-    type: QuestionType.Boolean,
+      "What is your honest reaction to the 'grand airport run' where the hero stops the flight for love?",
+    type: QuestionType.MCQ,
+    options: [
+      "It is the ultimate romantic gesture!",
+      "I would be furious. Do you know how expensive those tickets are?",
+      "It's purely a massive security violation.",
+      "I'd be too embarrassed by everyone staring at us.",
+    ],
   },
   {
     id: 12,
     question:
-      "Do you genuinely believe that the 90s era of Bollywood music is better than today's music?",
+      "True or False: Dancing in the rain wearing a chiffon saree/shirt looks incredibly romantic, but in real life, it would just be miserable and freezing.",
     type: QuestionType.Boolean,
   },
   {
     id: 13,
     question:
-      "True or False: 'Lagaan' was the very first Indian movie to be nominated for an Oscar.",
-    type: QuestionType.Boolean, // False! It was Mother India (1957)
+      "Do you secretly enjoy crying during the emotional climaxes of movies like 'Kal Ho Naa Ho' or 'Baghban'?",
+    type: QuestionType.Boolean,
   },
   {
     id: 14,
     question:
-      "Would you happily sit through a 3-hour long Bollywood family drama without skipping any of the songs?",
+      "True or False: The loyal sidekick (like Circuit in Munna Bhai) is usually a much better person than the actual main hero.",
     type: QuestionType.Boolean,
   },
   {
     id: 15,
     question:
-      "Have you ever successfully used a famous Bollywood dialogue in a real-life conversation?",
+      "Would you ever be brave enough to initiate a fully choreographed dance routine at a public train station like in 'Jab We Met'?",
     type: QuestionType.Boolean,
   },
   {
     id: 16,
     question:
-      "True or False: Amitabh Bachchan made his Hollywood debut acting alongside Leonardo DiCaprio in 'The Great Gatsby'.",
-    type: QuestionType.Boolean, // True!
+      "True or False: You have definitely tried (and failed) to recreate the famous Hrithik Roshan 'Ek Pal Ka Jeena' arm-pump dance step.",
+    type: QuestionType.Boolean,
   },
   {
     id: 17,
+    question: "Which Bollywood character's personality represents you the most, and why?",
+    type: QuestionType.Subjective,
+  },
+  {
+    id: 18,
+    question: "What is your most controversial, completely unpopular Bollywood opinion?",
+    type: QuestionType.Subjective,
+  },
+  {
+    id: 19,
     question:
-      "Do you agree with the famous Kuch Kuch Hota Hai rule that 'Pyaar Dosti Hai' (Love is Friendship)?",
+      "If you could jump into the screen and change the ending of exactly one Bollywood movie, which one would it be?",
+    type: QuestionType.Subjective,
+  },
+  {
+    id: 20,
+    question:
+      "If a Bollywood director made a movie about your life right now, what would the title be?",
+    type: QuestionType.Subjective,
+  },
+  {
+    id: 21,
+    question:
+      "Which specific Bollywood dialogue do you catch yourself using way too often in real life?",
+    type: QuestionType.Subjective,
+  },
+  {
+    id: 22,
+    question:
+      "Imagine you are the villain in a 90s action movie. What is your signature dialogue before fighting the hero?",
+    type: QuestionType.Subjective,
+  },
+  {
+    id: 23,
+    question:
+      "True or False: Modern Bollywood remixes of classic 90s/2000s songs are absolutely ruining the original masterpieces.",
     type: QuestionType.Boolean,
+  },
+  {
+    id: 24,
+    question:
+      "Would you ever actually try the 'Palat' (if they turn around, they love you) rule from DDLJ in real life?",
+    type: QuestionType.Boolean,
+  },
+  {
+    id: 25,
+    question:
+      "Do you agree that the music album of a Bollywood movie is often way better than the actual storyline?",
+    type: QuestionType.Boolean,
+  },
+  {
+    id: 26,
+    question:
+      "True or False: 'Geet' from Jab We Met is iconic on screen, but she would be absolutely exhausting to hang out with in real life.",
+    type: QuestionType.Boolean,
+  },
+  {
+    id: 27,
+    question:
+      "In your opinion, what is the most incredibly underrated Bollywood movie that more people need to watch?",
+    type: QuestionType.Subjective,
+  },
+  {
+    id: 28,
+    question:
+      "If you could completely erase your memory just to watch one Bollywood movie again for the very first time, which one would it be?",
+    type: QuestionType.Subjective,
+  },
+  {
+    id: 29,
+    question:
+      "Which Bollywood song instantly forces you to get up and dance, no matter where you are?",
+    type: QuestionType.Subjective,
+  },
+  {
+    id: 30,
+    question: "Which of these legendary Bollywood comedies is your ultimate, go-to comfort watch?",
+    type: QuestionType.MCQ,
+    options: [
+      "Hera Pheri (Pure chaos and Babu Rao)",
+      "Welcome (Majnu Bhai and Uday Shetty's bromance)",
+      "Dhamaal (The desperate hunt for the big 'W')",
+      "Bhool Bhulaiyaa (The perfect mix of comedy and horror)",
+    ],
+  },
+  {
+    id: 31,
+    question: "What is your most 'toxic' Bollywood-inspired expectation in real life?",
+    type: QuestionType.MCQ,
+    options: [
+      "Expecting my crush to chase my moving train/flight",
+      "Hoping my dupatta/scarf gets magically stuck in someone's watch",
+      "Thinking a 5-minute montage makeover will solve all my life problems",
+      "Expecting a customized background score to play when I walk into a room",
+    ],
+  },
+  {
+    id: 32,
+    question:
+      "Which iconic on-screen friendship duo matches the exact vibe of you and your best friend?",
+    type: QuestionType.MCQ,
+    options: [
+      "Munna and Circuit (Ride or die, strictly no questions asked)",
+      "Bunny and Avi (Constant roasting but deep loyalty)",
+      "Jai and Veeru (Partners in absolute crime and chaos)",
+      "Rani and Vijaylakshmi from Queen (Empowering, unfiltered, and wild)",
+    ],
   },
 ]
 
@@ -219,6 +339,440 @@ export const LOVE_QUESTIONS: Question[] = [
       "Focus on 'us against the problem' rather than pointing fingers.",
     ],
   },
+  {
+    id: 13,
+    question: "What is your ultimate, ideal first date?",
+    type: QuestionType.MCQ,
+    options: [
+      "A quiet coffee shop and a long walk",
+      "A fancy, romantic dinner where we dress up",
+      "Something active and fun (Arcade, bowling, or amusement park)",
+      "Just chilling at home with takeout and a movie",
+    ],
+  },
+  {
+    id: 14,
+    question: "Which of these is your biggest, most unforgivable dating 'Red Flag'?",
+    type: QuestionType.MCQ,
+    options: [
+      "Being rude to waiters or service staff",
+      "Talking way too much about their ex",
+      "Being a terrible, inconsistent texter",
+      "Having absolutely no hobbies or interests",
+    ],
+  },
+  {
+    id: 15,
+    question: "How do you usually handle conflict or arguments in a relationship?",
+    type: QuestionType.MCQ,
+    options: [
+      "I need to talk it out immediately to fix it",
+      "I need a few hours of space before I can talk",
+      "I use humor to try and defuse the tension",
+      "I get quiet and wait for the other person to apologize",
+    ],
+  },
+  {
+    id: 16,
+    question: "Which 'Love Language' do you appreciate receiving the most?",
+    type: QuestionType.MCQ,
+    options: [
+      "Words of Affirmation (Compliments and reassurance)",
+      "Physical Touch (Hugs, holding hands)",
+      "Acts of Service (Doing chores, making coffee for me)",
+      "Quality Time (Undivided attention, no phones)",
+    ],
+  },
+  {
+    id: 17,
+    question: "Do you genuinely believe in 'Love at first sight'?",
+    type: QuestionType.Boolean,
+  },
+  {
+    id: 18,
+    question: "True or False: It is completely fine and normal to stay good friends with your ex.",
+    type: QuestionType.Boolean,
+  },
+  {
+    id: 19,
+    question:
+      "Would you ever compromise on your dream career or relocate for the love of your life?",
+    type: QuestionType.Boolean,
+  },
+  {
+    id: 20,
+    question:
+      "Do you believe the saying that 'opposites attract' makes for a better, more balanced relationship?",
+    type: QuestionType.Boolean,
+  },
+  {
+    id: 21,
+    question: "True or False: You should share your phone password with your partner.",
+    type: QuestionType.Boolean,
+  },
+  {
+    id: 22,
+    question: "What is an absolute, non-negotiable dealbreaker for you in a relationship?",
+    type: QuestionType.Subjective,
+  },
+  {
+    id: 23,
+    question: "What is the best piece of relationship or dating advice you have ever received?",
+    type: QuestionType.Subjective,
+  },
+  {
+    id: 24,
+    question:
+      "Describe your 'Green Flag'—what is a small, specific thing someone can do that instantly makes you like them more?",
+    type: QuestionType.Subjective,
+  },
+  {
+    id: 25,
+    question: "What is the most meaningful way a partner can apologize to you after a fight?",
+    type: QuestionType.MCQ,
+    options: [
+      "A sincere verbal apology admitting they were wrong",
+      "Changing their behavior (Actions speak louder than words)",
+      "Giving me time to cool off and approaching me later",
+      "Making me laugh or buying me food to break the tension",
+    ],
+  },
+  {
+    id: 26,
+    question: "Do you believe there is only one true 'soulmate' out there for everyone?",
+    type: QuestionType.Boolean,
+  },
+  {
+    id: 27,
+    question: "Is it an absolute dealbreaker if your partner's family genuinely dislikes you?",
+    type: QuestionType.Boolean,
+  },
+  {
+    id: 28,
+    question:
+      "True or False: The person who asks for the date should always be the one to pay the bill.",
+    type: QuestionType.Boolean,
+  },
+  {
+    id: 29,
+    question: "Would you ever give a partner a second chance if they cheated on you?",
+    type: QuestionType.Boolean,
+  },
+  {
+    id: 30,
+    question:
+      "True or False: Flirting with someone else is considered a form of cheating, even if it's just over text.",
+    type: QuestionType.Boolean,
+  },
+  {
+    id: 31,
+    question:
+      "What is a weird or unconventional trait that you find extremely attractive in a person?",
+    type: QuestionType.Subjective,
+  },
+  {
+    id: 32,
+    question:
+      "In your opinion, what is the single hardest part about maintaining a long-term relationship?",
+    type: QuestionType.Subjective,
+  },
+  {
+    id: 33,
+    question:
+      "If you could ask a potential partner one question on a first date and they had to answer 100% honestly, what would you ask?",
+    type: QuestionType.Subjective,
+  },
+  {
+    id: 34,
+    question: "If your partner does a small habit that annoys you, how do you handle it?",
+    type: QuestionType.MCQ,
+    options: [
+      "Bring it up immediately so it doesn't build up",
+      "Drop subtle hints until they figure it out",
+      "Complain to my best friend about it first",
+      "Ignore it because nobody is perfect",
+    ],
+  },
+  {
+    id: 35,
+    question: "How long should you date someone before saying 'I love you' for the first time?",
+    type: QuestionType.MCQ,
+    options: [
+      "When you feel it, even if it's within a few weeks",
+      "Around 3 to 6 months",
+      "After a year of really knowing them",
+      "I usually wait for the other person to say it first",
+    ],
+  },
+  {
+    id: 36,
+    question: "What is your stance on couples posting their relationship heavily on social media?",
+    type: QuestionType.MCQ,
+    options: [
+      "Love it! Show off your partner to the world",
+      "Occasional posts on birthdays or anniversaries are fine",
+      "Hard launch once it's serious, then keep it lowkey",
+      "Completely private. Nobody needs to know my business",
+    ],
+  },
+]
+
+export const SHOWER_THOUGHTS_QUESTIONS: Question[] = [
+  {
+    id: 0,
+    question:
+      "If you could choose only one scientifically impossible superpower, which is the most logically useful?",
+    type: QuestionType.MCQ,
+    options: [
+      "Teleportation (No more traffic or travel costs)",
+      "Time Travel (Fixing past mistakes)",
+      "Mind Reading (Knowing exactly what people think)",
+      "Immortality (Living forever to see the future)",
+    ],
+  },
+  {
+    id: 1,
+    question:
+      "When you are faced with a massive, highly complex life decision, how does your brain usually process it?",
+    type: QuestionType.MCQ,
+    options: [
+      "I make a highly logical Pro/Con list or spreadsheet",
+      "I overthink it for weeks until I am forced to choose",
+      "I just go with my gut feeling instantly",
+      "I ask 5 different friends and do whatever they say",
+    ],
+  },
+  {
+    id: 2,
+    question:
+      "Which popular Sci-Fi concept genuinely terrifies you the most if it became real tomorrow?",
+    type: QuestionType.MCQ,
+    options: [
+      "AI taking over human consciousness (The Matrix/Terminator)",
+      "Discovering hostile aliens are watching us",
+      "Finding out our entire universe is just a computer simulation",
+      "A global zombie virus outbreak",
+    ],
+  },
+  {
+    id: 3,
+    question:
+      "Would you upload your human consciousness to a computer if it meant you could 'live' forever?",
+    type: QuestionType.Boolean,
+  },
+  {
+    id: 4,
+    question:
+      "True or False: You genuinely believe that intelligent alien life exists somewhere in the universe.",
+    type: QuestionType.Boolean,
+  },
+  {
+    id: 5,
+    question:
+      "If the zombie apocalypse broke out right now, do you honestly believe you have the survival skills to make it past the first month?",
+    type: QuestionType.Boolean,
+  },
+  {
+    id: 6,
+    question:
+      "True or False: If time travel is invented in the future, someone would have come back to tell us by now.",
+    type: QuestionType.Boolean,
+  },
+  {
+    id: 7,
+    question:
+      "What is a completely harmless, silly conspiracy theory that you actually kind of believe?",
+    type: QuestionType.Subjective,
+  },
+  {
+    id: 8,
+    question:
+      "If you could instantly download a PhD-level understanding of one complex subject into your brain, what subject would you choose?",
+    type: QuestionType.Subjective,
+  },
+  {
+    id: 9,
+    question:
+      "What is a 'shower thought' or random realization that completely blew your mind when you thought of it?",
+    type: QuestionType.Subjective,
+  },
+  {
+    id: 10,
+    question:
+      "If you could see one 'video game stat' hovering over everyone's head in real life, what would you want it to be?",
+    type: QuestionType.MCQ,
+    options: [
+      "A compatibility score showing how well we'd get along",
+      "A truth-meter showing how often they lie",
+      "A counter of how many times we've unknowingly crossed paths before",
+      "Their current mood or energy level",
+    ],
+  },
+  {
+    id: 11,
+    question: "How do you actually experience your inner thoughts?",
+    type: QuestionType.MCQ,
+    options: [
+      "A constant, clear voice narrating my life in full sentences",
+      "Mostly abstract concepts, feelings, and images—not really words",
+      "I literally have full conversations with myself out loud",
+      "Just elevator music and pure vibes",
+    ],
+  },
+  {
+    id: 12,
+    question:
+      "If you could freeze time, but you continue to physically age while time is frozen, how would you use the power?",
+    type: QuestionType.MCQ,
+    options: [
+      "I'd use it every single day just to get an extra 8 hours of sleep",
+      "I'd only use it for absolute, life-saving emergencies",
+      "I'd use it constantly to get all my work/studying done instantly",
+      "Never. I am not trying to look 50 when I'm 30.",
+    ],
+  },
+  {
+    id: 13,
+    question:
+      "When you really stop and think about it, what is the weirdest normal human activity?",
+    type: QuestionType.MCQ,
+    options: [
+      "Clapping (Hitting our hands together loudly to show approval)",
+      "Sleeping (Going unconscious for 8 hours and hallucinating)",
+      "Crying (Leaking water from our eyes because we feel sad)",
+      "Pets (Picking a random animal and deciding it lives in our house now)",
+    ],
+  },
+  {
+    id: 14,
+    question:
+      "True or False: If a teleporter breaks your body down and perfectly rebuilds you at the destination, the original 'you' actually died and a clone took your place.",
+    type: QuestionType.Boolean,
+  },
+  {
+    id: 15,
+    question:
+      "Do you frequently have (and win) highly intense, completely imaginary arguments while in the shower?",
+    type: QuestionType.Boolean,
+  },
+  {
+    id: 16,
+    question:
+      "True or False: You actually have slightly different personalities depending on which specific friend group you are hanging out with.",
+    type: QuestionType.Boolean,
+  },
+  {
+    id: 17,
+    question:
+      "If there was a perfect, exact clone of you, do you genuinely think the two of you would get along?",
+    type: QuestionType.Boolean,
+  },
+  {
+    id: 18,
+    question: "True or False: A hotdog placed in a bun technically qualifies as a sandwich.",
+    type: QuestionType.Boolean,
+  },
+  {
+    id: 19,
+    question:
+      "If animals suddenly gained the ability to speak human languages, which species do you think would be the rudest, and why?",
+    type: QuestionType.Subjective,
+  },
+  {
+    id: 20,
+    question:
+      "Which everyday human experience feels the most like a genuine 'glitch in the matrix'?",
+    type: QuestionType.MCQ,
+    options: [
+      "Walking into a room and completely forgetting why you went in there",
+      "Experiencing an intense, unexplainable moment of Déjà vu",
+      "Thinking about a specific person right before they unexpectedly text you",
+      "Dropping a small item and it literally just vanishes from existence",
+    ],
+  },
+  {
+    id: 21,
+    question:
+      "If you could permanently lock in one physical age for the rest of your natural life, what age are you choosing?",
+    type: QuestionType.MCQ,
+    options: [
+      "Early 20s (Peak energy and no back pain)",
+      "Late 20s / Early 30s (Look young, but people actually take you seriously)",
+      "40s (Silver fox era, pure distinguished vibes)",
+      "I wouldn't. I want to age naturally and look like a wise wizard.",
+    ],
+  },
+  {
+    id: 22,
+    question:
+      "Which completely normal human concept would be the hardest to logically explain to a visiting alien?",
+    type: QuestionType.MCQ,
+    options: [
+      "Money (We trade pieces of paper/digital numbers for food and shelter)",
+      "Fashion (We buy uncomfortable clothes just because they look cool)",
+      "Horror Movies (We pay money to sit in a dark room and feel terrified)",
+      "Social Media (We broadcast our private lives to thousands of strangers)",
+    ],
+  },
+  {
+    id: 23,
+    question: "What is the most unsettling fact about the vastness of the ocean or space?",
+    type: QuestionType.MCQ,
+    options: [
+      "We have explored more of outer space than our own deep oceans",
+      "There are stars we see in the night sky that have actually been dead for millions of years",
+      "If you scream in space, literally no one can hear it",
+      "There are likely terrifying, giant sea creatures down there we haven't discovered yet",
+    ],
+  },
+  {
+    id: 24,
+    question:
+      "Do you genuinely believe that the color 'red' you see in your brain is the exact same 'red' that everyone else sees?",
+    type: QuestionType.Boolean,
+  },
+  {
+    id: 25,
+    question:
+      "True or False: Water actually tastes completely different depending on the temperature.",
+    type: QuestionType.Boolean,
+  },
+  {
+    id: 26,
+    question:
+      "If you are home alone late at night, do you try to avoid making eye contact with mirrors in the dark?",
+    type: QuestionType.Boolean,
+  },
+  {
+    id: 27,
+    question:
+      "True or False: Cereal poured into a bowl of milk technically qualifies as a type of soup.",
+    type: QuestionType.Boolean,
+  },
+  {
+    id: 28,
+    question:
+      "Do you think you have ever randomly appeared as a background character in a total stranger's dream?",
+    type: QuestionType.Boolean,
+  },
+  {
+    id: 29,
+    question:
+      "If an envelope arrived that contained the exact date and time you were going to die, would you open it?",
+    type: QuestionType.Boolean,
+  },
+  {
+    id: 30,
+    question:
+      "What is an unwritten 'social rule' of human society that you think makes absolutely zero logical sense?",
+    type: QuestionType.Subjective,
+  },
+  {
+    id: 31,
+    question:
+      "If you had to explain the concept of 'laughing' to an alien who doesn't show emotion, how would you describe it?",
+    type: QuestionType.Subjective,
+  },
 ]
 
 export const NOSTALGIA_QUESTIONS: Question[] = [
@@ -307,12 +861,290 @@ export const NOSTALGIA_QUESTIONS: Question[] = [
       "True or False: You still remember the exact dial-up internet sound playing in your head right now.",
     type: QuestionType.Boolean,
   },
+  {
+    id: 11,
+    question:
+      "Which of these stationary items was the absolute highest form of currency in school?",
+    type: QuestionType.MCQ,
+    options: [
+      "The massive pen that had 10 different colored clickers",
+      "Metallic or glitter gel pens (especially silver or gold)",
+      "A brand new, unbent geometry box",
+      "The eraser that was supposedly meant to erase ink (but just ripped the paper)",
+    ],
+  },
+  {
+    id: 12,
+    question: "What was your go-to strategy for looking cool during a computer lab period?",
+    type: QuestionType.MCQ,
+    options: [
+      "Changing the desktop wallpaper when the teacher looked away",
+      "Drawing a masterpiece in MS Paint using only the spray can tool",
+      "Typing your name into WordArt using the 3D wave font",
+      "Playing a hidden flash game on Miniclip",
+    ],
+  },
+  {
+    id: 13,
+    question: "How did you originally find out what time your favorite cartoon was coming on TV?",
+    type: QuestionType.MCQ,
+    options: [
+      "I literally memorized the entire channel schedule",
+      "Checking the TV guide in the Sunday newspaper",
+      "I just left the TV on that channel all day and waited",
+      "Asking my friends at school the next day",
+    ],
+  },
+  {
+    id: 14,
+    question:
+      "True or False: You still have your childhood best friend's landline phone number memorized by heart.",
+    type: QuestionType.Boolean,
+  },
+  {
+    id: 15,
+    question:
+      "Did you ever desperately hit the side of a heavy box TV (CRT) trying to fix a fuzzy picture?",
+    type: QuestionType.Boolean,
+  },
+  {
+    id: 16,
+    question:
+      "True or False: You meticulously covered your school notebooks with brown paper and stuck the perfect name label on them at the start of every year.",
+    type: QuestionType.Boolean,
+  },
+  {
+    id: 17,
+    question:
+      "Have you ever filled out a physical 'Slam Book' for a friend at the end of the school year?",
+    type: QuestionType.Boolean,
+  },
+  {
+    id: 18,
+    question:
+      "True or False: You definitely posted some highly emotional or dramatic song lyrics as your status on Facebook, Orkut, or MSN Messenger back in the day.",
+    type: QuestionType.Boolean,
+  },
+  {
+    id: 19,
+    question: "What is a specific smell that instantly teleports you back to your childhood?",
+    type: QuestionType.Subjective,
+  },
+  {
+    id: 20,
+    question:
+      "If you could bring back one discontinued childhood snack or candy, what would you demand they start making again?",
+    type: QuestionType.Subjective,
+  },
+  {
+    id: 21,
+    question:
+      "What was the most embarrassing fashion trend you proudly participated in when you were a teenager?",
+    type: QuestionType.Subjective,
+  },
+  {
+    id: 22,
+    question:
+      "What was the most stressful part about using the internet or a phone in the early 2000s?",
+    type: QuestionType.MCQ,
+    options: [
+      "Someone picking up the landline and disconnecting the dial-up internet",
+      "Running out of your strict 100 SMS/day limit",
+      "Downloading a 4MB song for two hours, only for it to fail at 99%",
+      "Accidentally clicking the 'Internet' browser button on a keypad phone and panicking about the bill",
+    ],
+  },
+]
+
+export const OPINIONS_QUESTIONS: Question[] = [
+  {
+    id: 0,
+    question: "Which of these universally loved foods is actually incredibly overrated?",
+    type: QuestionType.MCQ,
+    options: [
+      "Nutella (It's just overpriced chocolate syrup)",
+      "Sushi (It's cold rice and raw fish, people just pretend to like it)",
+      "Avocado / Guacamole (It tastes like wet grass)",
+      "Boba / Bubble Tea (Chewing your drink is stressful)",
+    ],
+  },
+  {
+    id: 1,
+    question: "What is the absolute most chaotic and unacceptable texting habit?",
+    type: QuestionType.MCQ,
+    options: [
+      "Leaving 'Read Receipts' on but taking 3 days to reply",
+      "Calling someone immediately after they text you",
+      "Sending 15 separate rapid-fire texts instead of one paragraph",
+      "Replying with a simple 'K' or a thumbs-up 👍",
+    ],
+  },
+  {
+    id: 2,
+    question: "Which of these everyday habits gives you the biggest 'ick'?",
+    type: QuestionType.MCQ,
+    options: [
+      "People who clap when the airplane lands",
+      "People who bite directly into ice cream with their front teeth",
+      "People who put milk in the bowl before the cereal",
+      "People who sleep with socks on",
+    ],
+  },
+  {
+    id: 3,
+    question: "What is the correct stance on the great 'Voice Note' debate?",
+    type: QuestionType.MCQ,
+    options: [
+      "I love them. It's like a mini podcast from my friend.",
+      "I hate them. Just type it out so I can read it in 2 seconds.",
+      "They are only acceptable if they are under 30 seconds.",
+      "I am the one sending the 5-minute voice notes.",
+    ],
+  },
+  {
+    id: 4,
+    question: "True or False: Pineapple absolutely belongs on pizza.",
+    type: QuestionType.Boolean,
+  },
+  {
+    id: 5,
+    question:
+      "Do you genuinely believe that watching a movie at home on your couch is way better than going to a movie theater?",
+    type: QuestionType.Boolean,
+  },
+  {
+    id: 6,
+    question: "True or False: 'Friends' and 'The Office' are both highly overrated shows.",
+    type: QuestionType.Boolean,
+  },
+  {
+    id: 7,
+    question:
+      "Is it completely unacceptable to listen to music or watch TikToks in public without headphones?",
+    type: QuestionType.Boolean,
+  },
+  {
+    id: 8,
+    question:
+      "True or False: Waking up at 5:00 AM does not make you more productive, it just makes you tired by 3:00 PM.",
+    type: QuestionType.Boolean,
+  },
+  {
+    id: 9,
+    question: "Do you secretly judge people based on the music they listen to?",
+    type: QuestionType.Boolean,
+  },
+  {
+    id: 10,
+    question:
+      "True or False: Finding a single elaichi (cardamom) in your biryani completely ruins the entire meal.",
+    type: QuestionType.Boolean,
+  },
+  {
+    id: 11,
+    question: "What is your highly controversial stance on vacation itineraries?",
+    type: QuestionType.MCQ,
+    options: [
+      "Every hour must be planned out so we don't waste time.",
+      "Book the flight and hotel, figure the rest out when we land.",
+      "Vacations are strictly for lying horizontally by a pool doing nothing.",
+      "I need a vacation from my vacation because I pack in too many activities.",
+    ],
+  },
+  {
+    id: 12,
+    question: "Which of these 'acceptable' social behaviors is actually incredibly annoying?",
+    type: QuestionType.MCQ,
+    options: [
+      "People saying 'We should definitely hang out soon!' when they don't mean it.",
+      "Guests showing up to a party 45 minutes late because they want to be 'fashionable'.",
+      "Friends who refuse to pick a restaurant and say 'I'm fine with whatever'.",
+      "People stopping right in the middle of a busy sidewalk to look at their phone.",
+    ],
+  },
+  {
+    id: 13,
+    question: "What is the most objectively wrong way to consume a movie at home?",
+    type: QuestionType.MCQ,
+    options: [
+      "Watching it with the brightness all the way down.",
+      "Having the subtitles on even though you speak the language perfectly.",
+      "Pausing it every 10 minutes to explain the plot or ask questions.",
+      "Watching it on a tiny phone screen while doing chores.",
+    ],
+  },
+  {
+    id: 14,
+    question:
+      "If you win the lottery, what is the most brutally honest way you are handling your money?",
+    type: QuestionType.MCQ,
+    options: [
+      "I'm telling absolutely no one and acting like I'm still broke.",
+      "I'm giving my friends and family a one-time payout, then cutting off requests.",
+      "I'm buying ridiculous luxury items to flex on everyone who doubted me.",
+      "I'm disappearing into the woods to live in a high-tech off-grid mansion.",
+    ],
+  },
+  {
+    id: 15,
+    question:
+      "True or False: Cold, leftover pizza from the fridge is actually better than fresh, hot pizza.",
+    type: QuestionType.Boolean,
+  },
+  {
+    id: 16,
+    question:
+      "Do you genuinely believe that small talk (weather, weekend plans) is completely pointless and exhausting?",
+    type: QuestionType.Boolean,
+  },
+  {
+    id: 17,
+    question:
+      "True or False: It is perfectly acceptable to skip showering for a day on the weekend if you aren't leaving the house.",
+    type: QuestionType.Boolean,
+  },
+  {
+    id: 18,
+    question:
+      "Is it completely fine to leave a WhatsApp group chat without giving any explanation?",
+    type: QuestionType.Boolean,
+  },
+  {
+    id: 19,
+    question:
+      "True or False: Voice calls should be strictly reserved for emergencies or deep conversations, not quick questions.",
+    type: QuestionType.Boolean,
+  },
+  {
+    id: 20,
+    question:
+      "Name a universally beloved celebrity, movie, or song that you absolutely do not get the hype for.",
+    type: QuestionType.Subjective,
+  },
+  {
+    id: 21,
+    question:
+      "What is a bizarre food combination that you secretly love but everyone else thinks is disgusting?",
+    type: QuestionType.Subjective,
+  },
+  {
+    id: 22,
+    question:
+      "What is an unwritten 'rule of society' that you completely disagree with and refuse to follow?",
+    type: QuestionType.Subjective,
+  },
+  {
+    id: 23,
+    question:
+      "If you were appointed 'Dictator of the World' for just one day, what is the first incredibly petty law you would pass?",
+    type: QuestionType.Subjective,
+  },
 ]
 
 export const ALL_CATEGORY_QUESTIONS = {
   [QuestionCategories.Love]: LOVE_QUESTIONS,
-  [QuestionCategories.Brains]: [],
+  [QuestionCategories.Brains]: SHOWER_THOUGHTS_QUESTIONS,
   [QuestionCategories.Bollywood]: BOLLYWOOD_QUESTIONS,
-  [QuestionCategories.Opinions]: [],
+  [QuestionCategories.Opinions]: OPINIONS_QUESTIONS,
   [QuestionCategories.Nostalgia]: NOSTALGIA_QUESTIONS,
 }
