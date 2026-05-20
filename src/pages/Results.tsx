@@ -1,4 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
+import { motion } from "motion/react"
+
 import {
   type AppDispatch,
   changePage,
@@ -48,9 +50,14 @@ export default function Results() {
             index={idx}
           />
         ))}
-        <button onClick={handleStartNew} className="big">
+        <motion.button
+          animate={{ scale: [1, 1.1, 1] }}
+          transition={{ repeat: Infinity, duration: 1, type: "tween" }}
+          onClick={handleStartNew}
+          className="big"
+        >
           Start a new game
-        </button>
+        </motion.button>
       </main>
     </>
   )

@@ -1,8 +1,7 @@
 import { useSelector } from "react-redux"
-import { motion, type HTMLMotionProps } from "motion/react"
 
 import { selectGlobalQuestionNumber } from "../../store"
-import { useEffect } from "react"
+import { useCallback, useEffect, useRef, type ComponentPropsWithRef } from "react"
 
 type QuestionInputProps = {
   error?: string
@@ -10,36 +9,55 @@ type QuestionInputProps = {
 
 export default function QuestionInput({
   error,
+  ref: externalRef,
   ...inputProps
-}: QuestionInputProps & HTMLMotionProps<"textarea">) {
+}: QuestionInputProps & ComponentPropsWithRef<"textarea">) {
   const currentQuestionNumber = useSelector(selectGlobalQuestionNumber)
+  const localRef = useRef<HTMLTextAreaElement>(null)
+
+  const mergedRef = useCallback(
+    (element: HTMLTextAreaElement | null) => {
+      localRef.current = element
+
+      if (externalRef) {
+        if (typeof externalRef === "function") {
+          externalRef(element)
+        } else {
+          externalRef.current = element
+        }
+      }
+    },
+    [externalRef],
+  )
 
   useEffect(() => {
-    // @todo use ref instead of direclty accessing from DOM
-    const textarea = document.getElementById("question-input")!
+    const textarea = localRef.current
+
+    if (!textarea) return
+
     function autoResize() {
+      if (!textarea) return
+
       textarea.style.height = "auto" // Reset
       textarea.style.height = textarea.scrollHeight + "px" // Set to actual height
     }
 
-    // 2. Run the function every time the user types
+    // Run the function every time the user types
     textarea.addEventListener("input", autoResize)
     autoResize()
 
     return () => textarea.removeEventListener("input", autoResize)
-  })
+  }, [])
 
   return (
     <div className="input-wrapper">
       <label htmlFor="question-input">Q{currentQuestionNumber + 1}.</label>
-      <motion.textarea
+      <textarea
         name="question-input"
         id="question-input"
         placeholder="Fill in your question"
+        ref={mergedRef}
         {...inputProps}
-        // @todo need to add this animation to all input components on error
-        initial={{ x: 0 }}
-        animate={{ x: error ? [10, -10, 10, -10, 0] : 0, transition: { duration: 0.5 } }}
       />
       {error && <span className="input-error">{error}</span>}
     </div>

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type KeyboardEvent, type SubmitEvent } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import { useAnimate } from "motion/react"
 
 import QuestionFooter from "../QuestionAnswerFooter.tsx"
 import QuestionInput from "./QuestionInput.tsx"
@@ -27,6 +28,8 @@ export default function McqQuestion() {
     selectedQuestion?.answer === undefined,
   )
 
+  const [scope, animate] = useAnimate()
+
   useEffect(() => {
     if (selectedQuestion && questionInputRef.current) {
       questionInputRef.current.value = selectedQuestion.question
@@ -40,16 +43,19 @@ export default function McqQuestion() {
 
     if (!optionInputRef.current || !newOption) {
       setErrors(prevErrors => ({ ...prevErrors, option: "Option cannot be empty" }))
+      animate("#create-option", { x: [10, -10, 10, -10, 0] }, { duration: 0.5 })
       return
     }
 
     if (options.length >= 8) {
       setErrors(prevErrors => ({ ...prevErrors, option: "Only a max of 8 options can be added" }))
+      animate("#create-option", { x: [10, -10, 10, -10, 0] }, { duration: 0.5 })
       return
     }
 
     if (options.includes(newOption)) {
       setErrors(prevErrors => ({ ...prevErrors, option: "Option already exist" }))
+      animate("#create-option", { x: [10, -10, 10, -10, 0] }, { duration: 0.5 })
       return
     }
 
@@ -98,17 +104,26 @@ export default function McqQuestion() {
     }
 
     const questionText = (questionInputRef.current?.value || "").trim()
+    const hasAnswerError = typeof selectedAnswerOption !== "number" && options.length > 0
 
-    if (!questionText || typeof selectedAnswerOption !== "number" || options.length === 0) {
+    if (!questionText || hasAnswerError || options.length === 0) {
       setErrors(prevErrors => ({
         ...prevErrors,
         question: !questionText ? "Question cannot be empty" : undefined,
-        answer:
-          typeof selectedAnswerOption !== "number" && options.length > 0
-            ? "Please choose an answer"
-            : undefined,
+        answer: hasAnswerError ? "Please choose an answer" : undefined,
         option: options.length === 0 ? "Please add an option first" : prevErrors.option,
       }))
+
+      if (!questionText) {
+        animate("#question-input", { x: [10, -10, 10, -10, 0] }, { duration: 0.5 })
+      }
+      if (hasAnswerError) {
+        animate(".options-list > li", { x: [10, -10, 10, -10, 0] }, { duration: 0.5 })
+      }
+      if (options.length === 0) {
+        animate("#create-option", { x: [10, -10, 10, -10, 0] }, { duration: 0.5 })
+      }
+
       return
     }
 
@@ -129,7 +144,7 @@ export default function McqQuestion() {
   }
 
   return (
-    <form className="question-form" onSubmit={handleSubmit}>
+    <form className="question-form" onSubmit={handleSubmit} ref={scope}>
       <QuestionInput
         ref={questionInputRef}
         error={errors.question}
@@ -159,6 +174,7 @@ export default function McqQuestion() {
       </div>
 
       <div className="input-wrapper">
+        {!!options?.length && <label>Answer</label>}
         <ul className="options-list">
           {options.map((option, idx) => (
             <li key={option}>

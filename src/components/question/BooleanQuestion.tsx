@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type KeyboardEvent, type SubmitEvent } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import { useAnimate } from "motion/react"
 
 import QuestionInput from "./QuestionInput"
 import QuestionFooter from "../QuestionAnswerFooter"
@@ -24,6 +25,8 @@ export default function BooleanQuestion() {
   const [hasQuestionChanges, setHasQuestionChanges] = useState(
     selectedQuestion?.answer === undefined,
   )
+
+  const [scope, animate] = useAnimate()
 
   useEffect(() => {
     if (selectedQuestion && questionInputRef.current) {
@@ -62,6 +65,14 @@ export default function BooleanQuestion() {
         question: !questionText ? "Question cannot be empty" : undefined,
         answer: typeof selectedAnswerOption !== "boolean" ? "Choose any one option" : undefined,
       }))
+
+      if (!questionText) {
+        animate("#question-input", { x: [10, -10, 10, -10, 0] }, { duration: 0.5 })
+      }
+      if (typeof selectedAnswerOption !== "boolean") {
+        animate(".input-wrapper > span", { x: [10, -10, 10, -10, 0] }, { duration: 0.5 })
+      }
+
       return
     }
 
@@ -81,7 +92,7 @@ export default function BooleanQuestion() {
   }
 
   return (
-    <form className="question-form" onSubmit={handleSubmit}>
+    <form className="question-form" onSubmit={handleSubmit} ref={scope}>
       <QuestionInput
         ref={questionInputRef}
         error={errors.question}

@@ -1,5 +1,6 @@
 import { useEffect, useRef, type ReactNode } from "react"
 import { createPortal } from "react-dom"
+import { motion } from "motion/react"
 
 type ModalProps = {
   isOpen?: boolean
@@ -23,12 +24,20 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
   }, [isOpen])
 
   return createPortal(
-    <dialog ref={dialogRef} onClose={onClose}>
+    <motion.dialog
+      ref={dialogRef}
+      onClose={onClose}
+      variants={{
+        show: { y: 0, opacity: 1 },
+        hide: { y: -100, opacity: 0 },
+      }}
+      animate={isOpen ? "show" : "hide"}
+    >
       <div className="dialog-content">{children}</div>
       <form method="dialog">
         <button aria-label="Close modal">X</button>
       </form>
-    </dialog>,
+    </motion.dialog>,
     document.getElementById("modal")!,
   )
 }

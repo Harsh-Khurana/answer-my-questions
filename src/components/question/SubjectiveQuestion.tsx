@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type SubmitEvent } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import { useAnimate } from "motion/react"
 
 import QuestionInput from "./QuestionInput"
 import QuestionFooter from "../QuestionAnswerFooter"
@@ -26,6 +27,8 @@ export default function SubjectiveQuestion() {
 
   const dispatch = useDispatch<AppDispatch>()
 
+  const [scope, animate] = useAnimate()
+
   useEffect(() => {
     if (selectedQuestion && questionInputRef.current && answerInputRef.current) {
       if (selectedQuestion.answer) {
@@ -51,6 +54,14 @@ export default function SubjectiveQuestion() {
         question: !questionText ? "Question cannot be empty" : undefined,
         answer: !answerText ? "Answer cannot be empty" : undefined,
       }))
+
+      if (!questionText) {
+        animate("#question-input", { x: [10, -10, 10, -10, 0] }, { duration: 0.5 })
+      }
+      if (!answerText) {
+        animate("#input-answer", { x: [10, -10, 10, -10, 0] }, { duration: 0.5 })
+      }
+
       return
     }
 
@@ -70,7 +81,7 @@ export default function SubjectiveQuestion() {
   }
 
   return (
-    <form className="question-form" onSubmit={handleSubmit}>
+    <form className="question-form" onSubmit={handleSubmit} ref={scope}>
       <QuestionInput
         ref={questionInputRef}
         error={errors.question}

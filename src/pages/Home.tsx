@@ -103,6 +103,11 @@ export default function Home({ onSubmit }: HomeProps) {
           A simple question and answer game that can be played with anyone, be it your partner,
           friends, or family.
         </p>
+        <small>
+          Either pick a category of questions that will lead to some lighthearted drama, test
+          friendships, and spark some interesting conversations for sure!
+        </small>
+        <small>Or choose to create your own questions based on type</small>
         <div className="flex">
           <StaggerList
             label={<button>Choose question category</button>}
