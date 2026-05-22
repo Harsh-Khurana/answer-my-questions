@@ -1,4 +1,4 @@
-import { useState, type ChangeEvent, type SubmitEvent } from "react"
+import { useRef, useState, type ChangeEvent, type SubmitEvent } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useAnimate } from "motion/react"
 
@@ -22,6 +22,7 @@ export default function SubjectiveAnswer() {
   const [answerValue, setAnswerValue] = useState(selectedAnswer || "")
   const [answerError, setAnswerError] = useState("")
   const [hasAnswerChanges, setHasAnswerChanges] = useState(selectedAnswer === undefined)
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const [scope, animate] = useAnimate()
 
@@ -31,6 +32,14 @@ export default function SubjectiveAnswer() {
     setAnswerError(!newAnswerValue.trim().length ? "Answer cannot be empty" : "")
     setAnswerValue(newAnswerValue)
     setHasAnswerChanges(true)
+
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
+    }
+
+    timeoutRef.current = setTimeout(() => {
+      dispatch(saveAnswer({ id: selectedQuestion.id, answer: answerValue }))
+    }, 1000)
   }
 
   function handleSubmit(e: SubmitEvent) {
