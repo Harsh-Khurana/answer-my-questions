@@ -182,6 +182,10 @@ dialog::backdrop {
 .input-error{
   color: var(--error);
   font-size: 16px;
+
+  @media screen and (max-width: 600px) {
+    font-size: 14px;
+  }
 }
 
 #add-option {
@@ -209,6 +213,10 @@ span.option {
   padding: 8px 16px;
   border-radius: 6px;
   color: white;
+
+  @media screen and (max-width: 600px) {
+    padding: 4px 8px;
+  }
 }
 
 span.option.selected{

@@ -117,6 +117,11 @@ input, select, textarea, option {
   font-size: 24px;
   outline: none; 
   box-sizing: border-box;
+
+  @media screen and (max-width: 600px) {
+    font-size: 16px;
+    padding: 4px 8px;
+  }
 }
 
 select, option {
