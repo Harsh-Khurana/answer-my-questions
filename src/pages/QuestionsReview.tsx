@@ -10,6 +10,7 @@ import { Alert, BackBtn, Modal, Timer } from "../ui"
 import { ReviewQuestionCard, SortableQuestionRow } from "../components"
 import { PageType, QuestionType } from "../constants/types"
 import { changePage, replaceQuestions, selectQuestions, type AppDispatch } from "../store"
+import { AnimatePresence } from "motion/react"
 
 type QuestionsReviewProps = {
   onSubmit: () => void
@@ -88,9 +89,11 @@ export default function QuestionsReview({ onSubmit }: QuestionsReviewProps) {
         modifiers={defaults => [...defaults, RestrictToWindow]}
       >
         <main className="review-questions-list">
-          {questions.map((question, idx) => (
-            <SortableQuestionRow key={question.id} question={question} index={idx} />
-          ))}
+          <AnimatePresence>
+            {questions.map((question, idx) => (
+              <SortableQuestionRow key={question.id} question={question} index={idx} />
+            ))}
+          </AnimatePresence>
         </main>
         <DragOverlay dropAnimation={null}>
           {source => {

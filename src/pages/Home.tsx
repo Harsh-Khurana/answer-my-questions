@@ -70,6 +70,7 @@ export default function Home({ onSubmit }: HomeProps) {
       setShowConfirmationDialog(true)
     } else {
       const categoryQuestions = getRandomizedArray(ALL_CATEGORY_QUESTIONS[category]).slice(0, 10)
+      dispatch(changeQuestionNumber(0))
       dispatch(changeQuestionCategory(category))
       dispatch(replaceQuestions(categoryQuestions))
       onSubmit()

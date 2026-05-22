@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type KeyboardEvent, type SubmitEvent } from "react"
+import { useState, type ChangeEvent, type KeyboardEvent, type SubmitEvent } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useAnimate } from "motion/react"
 
@@ -19,8 +19,12 @@ export default function BooleanQuestion() {
   const selectedQuestion = useSelector(selectCurrentQuestion) as BooleanQuestion
   const dispatch = useDispatch<AppDispatch>()
 
-  const questionInputRef = useRef<HTMLTextAreaElement>(null)
-  const [selectedAnswerOption, setSelectedAnswerOption] = useState<boolean | undefined>(undefined)
+  const [questionValue, setQuestionValue] = useState(
+    selectedQuestion ? selectedQuestion.question : "",
+  )
+  const [selectedAnswerOption, setSelectedAnswerOption] = useState<boolean | undefined>(
+    selectedQuestion ? selectedQuestion.answer : undefined,
+  )
   const [errors, setErrors] = useState<{ question?: string; answer?: string }>({})
   const [hasQuestionChanges, setHasQuestionChanges] = useState(
     selectedQuestion?.answer === undefined,
@@ -28,12 +32,15 @@ export default function BooleanQuestion() {
 
   const [scope, animate] = useAnimate()
 
-  useEffect(() => {
-    if (selectedQuestion && questionInputRef.current) {
-      setSelectedAnswerOption(selectedQuestion.answer)
-      questionInputRef.current.value = selectedQuestion.question
-    }
-  }, [selectedQuestion])
+  function handleQuestionChange(e: ChangeEvent<HTMLTextAreaElement>) {
+    const newQuestionValue = e.target.value
+    setErrors(prevErrors => ({
+      ...prevErrors,
+      question: !newQuestionValue.trim().length ? "Question cannot be empty" : undefined,
+    }))
+    setQuestionValue(newQuestionValue)
+    setHasQuestionChanges(true)
+  }
 
   function handleAnswerSelect(value: boolean) {
     setHasQuestionChanges(true)
@@ -53,11 +60,7 @@ export default function BooleanQuestion() {
   function handleSubmit(e: SubmitEvent) {
     e.preventDefault()
 
-    if (!questionInputRef.current) {
-      return
-    }
-
-    const questionText = (questionInputRef.current?.value || "").trim()
+    const questionText = questionValue.trim()
 
     if (!questionText || typeof selectedAnswerOption !== "boolean") {
       setErrors(prevErrors => ({
@@ -94,9 +97,9 @@ export default function BooleanQuestion() {
   return (
     <form className="question-form" onSubmit={handleSubmit} ref={scope}>
       <QuestionInput
-        ref={questionInputRef}
         error={errors.question}
-        onChange={() => setHasQuestionChanges(true)}
+        value={questionValue}
+        onChange={handleQuestionChange}
       />
       <div className="input-wrapper">
         <label>Answer</label>

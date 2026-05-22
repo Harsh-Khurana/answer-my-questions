@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux"
 
 import { selectGlobalQuestionNumber } from "../../store"
-import { useCallback, useEffect, useRef, type ComponentPropsWithRef } from "react"
+import { useEffect, useRef, type ComponentPropsWithRef } from "react"
 
 type QuestionInputProps = {
   error?: string
@@ -9,29 +9,13 @@ type QuestionInputProps = {
 
 export default function QuestionInput({
   error,
-  ref: externalRef,
   ...inputProps
 }: QuestionInputProps & ComponentPropsWithRef<"textarea">) {
   const currentQuestionNumber = useSelector(selectGlobalQuestionNumber)
-  const localRef = useRef<HTMLTextAreaElement>(null)
-
-  const mergedRef = useCallback(
-    (element: HTMLTextAreaElement | null) => {
-      localRef.current = element
-
-      if (externalRef) {
-        if (typeof externalRef === "function") {
-          externalRef(element)
-        } else {
-          externalRef.current = element
-        }
-      }
-    },
-    [externalRef],
-  )
+  const textAreaRef = useRef<HTMLTextAreaElement>(null)
 
   useEffect(() => {
-    const textarea = localRef.current
+    const textarea = textAreaRef.current
 
     if (!textarea) return
 
@@ -56,7 +40,7 @@ export default function QuestionInput({
         name="question-input"
         id="question-input"
         placeholder="Fill in your question"
-        ref={mergedRef}
+        ref={textAreaRef}
         {...inputProps}
       />
       {error && <span className="input-error">{error}</span>}

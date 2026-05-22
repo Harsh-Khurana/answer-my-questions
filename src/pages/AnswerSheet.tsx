@@ -1,13 +1,8 @@
 import { useState } from "react"
 import { useSelector } from "react-redux"
 
-import { Modal, Timer } from "../ui"
-import {
-  McqAnswer,
-  SubjectiveAnswer,
-  BooleanAnswer,
-  QuestionAnswerFooter as AnswerFooter,
-} from "../components"
+import { Alert, Modal, Timer } from "../ui"
+import { McqAnswer, SubjectiveAnswer, BooleanAnswer } from "../components"
 import { QuestionType } from "../constants/types"
 import {
   selectCurrentQuestion,
@@ -26,7 +21,22 @@ export default function AnswerSheet({ onSubmit }: AnswerSheetProps) {
   const totalQuestions = useSelector(selectTotalQuestions)
   const totalAnswers = useSelector(selectTotalAnswers)
 
+  const [prevQuestionNum, setPrevQuestionNum] = useState(questionNumber)
+  const [showMissingAnswersAlert, setShowMissingAnswersAlert] = useState(false)
   const [showSubmitDialog, setShowSubmitDialog] = useState(false)
+
+  function handleSubmit() {
+    if (totalAnswers < totalQuestions) {
+      setShowMissingAnswersAlert(true)
+    } else {
+      setShowSubmitDialog(true)
+    }
+  }
+
+  if (questionNumber !== prevQuestionNum) {
+    setPrevQuestionNum(questionNumber)
+    setShowMissingAnswersAlert(false)
+  }
 
   return (
     <>
@@ -37,13 +47,23 @@ export default function AnswerSheet({ onSubmit }: AnswerSheetProps) {
             {totalAnswers} out of {totalQuestions}
           </strong>
         </span>
-        <button onClick={() => setShowSubmitDialog(true)}>Submit answers</button>
+        <button onClick={handleSubmit}>Submit answers</button>
       </header>
+      {totalAnswers === totalQuestions && (
+        <Alert type="success">
+          Great! You have answered all the questions. Now either review them by navigating between
+          them or submit to see the results.
+        </Alert>
+      )}
+      {showMissingAnswersAlert && (
+        <Alert type="danger">
+          Cannot submit, {totalAnswers < totalQuestions && "Some questions are unanswered."}
+        </Alert>
+      )}
       <main key={questionNumber}>
         {selectedQuestion.type === QuestionType.MCQ && <McqAnswer />}
         {selectedQuestion.type === QuestionType.Subjective && <SubjectiveAnswer />}
         {selectedQuestion.type === QuestionType.Boolean && <BooleanAnswer />}
-        <AnswerFooter />
       </main>
       <Modal isOpen={showSubmitDialog} onClose={() => setShowSubmitDialog(false)}>
         <p>Are you sure you want to submit your answers now?</p>

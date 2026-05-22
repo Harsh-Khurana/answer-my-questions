@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type KeyboardEvent, type SubmitEvent } from "react"
+import { useRef, useState, type ChangeEvent, type KeyboardEvent, type SubmitEvent } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useAnimate } from "motion/react"
 
@@ -20,9 +20,13 @@ export default function McqQuestion() {
   const dispatch = useDispatch<AppDispatch>()
 
   const optionInputRef = useRef<HTMLInputElement>(null)
-  const questionInputRef = useRef<HTMLTextAreaElement>(null)
-  const [options, setOptions] = useState<string[]>([])
-  const [selectedAnswerOption, setSelectedAnswerOption] = useState<number | undefined>(undefined)
+  const [options, setOptions] = useState<string[]>(selectedQuestion ? selectedQuestion.options : [])
+  const [questionValue, setQuestionValue] = useState(
+    selectedQuestion ? selectedQuestion.question : "",
+  )
+  const [selectedAnswerOption, setSelectedAnswerOption] = useState<number | undefined>(
+    selectedQuestion ? selectedQuestion.answer : undefined,
+  )
   const [errors, setErrors] = useState<{ question?: string; answer?: string; option?: string }>({})
   const [hasQuestionChanges, setHasQuestionChanges] = useState(
     selectedQuestion?.answer === undefined,
@@ -30,13 +34,15 @@ export default function McqQuestion() {
 
   const [scope, animate] = useAnimate()
 
-  useEffect(() => {
-    if (selectedQuestion && questionInputRef.current) {
-      questionInputRef.current.value = selectedQuestion.question
-      setSelectedAnswerOption(selectedQuestion.answer)
-      setOptions(selectedQuestion.options)
-    }
-  }, [selectedQuestion])
+  function handleQuestionChange(e: ChangeEvent<HTMLTextAreaElement>) {
+    const newQuestionValue = e.target.value
+    setErrors(prevErrors => ({
+      ...prevErrors,
+      question: !newQuestionValue.trim().length ? "Question cannot be empty" : undefined,
+    }))
+    setQuestionValue(newQuestionValue)
+    setHasQuestionChanges(true)
+  }
 
   function handleAddOption() {
     const newOption = optionInputRef.current?.value.trim()
@@ -66,7 +72,7 @@ export default function McqQuestion() {
   }
 
   // Helper function to allow keyboard users to create option by clicking enter
-  function handleInputKeyDown(event: KeyboardEvent<HTMLInputElement>) {
+  function handleOptionInputKeyDown(event: KeyboardEvent<HTMLInputElement>) {
     if (event.key === "Enter") {
       event.preventDefault()
       handleAddOption()
@@ -99,11 +105,7 @@ export default function McqQuestion() {
   function handleSubmit(e: SubmitEvent) {
     e.preventDefault()
 
-    if (!questionInputRef.current) {
-      return
-    }
-
-    const questionText = (questionInputRef.current?.value || "").trim()
+    const questionText = questionValue.trim()
     const hasAnswerError = typeof selectedAnswerOption !== "number" && options.length > 0
 
     if (!questionText || hasAnswerError || options.length === 0) {
@@ -146,9 +148,9 @@ export default function McqQuestion() {
   return (
     <form className="question-form" onSubmit={handleSubmit} ref={scope}>
       <QuestionInput
-        ref={questionInputRef}
         error={errors.question}
-        onChange={() => setHasQuestionChanges(true)}
+        value={questionValue}
+        onChange={handleQuestionChange}
       />
 
       <div className="input-wrapper">
@@ -160,7 +162,7 @@ export default function McqQuestion() {
           ref={optionInputRef}
           disabled={options.length >= 8}
           placeholder="Add valid options for your question"
-          onKeyDown={handleInputKeyDown}
+          onKeyDown={handleOptionInputKeyDown}
         />
         {errors.option && <span className="input-error">{errors.option}</span>}
         <button

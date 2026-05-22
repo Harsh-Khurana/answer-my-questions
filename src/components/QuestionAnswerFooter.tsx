@@ -47,7 +47,7 @@ export default function QuestionAnswerFooter({ hasChanges }: QuestionAnswerFoote
       )}
       {!hideNextButton && (
         <button type={isMoveToNextAllowed ? "button" : "submit"} onClick={handleMoveToNextQuestion}>
-          {isMoveToNextAllowed ? "Next" : "Save"}
+          {isMoveToNextAllowed ? "Next" : "Save & Next"}
         </button>
       )}
     </div>

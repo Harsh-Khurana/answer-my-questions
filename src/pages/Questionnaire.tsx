@@ -6,9 +6,11 @@ import { McqQuestion, SubjectiveQuestion, BooleanQuestion } from "../components"
 import { QuestionType } from "../constants/types"
 import {
   selectCurrentQuestion,
+  selectGlobalQuestionCategory,
   selectGlobalQuestionNumber,
   selectGlobalQuestionType,
   selectTotalAnsweredQuestions,
+  selectTotalQuestions,
 } from "../store"
 
 type QuestionnaireProps = {
@@ -19,20 +21,19 @@ export default function Questionnaire({ onSubmit }: QuestionnaireProps) {
   const globalQuestionType = useSelector(selectGlobalQuestionType)
   const selectedQuestionNumber = useSelector(selectGlobalQuestionNumber)
   const selectedQuestion = useSelector(selectCurrentQuestion)
-  // @todo allow first user to also not answer questions if they have selecte a category instead of creating their own questions
-  // @todo and maybe we add a check in create your own questions review page that whether the user wants to allow
-  // questions to be answered always or it's fine leaving empty?
   const totalAnsweredQuestions = useSelector(selectTotalAnsweredQuestions)
+  const totalQuestions = useSelector(selectTotalQuestions)
+  const selectedQuestionCategory = useSelector(selectGlobalQuestionCategory)
 
   const [chosenQuestionType, setChosenQuestionType] = useState<QuestionType>(
     globalQuestionType === "Mix" ? QuestionType.MCQ : globalQuestionType,
   )
   const [prevQuestionNum, setPrevQuestionNum] = useState(selectedQuestionNumber)
-  const [showMissingQuestionsAlert, setShowMissingQuestionsAlert] = useState(false)
+  const [showMissingQAAlert, setShowMissingQAAlert] = useState(false)
 
   function handleReviewAndSubmit() {
-    if (totalAnsweredQuestions === 0) {
-      setShowMissingQuestionsAlert(true)
+    if (totalAnsweredQuestions === 0 || totalAnsweredQuestions < totalQuestions) {
+      setShowMissingQAAlert(true)
     } else {
       onSubmit()
     }
@@ -41,7 +42,7 @@ export default function Questionnaire({ onSubmit }: QuestionnaireProps) {
   // Hiding the alert when user saves a question and moves to next one
   if (selectedQuestionNumber !== prevQuestionNum) {
     setPrevQuestionNum(selectedQuestionNumber)
-    setShowMissingQuestionsAlert(false)
+    setShowMissingQAAlert(false)
   }
 
   const questionType = selectedQuestion?.type ?? chosenQuestionType
@@ -66,8 +67,20 @@ export default function Questionnaire({ onSubmit }: QuestionnaireProps) {
         </span>
         <button onClick={handleReviewAndSubmit}>Review & Submit questions</button>
       </header>
-      {showMissingQuestionsAlert && (
-        <Alert type="danger">Cannot submit, No questions were saved.</Alert>
+      {selectedQuestionCategory && totalAnsweredQuestions === totalQuestions && (
+        <Alert type="success">
+          Great! You have answered all the questions. Now either you can submit these questions or
+          can add more questions yourself.
+        </Alert>
+      )}
+      {showMissingQAAlert && (
+        <Alert type="danger">
+          Cannot submit,{" "}
+          {totalAnsweredQuestions === 0 &&
+            totalQuestions === 0 &&
+            "No questions & answers were saved."}
+          {totalAnsweredQuestions < totalQuestions && "Some questions are unanswered."}
+        </Alert>
       )}
       <main className="flex" key={selectedQuestionNumber}>
         {questionType === QuestionType.MCQ && <McqQuestion />}

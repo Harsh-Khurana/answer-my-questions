@@ -11,16 +11,17 @@ type ResultItemProps = {
 export default function ResultItem({ question, answer, index }: ResultItemProps) {
   const [showAnswer, setShowAnswer] = useState(true)
 
-  let answer1 = question.answer
+  // If any of the user don't provide an answer then we show "-" in place
+  let answer1 = question.answer ?? "-"
   let answer2 = answer ?? "-"
 
   if (question.type === "MCQ") {
-    answer1 = question.options[question.answer!]
-    answer2 = typeof answer === "number" ? question.options[answer] : answer2
+    answer1 = typeof question.answer === "number" ? question.options[question.answer!] : "-"
+    answer2 = typeof answer === "number" ? question.options[answer] : "-"
   }
   if (question.type === "Boolean") {
-    answer1 = question.answer ? "Yes" : "No"
-    answer2 = typeof answer === "boolean" ? (answer ? "Yes" : "No") : answer2
+    answer1 = typeof question.answer === "boolean" ? (question.answer ? "Yes" : "No") : "-"
+    answer2 = typeof answer === "boolean" ? (answer ? "Yes" : "No") : "-"
   }
 
   return (
