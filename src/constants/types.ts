@@ -47,6 +47,8 @@ export const PageType = {
   QuestionsReview: "QuestionsReview",
   AnswerSheet: "AnswerSheet",
   Result: "Result",
+  ReportIssues: "ReportIssues",
+  QuestionHelper: "QuestionHelper",
 } as const
 
 export type PageType = (typeof PageType)[keyof typeof PageType]

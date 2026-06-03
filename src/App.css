@@ -33,6 +33,22 @@ header {
   }
 }
 
+footer{
+  box-sizing: border-box;
+  width: 100%;
+  background-color: var(--primary-bg);
+  padding: 24px 40px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  
+
+  .help{
+    display: flex;
+    flex-direction: column;
+  }
+}
+
 .relative-wrapper {
   position: relative;
   display: inline-block;
@@ -108,6 +124,11 @@ header {
 
 
 /******************* DIALOG/MODAL STYLES ******************/
+dialog {
+  background-color: var(--bg);
+  color: var(--text);
+}
+
 dialog[open] {
   display: flex;
   align-items: flex-start;
@@ -134,6 +155,8 @@ dialog::backdrop {
   flex-direction: column;
   align-items: center;
   text-align: center;
+  box-sizing: border-box;
+  min-height: 60vh;
 
   h1 {
     line-height: 1.4;
@@ -157,11 +180,15 @@ dialog::backdrop {
   .flex {
     margin-top: 40px;
   }
+
+  .question-type-selectors {
+    margin-bottom: 240px;
+  }
 }
 
 
 /******************* QUESTION FORM STYLES ******************/
-#question-input {
+.auto-resize-textarea {
   field-sizing: content;
 
   min-height: 2rem; /* Set a starting height */
@@ -395,4 +422,10 @@ span.option.selected{
     }
   }
   
+}
+
+#main-report-issues {
+  form {
+    margin-top: 40px;
+  }
 }

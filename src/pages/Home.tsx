@@ -1,7 +1,8 @@
 import { useDispatch, useSelector } from "react-redux"
 
-import { Modal, StaggerList } from "../ui"
+import { Modal, StaggerList, ThemeToggle } from "../ui"
 import {
+  changePage,
   changeQuestionCategory,
   changeQuestionNumber,
   changeQuestionType,
@@ -12,7 +13,7 @@ import {
   selectHasSavedQuestions,
   type AppDispatch,
 } from "../store"
-import { QuestionCategories, QuestionType } from "../constants/types"
+import { PageType, QuestionCategories, QuestionType } from "../constants/types"
 import { ALL_CATEGORY_QUESTIONS } from "../constants/questions"
 import { useRef, useState } from "react"
 import AnimatedAmqLogo from "../assets/icons/AnimatedAmqLogo"
@@ -109,7 +110,7 @@ export default function Home({ onSubmit }: HomeProps) {
           friendships, and spark some interesting conversations for sure!
         </small>
         <small>Or choose to create your own questions based on type</small>
-        <div className="flex">
+        <div className="flex question-type-selectors">
           <StaggerList
             label={<button>Choose question category</button>}
             staggerDirectionFrom="left"
@@ -130,6 +131,15 @@ export default function Home({ onSubmit }: HomeProps) {
           </StaggerList>
         </div>
       </main>
+      <footer>
+        <div className="help">
+          <button>Help us with more questions</button>
+          <button onClick={() => dispatch(changePage(PageType.ReportIssues))}>
+            Help us improve
+          </button>
+        </div>
+        <ThemeToggle />
+      </footer>
       <Modal isOpen={showConfirmationDialog} onClose={() => setShowConfirmationDialog(false)}>
         <p>
           Are you sure you want to change question type? Your current saved questions will be lost.

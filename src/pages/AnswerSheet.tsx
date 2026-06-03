@@ -55,7 +55,7 @@ export default function AnswerSheet({ onSubmit }: AnswerSheetProps) {
           them or submit to see the results.
         </Alert>
       )}
-      {showMissingAnswersAlert && (
+      {showMissingAnswersAlert && totalAnswers !== totalQuestions && (
         <Alert type="danger">
           Cannot submit, {totalAnswers < totalQuestions && "Some questions are unanswered."}
         </Alert>

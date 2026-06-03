@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
 
 import "./App.css"
-import { Home, Questionnaire, QuestionsReview, AnswerSheet, Results } from "./pages"
+import { Home, Questionnaire, QuestionsReview, AnswerSheet, Results, ReportIssues } from "./pages"
 import { PageType } from "./constants/types"
 import {
   initialiseAnswers,
@@ -38,6 +38,7 @@ function App() {
         <AnswerSheet onSubmit={() => dispatch(changePage(PageType.Result))} />
       )}
       {currentPage === PageType.Result && <Results />}
+      {currentPage === PageType.ReportIssues && <ReportIssues />}
     </>
   )
 }
