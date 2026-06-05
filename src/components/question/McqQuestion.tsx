@@ -11,12 +11,14 @@ import {
   editQuestion,
   selectCurrentQuestion,
   selectGlobalQuestionNumber,
+  selectIsAnsweringMandatory,
   type AppDispatch,
 } from "../../store"
 
 export default function McqQuestion() {
   const selectedQuestionNumber = useSelector(selectGlobalQuestionNumber)
   const selectedQuestion = useSelector(selectCurrentQuestion) as MCQQuestion
+  const isAnsweringMandatory = useSelector(selectIsAnsweringMandatory)
   const dispatch = useDispatch<AppDispatch>()
 
   const optionInputRef = useRef<HTMLInputElement>(null)
@@ -106,7 +108,8 @@ export default function McqQuestion() {
     e.preventDefault()
 
     const questionText = questionValue.trim()
-    const hasAnswerError = typeof selectedAnswerOption !== "number" && options.length > 0
+    const hasAnswerError =
+      isAnsweringMandatory && typeof selectedAnswerOption !== "number" && options.length > 0
 
     if (!questionText || hasAnswerError || options.length === 0) {
       setErrors(prevErrors => ({

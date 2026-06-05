@@ -8,6 +8,7 @@ import {
   selectCurrentAnswer,
   selectCurrentQuestion,
   selectGlobalQuestionNumber,
+  selectIsAnsweringMandatory,
   type AppDispatch,
 } from "../../store"
 import type { MCQQuestion } from "../../constants/types"
@@ -17,6 +18,7 @@ export default function McqAnswer() {
   const selectedQuestionNumber = useSelector(selectGlobalQuestionNumber)
   const selectedQuestion = useSelector(selectCurrentQuestion) as MCQQuestion
   const selectedAnswer = useSelector(selectCurrentAnswer) as number | undefined
+  const isAnsweringMandatory = useSelector(selectIsAnsweringMandatory)
   const dispatch = useDispatch<AppDispatch>()
 
   const [selectedAnswerOption, setSelectedAnswerOption] = useState<number | undefined>(
@@ -46,7 +48,7 @@ export default function McqAnswer() {
   function handleSubmit(e: SubmitEvent) {
     e.preventDefault()
 
-    const hasAnswerError = typeof selectedAnswerOption !== "number"
+    const hasAnswerError = isAnsweringMandatory && typeof selectedAnswerOption !== "number"
 
     if (hasAnswerError) {
       setAnswerError("Please choose an answer")

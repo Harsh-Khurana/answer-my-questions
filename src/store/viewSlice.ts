@@ -7,10 +7,18 @@ const initialState: {
   globalQuestionType: QuestionType | "Mix"
   globalQuestionCategory?: QuestionCategories
   page: PageType
+  isAnsweringMandatory: boolean
 } = {
   globalQuestionNumber: 0,
   globalQuestionType: "Mix",
   page: PageType.Home,
+  isAnsweringMandatory: (() => {
+    try {
+      return localStorage.getItem("isAnsweringMandatory") === "true"
+    } catch {
+      return false // Safe fallback if localStorage is blocked/broken
+    }
+  })(),
 }
 
 const viewSlice = createSlice({
@@ -34,6 +42,9 @@ const viewSlice = createSlice({
     changePage(state, action: PayloadAction<PageType>) {
       state.page = action.payload
     },
+    setIsAnsweringMandatory(state, action: PayloadAction<boolean>) {
+      state.isAnsweringMandatory = action.payload
+    },
   },
 })
 
@@ -43,6 +54,7 @@ export const {
   changeQuestionCategory,
   clearCategory,
   changePage,
+  setIsAnsweringMandatory,
 } = viewSlice.actions
 
 export default viewSlice.reducer

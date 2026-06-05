@@ -186,6 +186,20 @@ dialog::backdrop {
   }
 }
 
+.confirmation-dialog-input-wrapper {
+  display: flex;
+  align-items: center;
+  margin: 16px 0;
+  input {
+    margin: 8px 16px;
+    max-width: 20%;
+  }
+  label {
+    text-align: left;
+    max-width: 80%;
+  }
+}
+
 
 /******************* QUESTION FORM STYLES ******************/
 .auto-resize-textarea {
@@ -424,8 +438,10 @@ span.option.selected{
   
 }
 
+/******************* REPORT STYLES ******************/
 #main-report-issues {
   form {
     margin-top: 40px;
   }
 }
+

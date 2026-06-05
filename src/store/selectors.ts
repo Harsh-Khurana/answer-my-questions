@@ -30,6 +30,8 @@ export const selectGlobalQuestionType = (state: AppState) => state.view.globalQu
 
 export const selectGlobalQuestionCategory = (state: AppState) => state.view.globalQuestionCategory
 
+export const selectIsAnsweringMandatory = (state: AppState) => state.view.isAnsweringMandatory
+
 /***********************  MIX SELECTORS *******************************/
 export const selectCurrentQuestion = createSelector(
   selectQuestions,

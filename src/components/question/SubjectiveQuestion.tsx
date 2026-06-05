@@ -12,11 +12,13 @@ import {
   type AppDispatch,
   selectGlobalQuestionNumber,
   selectCurrentQuestion,
+  selectIsAnsweringMandatory,
 } from "../../store"
 
 export default function SubjectiveQuestion() {
   const selectedQuestionNumber = useSelector(selectGlobalQuestionNumber)
   const selectedQuestion = useSelector(selectCurrentQuestion) as SubjectiveQuestion
+  const isAnsweringMandatory = useSelector(selectIsAnsweringMandatory)
 
   const [questionValue, setQuestionValue] = useState(
     selectedQuestion ? selectedQuestion.question : "",
@@ -45,7 +47,10 @@ export default function SubjectiveQuestion() {
     const newAnswerValue = e.target.value
     setErrors(prevErrors => ({
       ...prevErrors,
-      answer: !newAnswerValue.trim().length ? "Answer cannot be empty" : undefined,
+      answer:
+        isAnsweringMandatory && !newAnswerValue.trim().length
+          ? "Answer cannot be empty"
+          : undefined,
     }))
     setAnswerValue(newAnswerValue)
     setHasQuestionChanges(true)
@@ -57,17 +62,19 @@ export default function SubjectiveQuestion() {
     const questionText = questionValue.trim()
     const answerText = (answerValue || "").trim()
 
-    if (!questionText || !answerText) {
+    const hasAnswerError = isAnsweringMandatory && !answerText
+
+    if (!questionText || hasAnswerError) {
       setErrors(prevErrors => ({
         ...prevErrors,
         question: !questionText ? "Question cannot be empty" : undefined,
-        answer: !answerText ? "Answer cannot be empty" : undefined,
+        answer: hasAnswerError ? "Answer cannot be empty" : undefined,
       }))
 
       if (!questionText) {
         animate("#question-input", { x: [10, -10, 10, -10, 0] }, { duration: 0.5 })
       }
-      if (!answerText) {
+      if (hasAnswerError) {
         animate("#input-answer", { x: [10, -10, 10, -10, 0] }, { duration: 0.5 })
       }
 
@@ -77,7 +84,7 @@ export default function SubjectiveQuestion() {
     const question = {
       question: questionText,
       type: QuestionType.Subjective,
-      answer: answerText,
+      answer: answerText ? answerText : undefined,
     } as DistributiveOmit<SubjectiveQuestion, "id">
 
     setErrors({})

@@ -11,13 +11,16 @@ import {
   selectGlobalQuestionCategory,
   selectGlobalQuestionType,
   selectHasSavedQuestions,
+  selectIsAnsweringMandatory,
+  setIsAnsweringMandatory,
   type AppDispatch,
 } from "../store"
 import { PageType, QuestionCategories, QuestionType } from "../constants/types"
 import { ALL_CATEGORY_QUESTIONS } from "../constants/questions"
-import { useRef, useState } from "react"
+import { useState, type ChangeEvent } from "react"
 import AnimatedAmqLogo from "../assets/icons/AnimatedAmqLogo"
 import { getRandomizedArray } from "../utils"
+import { isQuestionType } from "../utils/type-guards"
 
 const QuestionCategoryLabelMap = {
   [QuestionCategories.Love]: "💗 Love 💗",
@@ -35,66 +38,85 @@ export default function Home({ onSubmit }: HomeProps) {
   const hasSavedQuestions = useSelector(selectHasSavedQuestions)
   const selectedQuestionType = useSelector(selectGlobalQuestionType)
   const selectedQuestionCategory = useSelector(selectGlobalQuestionCategory)
+  const isAnsweringMandatory = useSelector(selectIsAnsweringMandatory)
   const dispatch = useDispatch<AppDispatch>()
 
   const [showConfirmationDialog, setShowConfirmationDialog] = useState(false)
-  const nextQuestionTypeRef = useRef<QuestionType | undefined>(undefined)
-  const nextQuestionCategoryRef = useRef<QuestionCategories | undefined>(undefined)
-
-  // handleCreateQuestions considers if something was selected in past and now user is reselecting again
-  function handleCreateQuestions(type?: QuestionType) {
-    let requiresConfirmation = hasSavedQuestions
-    // if some category was selected in past
-    if (selectedQuestionCategory) {
-      dispatch(clearCategory())
-      dispatch(replaceQuestions([]))
-      requiresConfirmation = false
+  const [nextQuestionsFormat, setNextQuestionsFormat] = useState<
+    QuestionType | QuestionCategories | undefined
+  >(undefined)
+  const [noOfCategoryQuestions, setNoOfCategoryQuestions] = useState(() => {
+    try {
+      const numberOfCategoryQuestions = localStorage.getItem("numberOfCategoryQuestions")
+      return numberOfCategoryQuestions ? +numberOfCategoryQuestions : 10
+    } catch {
+      return 10
     }
-    // if no type supplied then it's MIX type
-    if (!type) {
+  })
+
+  function handleQuestionFormatClick(format?: QuestionType | QuestionCategories) {
+    setNextQuestionsFormat(format)
+    setShowConfirmationDialog(true)
+  }
+
+  function handleNumberOfCategoryQuestionsChange(e: ChangeEvent<HTMLInputElement>) {
+    setNoOfCategoryQuestions(+e.target.value)
+    try {
+      localStorage.setItem("numberOfCategoryQuestions", e.target.value)
+    } catch {
+      // localStorage is blocked/broken
+    }
+  }
+
+  function handleAnswerMandatoryChange(e: ChangeEvent<HTMLInputElement>) {
+    dispatch(setIsAnsweringMandatory(e.target.checked))
+    try {
+      localStorage.setItem("isAnsweringMandatory", String(e.target.checked))
+    } catch {
+      // localStorage is blocked/broken
+    }
+  }
+
+  function handleQuestionTypeOrCategoryConfirm() {
+    // if no question format selected, then it's mix type
+    if (!nextQuestionsFormat) {
+      // if category questions were selected before then clear them
+      if (selectedQuestionCategory) {
+        dispatch(changeQuestionNumber(0))
+        dispatch(replaceQuestions([]))
+        dispatch(clearCategory())
+      }
       dispatch(changeQuestionType("Mix"))
       onSubmit()
     } else {
-      if (requiresConfirmation && selectedQuestionType !== type) {
-        nextQuestionTypeRef.current = type
-        setShowConfirmationDialog(true)
-      } else {
-        dispatch(changeQuestionType(type))
+      // question format selected is a question type
+      if (isQuestionType(nextQuestionsFormat)) {
+        dispatch(clearCategory())
+        if (nextQuestionsFormat !== selectedQuestionType) {
+          dispatch(changeQuestionNumber(0))
+          dispatch(replaceQuestions([]))
+          dispatch(changeQuestionType(nextQuestionsFormat))
+        }
+        onSubmit()
+      }
+      // question format selected is question category
+      else {
+        dispatch(changeQuestionNumber(0))
+        const categoryQuestions = getRandomizedArray(
+          ALL_CATEGORY_QUESTIONS[nextQuestionsFormat],
+        ).slice(0, noOfCategoryQuestions)
+        dispatch(changeQuestionCategory(nextQuestionsFormat))
+        dispatch(replaceQuestions(categoryQuestions))
         onSubmit()
       }
     }
   }
 
-  function handleCategoryClick(category: QuestionCategories) {
-    if (hasSavedQuestions && !selectedQuestionCategory) {
-      nextQuestionCategoryRef.current = category
-      setShowConfirmationDialog(true)
-    } else {
-      const categoryQuestions = getRandomizedArray(ALL_CATEGORY_QUESTIONS[category]).slice(0, 10)
-      dispatch(changeQuestionNumber(0))
-      dispatch(changeQuestionCategory(category))
-      dispatch(replaceQuestions(categoryQuestions))
-      onSubmit()
-    }
-  }
-
-  function handleQuestionTypeOrCategoryConfirm() {
-    dispatch(changeQuestionNumber(0))
-    if (nextQuestionTypeRef.current) {
-      dispatch(replaceQuestions([]))
-      dispatch(changeQuestionType(nextQuestionTypeRef.current))
-    }
-    if (nextQuestionCategoryRef.current) {
-      const categoryQuestions = getRandomizedArray(
-        ALL_CATEGORY_QUESTIONS[nextQuestionCategoryRef.current],
-      ).slice(0, 10)
-      dispatch(replaceQuestions(categoryQuestions))
-      dispatch(changeQuestionCategory(nextQuestionCategoryRef.current))
-    }
-    onSubmit()
-    nextQuestionTypeRef.current = undefined
-    nextQuestionCategoryRef.current = undefined
-  }
+  const isDiscardingPrevQuestions =
+    hasSavedQuestions &&
+    !selectedQuestionCategory &&
+    nextQuestionsFormat &&
+    nextQuestionsFormat !== selectedQuestionType
 
   return (
     <>
@@ -116,18 +138,20 @@ export default function Home({ onSubmit }: HomeProps) {
             staggerDirectionFrom="left"
           >
             {Object.values(QuestionCategories).map(qc => (
-              <button key={qc} onClick={() => handleCategoryClick(qc)}>
+              <button key={qc} onClick={() => handleQuestionFormatClick(qc)}>
                 {QuestionCategoryLabelMap[qc]}
               </button>
             ))}
           </StaggerList>
           <StaggerList label={<button>Create your own questions</button>}>
-            <button onClick={() => handleCreateQuestions(QuestionType.MCQ)}>MCQ</button>
-            <button onClick={() => handleCreateQuestions(QuestionType.Subjective)}>
+            <button onClick={() => handleQuestionFormatClick(QuestionType.MCQ)}>MCQ</button>
+            <button onClick={() => handleQuestionFormatClick(QuestionType.Subjective)}>
               Subjective
             </button>
-            <button onClick={() => handleCreateQuestions(QuestionType.Boolean)}>Yes or no</button>
-            <button onClick={() => handleCreateQuestions()}>Mix</button>
+            <button onClick={() => handleQuestionFormatClick(QuestionType.Boolean)}>
+              Yes or no
+            </button>
+            <button onClick={() => handleQuestionFormatClick()}>Mix</button>
           </StaggerList>
         </div>
       </main>
@@ -141,10 +165,42 @@ export default function Home({ onSubmit }: HomeProps) {
         <ThemeToggle />
       </footer>
       <Modal isOpen={showConfirmationDialog} onClose={() => setShowConfirmationDialog(false)}>
-        <p>
-          Are you sure you want to change question type? Your current saved questions will be lost.
-        </p>
-        <button onClick={handleQuestionTypeOrCategoryConfirm}>Yes, that's fine</button>
+        <div className="confirmation-dialog-input-wrapper">
+          <label htmlFor="answer-mandatory">Should answering the questions be mandatory?</label>
+          <input
+            type="checkbox"
+            name="answer-mandatory"
+            id="answer-mandatory"
+            checked={isAnsweringMandatory}
+            onChange={handleAnswerMandatoryChange}
+          />
+        </div>
+        {nextQuestionsFormat && !isQuestionType(nextQuestionsFormat) && (
+          <div className="confirmation-dialog-input-wrapper">
+            <label htmlFor="no-of-category-questions">
+              How many questions would you like to go for this category?
+            </label>
+            <input
+              type="number"
+              name="no-of-category-questions"
+              id="no-of-category-questions"
+              min={1}
+              max={ALL_CATEGORY_QUESTIONS[nextQuestionsFormat]?.length}
+              step={5}
+              value={noOfCategoryQuestions}
+              onChange={handleNumberOfCategoryQuestionsChange}
+            />
+          </div>
+        )}
+        {isDiscardingPrevQuestions && (
+          <p>
+            Are you sure you want to change question type? Your current saved questions will be
+            lost!
+          </p>
+        )}
+        <button onClick={handleQuestionTypeOrCategoryConfirm}>
+          {isDiscardingPrevQuestions ? "Yes, that's fine" : "Let's go"}
+        </button>
       </Modal>
     </>
   )

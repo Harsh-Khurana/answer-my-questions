@@ -11,12 +11,14 @@ import {
   editQuestion,
   selectCurrentQuestion,
   selectGlobalQuestionNumber,
+  selectIsAnsweringMandatory,
   type AppDispatch,
 } from "../../store"
 
 export default function BooleanQuestion() {
   const selectedQuestionNumber = useSelector(selectGlobalQuestionNumber)
   const selectedQuestion = useSelector(selectCurrentQuestion) as BooleanQuestion
+  const isAnsweringMandatory = useSelector(selectIsAnsweringMandatory)
   const dispatch = useDispatch<AppDispatch>()
 
   const [questionValue, setQuestionValue] = useState(
@@ -61,18 +63,19 @@ export default function BooleanQuestion() {
     e.preventDefault()
 
     const questionText = questionValue.trim()
+    const hasAnswerError = isAnsweringMandatory && typeof selectedAnswerOption !== "boolean"
 
-    if (!questionText || typeof selectedAnswerOption !== "boolean") {
+    if (!questionText || hasAnswerError) {
       setErrors(prevErrors => ({
         ...prevErrors,
         question: !questionText ? "Question cannot be empty" : undefined,
-        answer: typeof selectedAnswerOption !== "boolean" ? "Choose any one option" : undefined,
+        answer: hasAnswerError ? "Choose any one option" : undefined,
       }))
 
       if (!questionText) {
         animate("#question-input", { x: [10, -10, 10, -10, 0] }, { duration: 0.5 })
       }
-      if (typeof selectedAnswerOption !== "boolean") {
+      if (hasAnswerError) {
         animate(".input-wrapper > span", { x: [10, -10, 10, -10, 0] }, { duration: 0.5 })
       }
 

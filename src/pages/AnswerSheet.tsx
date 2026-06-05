@@ -7,6 +7,7 @@ import { QuestionType } from "../constants/types"
 import {
   selectCurrentQuestion,
   selectGlobalQuestionNumber,
+  selectIsAnsweringMandatory,
   selectTotalAnswers,
   selectTotalQuestions,
 } from "../store"
@@ -20,13 +21,14 @@ export default function AnswerSheet({ onSubmit }: AnswerSheetProps) {
   const selectedQuestion = useSelector(selectCurrentQuestion)
   const totalQuestions = useSelector(selectTotalQuestions)
   const totalAnswers = useSelector(selectTotalAnswers)
+  const isAnsweringMandatory = useSelector(selectIsAnsweringMandatory)
 
   const [prevQuestionNum, setPrevQuestionNum] = useState(questionNumber)
   const [showMissingAnswersAlert, setShowMissingAnswersAlert] = useState(false)
   const [showSubmitDialog, setShowSubmitDialog] = useState(false)
 
   function handleSubmit() {
-    if (totalAnswers < totalQuestions) {
+    if (isAnsweringMandatory && totalAnswers < totalQuestions) {
       setShowMissingAnswersAlert(true)
     } else {
       setShowSubmitDialog(true)

@@ -53,11 +53,11 @@ export default function ReviewQuestionCard({
 
   let answer = question.answer ?? "-"
 
-  if (question.type === "MCQ" && typeof answer === "number") {
-    answer = question.options[question.answer!]
+  if (question.type === "MCQ") {
+    answer = typeof question.answer === "number" ? question.options[question.answer!] : "-"
   }
-  if (question.type === "Boolean" && typeof answer === "boolean") {
-    answer = answer ? "Yes" : "No"
+  if (question.type === "Boolean") {
+    answer = typeof question.answer === "boolean" ? (question.answer ? "Yes" : "No") : "-"
   }
 
   return (

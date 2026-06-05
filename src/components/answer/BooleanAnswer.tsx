@@ -8,6 +8,7 @@ import {
   selectCurrentAnswer,
   selectCurrentQuestion,
   selectGlobalQuestionNumber,
+  selectIsAnsweringMandatory,
   type AppDispatch,
 } from "../../store"
 import type { BooleanQuestion } from "../../constants/types"
@@ -17,6 +18,7 @@ export default function BooleanAnswer() {
   const selectedQuestionNumber = useSelector(selectGlobalQuestionNumber)
   const selectedQuestion = useSelector(selectCurrentQuestion) as BooleanQuestion
   const selectedAnswer = useSelector(selectCurrentAnswer) as boolean | undefined
+  const isAnsweringMandatory = useSelector(selectIsAnsweringMandatory)
   const dispatch = useDispatch<AppDispatch>()
 
   const [selectedAnswerOption, setSelectedAnswerOption] = useState<boolean | undefined>(
@@ -46,7 +48,7 @@ export default function BooleanAnswer() {
   function handleSubmit(e: SubmitEvent) {
     e.preventDefault()
 
-    const hasAnswerError = typeof selectedAnswerOption !== "boolean"
+    const hasAnswerError = isAnsweringMandatory && typeof selectedAnswerOption !== "boolean"
 
     if (hasAnswerError) {
       setAnswerError("Please choose an answer")

@@ -8,6 +8,7 @@ import {
   selectCurrentAnswer,
   selectCurrentQuestion,
   selectGlobalQuestionNumber,
+  selectIsAnsweringMandatory,
   type AppDispatch,
 } from "../../store"
 import type { SubjectiveQuestion } from "../../constants/types"
@@ -17,6 +18,7 @@ export default function SubjectiveAnswer() {
   const selectedQuestionNumber = useSelector(selectGlobalQuestionNumber)
   const selectedQuestion = useSelector(selectCurrentQuestion) as SubjectiveQuestion
   const selectedAnswer = useSelector(selectCurrentAnswer) as string | undefined
+  const isAnsweringMandatory = useSelector(selectIsAnsweringMandatory)
   const dispatch = useDispatch<AppDispatch>()
 
   const [answerValue, setAnswerValue] = useState(selectedAnswer || "")
@@ -29,7 +31,9 @@ export default function SubjectiveAnswer() {
   function handleAnswerChange(e: ChangeEvent<HTMLTextAreaElement>) {
     const newAnswerValue = e.target.value
 
-    setAnswerError(!newAnswerValue.trim().length ? "Answer cannot be empty" : "")
+    setAnswerError(
+      isAnsweringMandatory && !newAnswerValue.trim().length ? "Answer cannot be empty" : "",
+    )
     setAnswerValue(newAnswerValue)
     setHasAnswerChanges(true)
 
@@ -45,7 +49,7 @@ export default function SubjectiveAnswer() {
   function handleSubmit(e: SubmitEvent) {
     e.preventDefault()
 
-    const hasAnswerError = !answerValue.trim().length
+    const hasAnswerError = isAnsweringMandatory && !answerValue.trim().length
 
     if (hasAnswerError) {
       setAnswerError("Answer cannot be empty")
@@ -54,7 +58,7 @@ export default function SubjectiveAnswer() {
       return
     }
 
-    dispatch(saveAnswer({ id: selectedQuestion.id, answer: answerValue }))
+    dispatch(saveAnswer({ id: selectedQuestion.id, answer: answerValue.trim() }))
     dispatch(changeQuestionNumber(selectedQuestionNumber + 1))
   }
 
