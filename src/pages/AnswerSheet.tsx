@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useSelector } from "react-redux"
+import { useNavigate } from "react-router"
 
 import { Alert, Modal, Timer } from "../ui"
 import { McqAnswer, SubjectiveAnswer, BooleanAnswer } from "../components"
@@ -11,12 +12,9 @@ import {
   selectTotalAnswers,
   selectTotalQuestions,
 } from "../store"
+import { ROUTES } from "../constants/routes"
 
-type AnswerSheetProps = {
-  onSubmit: () => void
-}
-
-export default function AnswerSheet({ onSubmit }: AnswerSheetProps) {
+export default function AnswerSheet() {
   const questionNumber = useSelector(selectGlobalQuestionNumber)
   const selectedQuestion = useSelector(selectCurrentQuestion)
   const totalQuestions = useSelector(selectTotalQuestions)
@@ -27,12 +25,18 @@ export default function AnswerSheet({ onSubmit }: AnswerSheetProps) {
   const [showMissingAnswersAlert, setShowMissingAnswersAlert] = useState(false)
   const [showSubmitDialog, setShowSubmitDialog] = useState(false)
 
-  function handleSubmit() {
+  const navigate = useNavigate()
+
+  function handleSubmitClick() {
     if (isAnsweringMandatory && totalAnswers < totalQuestions) {
       setShowMissingAnswersAlert(true)
     } else {
       setShowSubmitDialog(true)
     }
+  }
+
+  function handleSubmit() {
+    navigate(ROUTES.results)
   }
 
   if (questionNumber !== prevQuestionNum) {
@@ -49,7 +53,7 @@ export default function AnswerSheet({ onSubmit }: AnswerSheetProps) {
             {totalAnswers} out of {totalQuestions}
           </strong>
         </span>
-        <button onClick={handleSubmit}>Submit answers</button>
+        <button onClick={handleSubmitClick}>Submit answers</button>
       </header>
       {totalAnswers === totalQuestions && (
         <Alert type="success">
@@ -69,10 +73,10 @@ export default function AnswerSheet({ onSubmit }: AnswerSheetProps) {
       </main>
       <Modal isOpen={showSubmitDialog} onClose={() => setShowSubmitDialog(false)}>
         <p>Are you sure you want to submit your answers now?</p>
-        <button onClick={onSubmit}>Yes, let's see the results</button>
+        <button onClick={handleSubmit}>Yes, let's see the results</button>
         <p>
           Test will automatically close in{" "}
-          {showSubmitDialog && <Timer seconds={10} onComplete={onSubmit} />}
+          {showSubmitDialog && <Timer seconds={10} onComplete={handleSubmit} />}
         </p>
       </Modal>
     </>

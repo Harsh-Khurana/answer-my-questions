@@ -1,8 +1,6 @@
-import { useDispatch } from "react-redux"
+import { useNavigate } from "react-router"
 
 import { DropdownArrowIcon } from "../assets/icons"
-import { changePage, type AppDispatch } from "../store"
-import { PageType } from "../constants/types"
 
 type BackBtnProps = {
   label?: string
@@ -10,13 +8,13 @@ type BackBtnProps = {
 }
 
 export default function BackBtn({ label, onBack }: BackBtnProps) {
-  const dispatch = useDispatch<AppDispatch>()
+  const navigate = useNavigate()
 
   function handleBackClick() {
     if (onBack) {
       onBack()
     } else {
-      dispatch(changePage(PageType.Home))
+      navigate("/")
     }
   }
 

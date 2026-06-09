@@ -4,23 +4,29 @@ import { DragDropProvider, DragOverlay, type DragEndEvent, PointerSensor } from 
 import { PointerActivationConstraints } from "@dnd-kit/dom"
 import { RestrictToWindow } from "@dnd-kit/dom/modifiers"
 import { move } from "@dnd-kit/helpers"
+import { AnimatePresence } from "motion/react"
+import { useNavigate } from "react-router"
 
 import { SixDotsIcon } from "../assets/icons"
 import { Alert, BackBtn, Modal, Timer } from "../ui"
 import { ReviewQuestionCard, SortableQuestionRow } from "../components"
-import { PageType, QuestionType } from "../constants/types"
-import { changePage, replaceQuestions, selectQuestions, type AppDispatch } from "../store"
-import { AnimatePresence } from "motion/react"
+import { QuestionType } from "../constants/types"
+import {
+  changeQuestionNumber,
+  initialiseAnswers,
+  replaceQuestions,
+  selectQuestions,
+  type AppDispatch,
+} from "../store"
+import { ROUTES } from "../constants/routes"
 
-type QuestionsReviewProps = {
-  onSubmit: () => void
-}
-
-export default function QuestionsReview({ onSubmit }: QuestionsReviewProps) {
+export default function QuestionsReview() {
   const questions = useSelector(selectQuestions)
   const dispatch = useDispatch<AppDispatch>()
 
   const [showSubmitDialog, setShowSubmitDialog] = useState(false)
+
+  const navigate = useNavigate()
 
   const questionByTypeCount = questions.reduce(
     (acc, question) => {
@@ -36,12 +42,18 @@ export default function QuestionsReview({ onSubmit }: QuestionsReviewProps) {
   const totalQuestions = questions.length
 
   function handleAddMore() {
-    dispatch(changePage(PageType.Questionnaire))
+    navigate(ROUTES.questionnaire)
   }
 
   function handleDragEnd(event: DragEndEvent) {
     const reorderedQuestions = move(questions, event)
     dispatch(replaceQuestions(reorderedQuestions))
+  }
+
+  function handleSubmit() {
+    dispatch(changeQuestionNumber(0))
+    dispatch(initialiseAnswers(questions.map(q => q.id)))
+    navigate(ROUTES.answerSheet)
   }
 
   return (
@@ -104,9 +116,9 @@ export default function QuestionsReview({ onSubmit }: QuestionsReviewProps) {
       </DragDropProvider>
       <Modal isOpen={showSubmitDialog} onClose={() => setShowSubmitDialog(false)}>
         <p>All set! You can now pass the device to the person answering the questions.</p>
-        <button onClick={onSubmit}>Answer now</button>
+        <button onClick={handleSubmit}>Answer now</button>
         <p>
-          Test will automatically start in {showSubmitDialog && <Timer onComplete={onSubmit} />}
+          Test will automatically start in {showSubmitDialog && <Timer onComplete={handleSubmit} />}
         </p>
       </Modal>
     </>

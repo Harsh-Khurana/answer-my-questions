@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useSelector } from "react-redux"
+import { useNavigate } from "react-router"
 
 import { Alert, BackBtn } from "../ui"
 import { McqQuestion, SubjectiveQuestion, BooleanQuestion } from "../components"
@@ -13,12 +14,9 @@ import {
   selectTotalAnsweredQuestions,
   selectTotalQuestions,
 } from "../store"
+import { ROUTES } from "../constants/routes"
 
-type QuestionnaireProps = {
-  onSubmit: () => void
-}
-
-export default function Questionnaire({ onSubmit }: QuestionnaireProps) {
+export default function Questionnaire() {
   const globalQuestionType = useSelector(selectGlobalQuestionType)
   const selectedQuestionNumber = useSelector(selectGlobalQuestionNumber)
   const selectedQuestion = useSelector(selectCurrentQuestion)
@@ -33,14 +31,17 @@ export default function Questionnaire({ onSubmit }: QuestionnaireProps) {
   const [prevQuestionNum, setPrevQuestionNum] = useState(selectedQuestionNumber)
   const [showMissingQAAlert, setShowMissingQAAlert] = useState(false)
 
+  const navigate = useNavigate()
+
   function handleReviewAndSubmit() {
     if (
-      isAnsweringMandatory &&
-      (totalAnsweredQuestions === 0 || totalAnsweredQuestions < totalQuestions)
+      totalQuestions === 0 ||
+      (isAnsweringMandatory &&
+        (totalAnsweredQuestions === 0 || totalAnsweredQuestions < totalQuestions))
     ) {
       setShowMissingQAAlert(true)
     } else {
-      onSubmit()
+      navigate(ROUTES.questionsReview)
     }
   }
 
@@ -72,19 +73,21 @@ export default function Questionnaire({ onSubmit }: QuestionnaireProps) {
         </span>
         <button onClick={handleReviewAndSubmit}>Review & Submit questions</button>
       </header>
-      {selectedQuestionCategory && totalAnsweredQuestions === totalQuestions && (
-        <Alert type="success">
-          Great! You have answered all the questions. Now either you can submit these questions or
-          can add more questions yourself.
-        </Alert>
-      )}
+      {selectedQuestionCategory &&
+        totalQuestions > 0 &&
+        totalAnsweredQuestions === totalQuestions && (
+          <Alert type="success">
+            Great! You have answered all the questions. Now either you can submit these questions or
+            can add more questions yourself.
+          </Alert>
+        )}
       {showMissingQAAlert && (
         <Alert type="danger">
-          Cannot submit,{" "}
-          {totalAnsweredQuestions === 0 &&
-            totalQuestions === 0 &&
-            "No questions & answers were saved."}
-          {totalAnsweredQuestions < totalQuestions && "Some questions are unanswered."}
+          Cannot submit, No {totalQuestions === 0 && "questions"}{" "}
+          {isAnsweringMandatory && totalAnsweredQuestions === 0 && "& answers"} were saved.
+          {isAnsweringMandatory &&
+            totalAnsweredQuestions < totalQuestions &&
+            "Some questions are unanswered."}
         </Alert>
       )}
       <main className="flex" key={selectedQuestionNumber}>

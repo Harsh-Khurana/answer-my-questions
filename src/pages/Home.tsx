@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from "react-redux"
+import { useNavigate, useSearchParams } from "react-router"
+import { AnimatePresence, motion } from "motion/react"
 
-import { Modal, StaggerList, ThemeToggle } from "../ui"
+import { Alert, Modal, StaggerList, ThemeToggle } from "../ui"
 import {
-  changePage,
   changeQuestionCategory,
   changeQuestionNumber,
   changeQuestionType,
@@ -15,12 +16,12 @@ import {
   setIsAnsweringMandatory,
   type AppDispatch,
 } from "../store"
-import { PageType, QuestionCategories, QuestionType } from "../constants/types"
+import { QuestionCategories, QuestionType } from "../constants/types"
 import { ALL_CATEGORY_QUESTIONS } from "../constants/questions"
-import { useState, type ChangeEvent } from "react"
+import { useEffect, useState, type ChangeEvent } from "react"
 import AnimatedAmqLogo from "../assets/icons/AnimatedAmqLogo"
-import { getRandomizedArray } from "../utils"
-import { isQuestionType } from "../utils/type-guards"
+import { getRandomizedArray, isQuestionType } from "../utils"
+import { ROUTES } from "../constants/routes"
 
 const QuestionCategoryLabelMap = {
   [QuestionCategories.Love]: "💗 Love 💗",
@@ -30,11 +31,7 @@ const QuestionCategoryLabelMap = {
   [QuestionCategories.Nostalgia]: "Nostalgia 🌟",
 }
 
-type HomeProps = {
-  onSubmit: () => void
-}
-
-export default function Home({ onSubmit }: HomeProps) {
+export default function Home() {
   const hasSavedQuestions = useSelector(selectHasSavedQuestions)
   const selectedQuestionType = useSelector(selectGlobalQuestionType)
   const selectedQuestionCategory = useSelector(selectGlobalQuestionCategory)
@@ -53,6 +50,12 @@ export default function Home({ onSubmit }: HomeProps) {
       return 10
     }
   })
+
+  const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  const [showPageAccessAlert, setShowPageAccessAlert] = useState(
+    searchParams.get("invalidated") === "true",
+  )
 
   function handleQuestionFormatClick(format?: QuestionType | QuestionCategories) {
     setNextQuestionsFormat(format)
@@ -87,7 +90,7 @@ export default function Home({ onSubmit }: HomeProps) {
         dispatch(clearCategory())
       }
       dispatch(changeQuestionType("Mix"))
-      onSubmit()
+      navigate(ROUTES.questionnaire)
     } else {
       // question format selected is a question type
       if (isQuestionType(nextQuestionsFormat)) {
@@ -97,7 +100,7 @@ export default function Home({ onSubmit }: HomeProps) {
           dispatch(replaceQuestions([]))
           dispatch(changeQuestionType(nextQuestionsFormat))
         }
-        onSubmit()
+        navigate(ROUTES.questionnaire)
       }
       // question format selected is question category
       else {
@@ -107,10 +110,24 @@ export default function Home({ onSubmit }: HomeProps) {
         ).slice(0, noOfCategoryQuestions)
         dispatch(changeQuestionCategory(nextQuestionsFormat))
         dispatch(replaceQuestions(categoryQuestions))
-        onSubmit()
+        navigate(ROUTES.questionnaire)
       }
     }
   }
+
+  useEffect(() => {
+    if (showPageAccessAlert) {
+      const cleanUrl = new URL(window.location.href)
+      cleanUrl.searchParams.delete("invalidated")
+
+      // FIRE AND FORGET: Replace the URL purely visually using native history API, instead of
+      // setSearchParams which would trigger a re-render!
+      window.history.replaceState({}, "", cleanUrl)
+
+      const timeoutId = setTimeout(() => setShowPageAccessAlert(false), 2000)
+      return () => clearTimeout(timeoutId)
+    }
+  }, [showPageAccessAlert])
 
   const isDiscardingPrevQuestions =
     hasSavedQuestions &&
@@ -120,6 +137,23 @@ export default function Home({ onSubmit }: HomeProps) {
 
   return (
     <>
+      <AnimatePresence>
+        {showPageAccessAlert && (
+          <motion.span
+            className="relative-wrapper"
+            variants={{
+              show: { y: 10, opacity: 1 },
+              hide: { y: -40, opacity: 0 },
+            }}
+            transition={{ duration: 0.5 }}
+            initial="hide"
+            animate="show"
+            exit="hide"
+          >
+            <Alert type="warning">You don't have any saved questions to access this page</Alert>
+          </motion.span>
+        )}
+      </AnimatePresence>
       <main className="main-home">
         <AnimatedAmqLogo />
         <h1>Answer My Question</h1>
@@ -157,10 +191,7 @@ export default function Home({ onSubmit }: HomeProps) {
       </main>
       <footer>
         <div className="help">
-          <button>Help us with more questions</button>
-          <button onClick={() => dispatch(changePage(PageType.ReportIssues))}>
-            Help us improve
-          </button>
+          <button onClick={() => navigate(ROUTES.issues)}>Help us improve</button>
         </div>
         <ThemeToggle />
       </footer>

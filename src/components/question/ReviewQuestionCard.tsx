@@ -1,16 +1,17 @@
 import { useDispatch, useSelector } from "react-redux"
 import { useState } from "react"
+import { useNavigate } from "react-router"
 
 import { DropdownArrowIcon, PencilIcon, SixDotsIcon } from "../../assets/icons"
 import { StaggerList } from "../../ui"
-import { PageType, type Question } from "../../constants/types"
+import { type Question } from "../../constants/types"
 import {
   deleteQuestion,
-  changePage,
   changeQuestionNumber,
   type AppDispatch,
   selectQuestions,
 } from "../../store"
+import { ROUTES } from "../../constants/routes"
 
 type ReviewQuestionCardProps = {
   question: Question | null
@@ -28,13 +29,15 @@ export default function ReviewQuestionCard({
 
   const [showAnswer, setShowAnswer] = useState(false)
 
+  const navigate = useNavigate()
+
   if (!question) return null
 
   function handleEditQuestion() {
     const questionNumber = questions.findIndex(q => q === question)
 
     dispatch(changeQuestionNumber(questionNumber))
-    dispatch(changePage(PageType.Questionnaire))
+    navigate(ROUTES.questionnaire)
   }
 
   function handleDeleteQuestion() {
@@ -42,7 +45,7 @@ export default function ReviewQuestionCard({
       dispatch(changeQuestionNumber(questions.length - 1))
       dispatch(deleteQuestion(question.id))
       if (questions.length === 1) {
-        dispatch(changePage(PageType.Questionnaire))
+        navigate(ROUTES.questionnaire)
       }
     }
   }

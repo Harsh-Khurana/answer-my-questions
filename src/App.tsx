@@ -1,46 +1,27 @@
-import { useDispatch, useSelector } from "react-redux"
+import { createBrowserRouter, RouterProvider } from "react-router"
 
 import "./App.css"
 import { Home, Questionnaire, QuestionsReview, AnswerSheet, Results, ReportIssues } from "./pages"
-import { PageType } from "./constants/types"
-import {
-  initialiseAnswers,
-  changePage,
-  changeQuestionNumber,
-  type AppDispatch,
-  selectCurrentPage,
-  selectQuestions,
-} from "./store"
+import { ROUTES } from "./constants/routes"
+import { routeValidatorLoader, timingMiddleware } from "./utils"
+
+const router = createBrowserRouter([
+  {
+    path: "",
+    middleware: [timingMiddleware],
+    children: [
+      { index: true, Component: Home },
+      { path: ROUTES.questionnaire, Component: Questionnaire },
+      { path: ROUTES.questionsReview, Component: QuestionsReview, loader: routeValidatorLoader },
+      { path: ROUTES.answerSheet, Component: AnswerSheet, loader: routeValidatorLoader },
+      { path: ROUTES.results, Component: Results, loader: routeValidatorLoader },
+      { path: ROUTES.issues, Component: ReportIssues, loader: routeValidatorLoader },
+    ],
+  },
+])
 
 function App() {
-  const currentPage = useSelector(selectCurrentPage)
-  const allQuestions = useSelector(selectQuestions)
-  const dispatch = useDispatch<AppDispatch>()
-
-  function handleQuestionsSubmit() {
-    dispatch(changeQuestionNumber(0))
-    dispatch(initialiseAnswers(allQuestions.map(q => q.id)))
-    dispatch(changePage(PageType.AnswerSheet))
-  }
-
-  return (
-    <>
-      {currentPage === PageType.Home && (
-        <Home onSubmit={() => dispatch(changePage(PageType.Questionnaire))} />
-      )}
-      {currentPage === PageType.Questionnaire && (
-        <Questionnaire onSubmit={() => dispatch(changePage(PageType.QuestionsReview))} />
-      )}
-      {currentPage === PageType.QuestionsReview && (
-        <QuestionsReview onSubmit={handleQuestionsSubmit} />
-      )}
-      {currentPage === PageType.AnswerSheet && (
-        <AnswerSheet onSubmit={() => dispatch(changePage(PageType.Result))} />
-      )}
-      {currentPage === PageType.Result && <Results />}
-      {currentPage === PageType.ReportIssues && <ReportIssues />}
-    </>
-  )
+  return <RouterProvider router={router} />
 }
 
 export default App

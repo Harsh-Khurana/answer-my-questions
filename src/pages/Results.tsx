@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from "react-redux"
 import { motion } from "motion/react"
+import { useNavigate } from "react-router"
 
 import {
   type AppDispatch,
-  changePage,
   changeQuestionNumber,
   changeQuestionType,
   clearCategory,
@@ -12,14 +12,15 @@ import {
   selectQuestions,
   selectAnswers,
 } from "../store"
-import { PageType } from "../constants/types"
 import ResultItem from "../components/ResultItem"
+import { ROUTES } from "../constants/routes"
 
 export default function Results() {
   const questions = useSelector(selectQuestions)
   const answers = useSelector(selectAnswers)
-
   const dispatch = useDispatch<AppDispatch>()
+
+  const navigate = useNavigate()
 
   function handleStartNew() {
     dispatch(changeQuestionNumber(0))
@@ -27,7 +28,7 @@ export default function Results() {
     dispatch(initialiseAnswers([]))
     dispatch(clearCategory())
     dispatch(changeQuestionType("Mix"))
-    dispatch(changePage(PageType.Home))
+    navigate(ROUTES.home)
   }
 
   return (
