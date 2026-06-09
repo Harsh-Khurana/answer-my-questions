@@ -13,7 +13,7 @@ import {
   selectGlobalQuestionNumber,
   selectIsAnsweringMandatory,
   type AppDispatch,
-} from "../../store"
+} from "../../store/index.ts"
 
 export default function McqQuestion() {
   const selectedQuestionNumber = useSelector(selectGlobalQuestionNumber)
