@@ -64,3 +64,5 @@ export type Sessions = Record<
     completed: boolean
   }
 >
+
+export type Issue = { title: string; description: string }

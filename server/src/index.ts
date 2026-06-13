@@ -2,8 +2,23 @@ import fs from "node:fs/promises"
 import bodyParser from "body-parser"
 import express, { type Request, type Response, type NextFunction } from "express"
 
-import type { QuestionCategories, Sessions } from "./types.ts"
+import type { Question, QuestionCategories, Sessions } from "./types.ts"
 import { initSessionCleanup } from "./utils.ts"
+import {
+  initializeIssues,
+  initializeQuestions,
+  initializeSessions,
+  getQuestions,
+  getSessions,
+  updateSession,
+  addIssue,
+  addSession,
+} from "./store/index.ts"
+
+// INITIALIZING DATA TO READ AND WRITE QUICKLY
+initializeIssues()
+initializeSessions()
+initializeQuestions()
 
 const app = express()
 
@@ -26,8 +41,7 @@ interface QuestionsRequestParams {
 // Get category questions
 app.get("/questions{/:category}", async (req: Request<QuestionsRequestParams>, res: Response) => {
   try {
-    const questionsJSON = await fs.readFile("./data/questions.json", "utf8")
-    let questions = JSON.parse(questionsJSON)
+    let questions: Record<string, Question[]> | Question[] = getQuestions()
 
     const { category } = req.params
 
@@ -50,10 +64,8 @@ app.get(
   "/sessions/:sessionId/status",
   async (req: Request<SessionRequestParams>, res: Response) => {
     try {
-      const sessionsJSON = await fs.readFile("./data/sessions.json", "utf8")
-      const sessions = JSON.parse(sessionsJSON) as Sessions
-
       const { sessionId } = req.params
+      const sessions = getSessions()
 
       if (!sessionId || !sessions[sessionId]) {
         return res.status(404).json({ message: "Invalid or expired session." })
@@ -69,10 +81,8 @@ app.get(
 // Get a particular session based on sessionId
 app.get("/sessions/:sessionId", async (req: Request<SessionRequestParams>, res: Response) => {
   try {
-    const sessionsJSON = await fs.readFile("./data/sessions.json", "utf8")
-    const sessions = JSON.parse(sessionsJSON) as Sessions
-
     const { sessionId } = req.params
+    const sessions = getSessions()
 
     if (!sessionId || !sessions[sessionId]) {
       return res.status(404).json({ message: "Invalid or expired session." })
@@ -94,10 +104,10 @@ app.post("/sessions", async (req: Request<{}, {}, SessionPostRequestBody>, res: 
     return res.status(400).json({ message: "No questions were submitted." })
   }
 
+  const sessions = getSessions()
+
   try {
-    const existingSessionsJSON = await fs.readFile("./data/sessions.json", "utf8")
-    const existingSessions = JSON.parse(existingSessionsJSON) as Sessions
-    const existingSessionIds = Object.keys(existingSessions)
+    const existingSessionIds = Object.keys(sessions)
 
     const newSessionId = existingSessionIds.length
       ? parseInt(existingSessionIds[existingSessionIds.length - 1]!) + 1
@@ -111,10 +121,7 @@ app.post("/sessions", async (req: Request<{}, {}, SessionPostRequestBody>, res: 
       },
     }
 
-    await fs.writeFile(
-      "./data/sessions.json",
-      JSON.stringify({ ...existingSessions, ...newSession }, null, 2),
-    )
+    addSession(newSession)
 
     res.status(201).json({ newSessionId })
   } catch (error) {
@@ -135,18 +142,14 @@ app.patch(
       return res.status(400).json({ message: "Missing answers data." })
     }
 
-    try {
-      const sessionsJSON = await fs.readFile("./data/sessions.json", "utf8")
-      const sessions = JSON.parse(sessionsJSON) as Sessions
+    const sessions = getSessions()
 
+    try {
       if (!sessionId || !sessions[sessionId]) {
         return res.status(404).json({ message: "Invalid or expired session." })
       }
 
-      sessions[sessionId].answers = answers
-      sessions[sessionId].completed = true
-
-      await fs.writeFile("./data/sessions.json", JSON.stringify(sessions, null, 2))
+      updateSession(sessionId, { answers: answers, completed: true })
 
       res.status(201).json(sessions[sessionId])
     } catch (error) {
@@ -170,9 +173,7 @@ app.post("/app-issues", async (req: Request<{}, {}, AppIssueRequestBody>, res: R
   }
 
   try {
-    const existingIssuesJSON = await fs.readFile("./data/issues.json", "utf8")
-    const existingIssues = JSON.parse(existingIssuesJSON)
-    await fs.writeFile("./data/issues.json", JSON.stringify([...existingIssues, issue], null, 2))
+    addIssue(issue)
     res.status(201).json({ message: "Issue added successfully." })
   } catch (error) {
     res.status(500).json({ message: "Could not save issue." })
