@@ -34,11 +34,7 @@ export default function Questionnaire() {
   const navigate = useNavigate()
 
   function handleReviewAndSubmit() {
-    if (
-      totalQuestions === 0 ||
-      (isAnsweringMandatory &&
-        (totalAnsweredQuestions === 0 || totalAnsweredQuestions < totalQuestions))
-    ) {
+    if (totalQuestions === 0 || (isAnsweringMandatory && totalAnsweredQuestions < totalQuestions)) {
       setShowMissingQAAlert(true)
     } else {
       navigate(ROUTES.questionsReview)
@@ -52,6 +48,12 @@ export default function Questionnaire() {
   }
 
   const questionType = selectedQuestion?.type ?? chosenQuestionType
+
+  const showCompletedQuestionsAlert =
+    selectedQuestionCategory &&
+    totalQuestions > 0 &&
+    ((isAnsweringMandatory && totalAnsweredQuestions === totalQuestions) ||
+      selectedQuestionNumber === totalQuestions)
 
   return (
     <>
@@ -73,21 +75,18 @@ export default function Questionnaire() {
         </span>
         <button onClick={handleReviewAndSubmit}>Review & Submit questions</button>
       </header>
-      {selectedQuestionCategory &&
-        totalQuestions > 0 &&
-        totalAnsweredQuestions === totalQuestions && (
-          <Alert type="success">
-            Great! You have answered all the questions. Now either you can submit these questions or
-            can add more questions yourself.
-          </Alert>
-        )}
+      {showCompletedQuestionsAlert && (
+        <Alert type="success">
+          Great! {isAnsweringMandatory ? "You have answered" : "That's"} all the questions. Now
+          either you can submit these questions or can add more questions yourself.
+        </Alert>
+      )}
       {showMissingQAAlert && (
         <Alert type="danger">
-          Cannot submit, No {totalQuestions === 0 && "questions"}{" "}
-          {isAnsweringMandatory && totalAnsweredQuestions === 0 && "& answers"} were saved.
+          Cannot submit, {totalQuestions === 0 && "no questions were saved."}{" "}
           {isAnsweringMandatory &&
             totalAnsweredQuestions < totalQuestions &&
-            "Some questions are unanswered."}
+            "some questions are unanswered."}
         </Alert>
       )}
       <main className="flex" key={selectedQuestionNumber}>

@@ -36,10 +36,7 @@ export type DistributiveOmit<T, K extends keyof any> = T extends any ? Omit<T, K
 
 export type AnswerType = number | string | boolean
 
-export type Answer = {
-  id: number
-  answer: AnswerType
-}
+export type Answers = Record<Question["id"], AnswerType | undefined>
 
 export const PageType = {
   Home: "Home",
@@ -62,3 +59,19 @@ export const QuestionCategories = {
 } as const
 
 export type QuestionCategories = (typeof QuestionCategories)[keyof typeof QuestionCategories]
+
+export type Issue = {
+  title: string
+  description: string
+}
+
+export type Sessions = Record<
+  string,
+  {
+    isAnsweringMandatory: boolean
+    questions: Question[]
+    answers: Answers
+    createdAt: number
+    completed: boolean
+  }
+>

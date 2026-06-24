@@ -2,7 +2,7 @@ import type { ReactNode } from "react"
 
 import { AttentionIcon, ErrorIcon, InfoIcon, SuccessIcon } from "../assets/icons"
 
-type AlertProps = {
+export type AlertProps = {
   type?: "info" | "warning" | "success" | "danger"
   children: ReactNode
 }

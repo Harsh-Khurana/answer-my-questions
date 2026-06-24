@@ -1,12 +1,11 @@
 import { useState, type ChangeEvent } from "react"
+import { useAnimate } from "motion/react"
+import { useMutation } from "@tanstack/react-query"
+
 import { Alert, BackBtn } from "../ui"
 import AutoResizeTextArea from "../ui/AutoResizeTextArea"
-import { useAnimate } from "motion/react"
-
-type Issue = {
-  title: string
-  description: string
-}
+import type { Issue } from "../constants/types"
+import { postIssue } from "../utils"
 
 export default function ReportIssues() {
   const [errors, setErrors] = useState<{
@@ -15,6 +14,10 @@ export default function ReportIssues() {
   }>({ title: undefined, description: undefined })
 
   const [scope, animate] = useAnimate()
+
+  const { isPending, mutate, isSuccess, isError } = useMutation({
+    mutationFn: (issue: Issue) => postIssue(issue),
+  })
 
   function handleInputChange(e: ChangeEvent<HTMLTextAreaElement>) {
     const name = e.target.name
@@ -48,8 +51,7 @@ export default function ReportIssues() {
       return
     }
 
-    // @todo handle issue submit
-    console.log(data)
+    mutate(data)
   }
 
   return (
@@ -57,11 +59,23 @@ export default function ReportIssues() {
       <header>
         <BackBtn label="Back to main menu" />
       </header>
-      <main id="main-report-issues">
-        <Alert>
-          Tell us what's bothering you or if you just have some suggestions for us. And we'll try to
-          incorporate that as soon as possible.
-        </Alert>
+      {isSuccess && (
+        <div className="mb-32">
+          <Alert type="success">
+            Thank you for submitting an issue. We have noted it down for us.
+          </Alert>
+        </div>
+      )}
+      {isError && (
+        <div className="mb-32">
+          <Alert type="danger">Unable to submit issue at the moment. Please try again later.</Alert>
+        </div>
+      )}
+      <Alert>
+        Tell us what's bothering you or if you just have some suggestions for us. And we'll try to
+        incorporate that as soon as possible.
+      </Alert>
+      <main>
         <form action={handleSubmit} ref={scope}>
           <AutoResizeTextArea
             id="title"
@@ -74,7 +88,7 @@ export default function ReportIssues() {
             <textarea name="description" id="description" rows={10} onChange={handleInputChange} />
             {errors?.description && <span className="input-error">{errors.description}</span>}
           </div>
-          <button>Submit</button>
+          <button disabled={isPending}>{isPending ? "Submitting..." : "Submit"}</button>
         </form>
       </main>
     </>

@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from "react-redux"
-import { useNavigate, useSearchParams } from "react-router"
+import { useNavigate } from "react-router"
 import { AnimatePresence, motion } from "motion/react"
+import { useQuery } from "@tanstack/react-query"
 
-import { Alert, Modal, StaggerList, ThemeToggle } from "../ui"
+import { Alert, Modal, SnackbarAlert, StaggerList, ThemeToggle } from "../ui"
 import {
   changeQuestionCategory,
   changeQuestionNumber,
@@ -16,11 +17,10 @@ import {
   setIsAnsweringMandatory,
   type AppDispatch,
 } from "../store"
-import { QuestionCategories, QuestionType } from "../constants/types"
-import { ALL_CATEGORY_QUESTIONS } from "../constants/questions"
-import { useEffect, useState, type ChangeEvent } from "react"
+import { type Question, QuestionCategories, QuestionType } from "../constants/types"
+import { useState, type ChangeEvent } from "react"
 import AnimatedAmqLogo from "../assets/icons/AnimatedAmqLogo"
-import { getRandomizedArray, isQuestionType } from "../utils"
+import { getRandomizedArray, isQuestionType, fetchQuestions } from "../utils"
 import { ROUTES } from "../constants/routes"
 
 const QuestionCategoryLabelMap = {
@@ -52,10 +52,16 @@ export default function Home() {
   })
 
   const navigate = useNavigate()
-  const [searchParams] = useSearchParams()
-  const [showPageAccessAlert, setShowPageAccessAlert] = useState(
-    searchParams.get("invalidated") === "true",
-  )
+
+  const {
+    isPending: isCategoryQuestionsPending,
+    data: categoryQuestionsData,
+    isError: isCategoryQuestionsError,
+  } = useQuery<Record<QuestionCategories, Question[]>>({
+    queryKey: ["questions"],
+    queryFn: fetchQuestions,
+    staleTime: Infinity,
+  })
 
   function handleQuestionFormatClick(format?: QuestionType | QuestionCategories) {
     setNextQuestionsFormat(format)
@@ -105,29 +111,17 @@ export default function Home() {
       // question format selected is question category
       else {
         dispatch(changeQuestionNumber(0))
-        const categoryQuestions = getRandomizedArray(
-          ALL_CATEGORY_QUESTIONS[nextQuestionsFormat],
-        ).slice(0, noOfCategoryQuestions)
-        dispatch(changeQuestionCategory(nextQuestionsFormat))
-        dispatch(replaceQuestions(categoryQuestions))
-        navigate(ROUTES.questionnaire)
+        if (categoryQuestionsData && !isCategoryQuestionsError) {
+          const categoryQuestions = getRandomizedArray(
+            categoryQuestionsData[nextQuestionsFormat],
+          ).slice(0, noOfCategoryQuestions)
+          dispatch(changeQuestionCategory(nextQuestionsFormat))
+          dispatch(replaceQuestions(categoryQuestions))
+          navigate(ROUTES.questionnaire)
+        }
       }
     }
   }
-
-  useEffect(() => {
-    if (showPageAccessAlert) {
-      const cleanUrl = new URL(window.location.href)
-      cleanUrl.searchParams.delete("invalidated")
-
-      // FIRE AND FORGET: Replace the URL purely visually using native history API, instead of
-      // setSearchParams which would trigger a re-render!
-      window.history.replaceState({}, "", cleanUrl)
-
-      const timeoutId = setTimeout(() => setShowPageAccessAlert(false), 2000)
-      return () => clearTimeout(timeoutId)
-    }
-  }, [showPageAccessAlert])
 
   const isDiscardingPrevQuestions =
     hasSavedQuestions &&
@@ -135,25 +129,19 @@ export default function Home() {
     nextQuestionsFormat &&
     nextQuestionsFormat !== selectedQuestionType
 
+  const isCategoryQuestionSelected = nextQuestionsFormat && !isQuestionType(nextQuestionsFormat)
+
   return (
     <>
-      <AnimatePresence>
-        {showPageAccessAlert && (
-          <motion.span
-            className="relative-wrapper"
-            variants={{
-              show: { y: 10, opacity: 1 },
-              hide: { y: -40, opacity: 0 },
-            }}
-            transition={{ duration: 0.5 }}
-            initial="hide"
-            animate="show"
-            exit="hide"
-          >
-            <Alert type="warning">You don't have any saved questions to access this page</Alert>
-          </motion.span>
-        )}
-      </AnimatePresence>
+      <SnackbarAlert searchParam="invalidated" searchParamValue="true" type="warning">
+        You don't have any saved questions to access this page.
+      </SnackbarAlert>
+      <SnackbarAlert searchParam="error" searchParamValue="true" type="danger">
+        Something went wrong, please try again later.
+      </SnackbarAlert>
+      <SnackbarAlert searchParam="expired" searchParamValue="true" type="warning">
+        This session no longer exists. But feel free to create a new one :)
+      </SnackbarAlert>
       <main className="main-home">
         <AnimatedAmqLogo />
         <h1>Answer My Question</h1>
@@ -196,6 +184,24 @@ export default function Home() {
         <ThemeToggle />
       </footer>
       <Modal isOpen={showConfirmationDialog} onClose={() => setShowConfirmationDialog(false)}>
+        <AnimatePresence>
+          {isCategoryQuestionSelected && isCategoryQuestionsPending && (
+            <motion.div
+              initial={{ y: 0, opacity: 1 }}
+              exit={{ y: -10, opacity: 0 }}
+              className="mb-32"
+            >
+              <Alert type="warning">Loading category questions in background.</Alert>
+            </motion.div>
+          )}
+        </AnimatePresence>
+        {isCategoryQuestionSelected && isCategoryQuestionsError && (
+          <div className="mb-32">
+            <Alert type="danger">
+              Unable to fetch category questions at the moment. Please try again later.
+            </Alert>
+          </div>
+        )}
         <div className="confirmation-dialog-input-wrapper">
           <label htmlFor="answer-mandatory">Should answering the questions be mandatory?</label>
           <input
@@ -206,7 +212,7 @@ export default function Home() {
             onChange={handleAnswerMandatoryChange}
           />
         </div>
-        {nextQuestionsFormat && !isQuestionType(nextQuestionsFormat) && (
+        {isCategoryQuestionSelected && (
           <div className="confirmation-dialog-input-wrapper">
             <label htmlFor="no-of-category-questions">
               How many questions would you like to go for this category?
@@ -216,7 +222,7 @@ export default function Home() {
               name="no-of-category-questions"
               id="no-of-category-questions"
               min={1}
-              max={ALL_CATEGORY_QUESTIONS[nextQuestionsFormat]?.length}
+              max={categoryQuestionsData?.[nextQuestionsFormat]?.length}
               step={5}
               value={noOfCategoryQuestions}
               onChange={handleNumberOfCategoryQuestionsChange}
@@ -229,7 +235,12 @@ export default function Home() {
             lost!
           </p>
         )}
-        <button onClick={handleQuestionTypeOrCategoryConfirm}>
+        <button
+          onClick={handleQuestionTypeOrCategoryConfirm}
+          disabled={
+            isCategoryQuestionSelected && (isCategoryQuestionsPending || isCategoryQuestionsError)
+          }
+        >
           {isDiscardingPrevQuestions ? "Yes, that's fine" : "Let's go"}
         </button>
       </Modal>

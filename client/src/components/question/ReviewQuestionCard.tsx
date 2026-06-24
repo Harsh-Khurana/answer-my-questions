@@ -17,12 +17,14 @@ type ReviewQuestionCardProps = {
   question: Question | null
   handleRef?: (element: Element | null) => void
   hideActions?: boolean
+  hideUpdateActions?: boolean
 }
 
 export default function ReviewQuestionCard({
   question,
   handleRef,
   hideActions = false,
+  hideUpdateActions = false,
 }: ReviewQuestionCardProps) {
   const questions = useSelector(selectQuestions)
   const dispatch = useDispatch<AppDispatch>()
@@ -71,21 +73,28 @@ export default function ReviewQuestionCard({
           <span className="actions">
             <StaggerList
               label={
-                <button title="Drag question or Reveal actions" ref={handleRef}>
+                <button
+                  title={(!hideUpdateActions ? "Drag question or " : "") + "Reveal actions"}
+                  ref={handleRef}
+                >
                   <SixDotsIcon height={12} width={12} />
                 </button>
               }
             >
-              <button className="bordered" title="Edit question" onClick={handleEditQuestion}>
-                Edit <PencilIcon height={12} width={12} />
-              </button>
-              <button
-                className="error bordered"
-                title="Delete question"
-                onClick={handleDeleteQuestion}
-              >
-                Delete <span>X</span>
-              </button>
+              {!hideUpdateActions && (
+                <button className="bordered" title="Edit question" onClick={handleEditQuestion}>
+                  Edit <PencilIcon height={12} width={12} />
+                </button>
+              )}
+              {!hideUpdateActions && (
+                <button
+                  className="error bordered"
+                  title="Delete question"
+                  onClick={handleDeleteQuestion}
+                >
+                  Delete <span>X</span>
+                </button>
+              )}
               <button
                 className="success bordered"
                 title={showAnswer ? "Hide answer" : "Show answer"}

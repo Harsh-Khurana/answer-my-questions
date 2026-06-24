@@ -14,7 +14,6 @@ import {
 } from "../store"
 import ResultItem from "../components/ResultItem"
 import { ROUTES } from "../constants/routes"
-
 export default function Results() {
   const questions = useSelector(selectQuestions)
   const answers = useSelector(selectAnswers)
@@ -35,9 +34,10 @@ export default function Results() {
     <>
       <header>
         <span>
-          Questions: <strong>{questions.length}</strong>, Answered:{" "}
+          Questions <strong>({questions.length})</strong>, Answered{" "}
           <strong>
-            {Object.values(answers).filter(answer => typeof answer !== "undefined").length}
+            ({questions.map(question => question.answer !== undefined).filter(Boolean).length} :{" "}
+            {Object.values(answers).filter(answer => typeof answer !== "undefined").length})
           </strong>
         </span>
       </header>

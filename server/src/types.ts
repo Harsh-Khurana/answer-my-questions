@@ -1,5 +1,4 @@
 // @todo make these types from a common package @shared or something
-
 // TYPES COPIED FROM FRONTEND
 
 export const QuestionType = {
@@ -52,7 +51,7 @@ export const QuestionCategories = {
 
 export type QuestionCategories = (typeof QuestionCategories)[keyof typeof QuestionCategories]
 
-// SERVER SPECIFIC TYPES
+export type Issue = { title: string; description: string }
 
 export type Sessions = Record<
   string,
@@ -64,5 +63,3 @@ export type Sessions = Record<
     completed: boolean
   }
 >
-
-export type Issue = { title: string; description: string }

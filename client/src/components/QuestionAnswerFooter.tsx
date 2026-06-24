@@ -24,7 +24,7 @@ export default function QuestionAnswerFooter({ hasChanges }: QuestionAnswerFoote
   const isMoveToNextAllowed = !hasChanges && selectedQuestionNumber < totalQuestions
 
   const hideNextButton =
-    location.pathname === ROUTES.answerSheet && selectedQuestionNumber + 1 === totalQuestions
+    location.pathname.includes(ROUTES.answerSheet) && selectedQuestionNumber + 1 === totalQuestions
 
   function handleMoveToPreviousQuestion() {
     dispatch(changeQuestionNumber(selectedQuestionNumber - 1))

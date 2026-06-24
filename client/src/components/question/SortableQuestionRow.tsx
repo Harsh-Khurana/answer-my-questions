@@ -7,12 +7,18 @@ import ReviewQuestionCard from "./ReviewQuestionCard"
 type SortableQuestionRowProps = {
   question: Question
   index: number
+  isDisabled?: boolean
 }
 
-export default function SortableQuestionRow({ question, index }: SortableQuestionRowProps) {
+export default function SortableQuestionRow({
+  question,
+  index,
+  isDisabled = false,
+}: SortableQuestionRowProps) {
   const { ref, handleRef, isDragging } = useSortable({
     id: question.id,
     index,
+    disabled: isDisabled,
   })
 
   return (
@@ -24,7 +30,11 @@ export default function SortableQuestionRow({ question, index }: SortableQuestio
       exit={{ x: -50, opacity: 0 }}
     >
       <span>Q{index + 1}.</span>
-      <ReviewQuestionCard question={question} handleRef={handleRef} />
+      <ReviewQuestionCard
+        question={question}
+        handleRef={handleRef}
+        hideUpdateActions={isDisabled}
+      />
     </motion.div>
   )
 }

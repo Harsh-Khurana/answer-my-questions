@@ -1,8 +1,7 @@
-import fs from "node:fs/promises"
-import bodyParser from "body-parser"
+import { randomUUID } from "node:crypto"
 import express, { type Request, type Response, type NextFunction } from "express"
 
-import type { Question, QuestionCategories, Sessions } from "./types.ts"
+import type { Answers, Question, QuestionCategories, Sessions } from "./types.ts"
 import { initSessionCleanup } from "./utils.ts"
 import {
   initializeIssues,
@@ -22,13 +21,13 @@ initializeQuestions()
 
 const app = express()
 
-app.use(bodyParser.json())
+app.use(express.json())
 app.use(express.static("public"))
 
 // Add NextFunction, Request, and Response types to middleware
 app.use((_: Request, res: Response, next: NextFunction) => {
   res.setHeader("Access-Control-Allow-Origin", "*")
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST")
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH")
   res.setHeader("Access-Control-Allow-Headers", "Content-Type")
   next()
 })
@@ -104,14 +103,8 @@ app.post("/sessions", async (req: Request<{}, {}, SessionPostRequestBody>, res: 
     return res.status(400).json({ message: "No questions were submitted." })
   }
 
-  const sessions = getSessions()
-
   try {
-    const existingSessionIds = Object.keys(sessions)
-
-    const newSessionId = existingSessionIds.length
-      ? parseInt(existingSessionIds[existingSessionIds.length - 1]!) + 1
-      : 1
+    const newSessionId = randomUUID()
     const newSession: Sessions = {
       [newSessionId]: {
         ...req.body,
@@ -123,22 +116,19 @@ app.post("/sessions", async (req: Request<{}, {}, SessionPostRequestBody>, res: 
 
     addSession(newSession)
 
-    res.status(201).json({ newSessionId })
+    res.status(201).json({ message: "Session created successfully", sessionId: newSessionId })
   } catch (error) {
     res.status(500).json({ message: "Could not create your AMQ session." })
   }
 })
 
-type SessionPatchRequestBody = Pick<Sessions[keyof Sessions], "answers">
-
 // Update a particular session based on sessionId
 app.patch(
   "/sessions/:sessionId",
-  async (req: Request<SessionRequestParams, {}, SessionPatchRequestBody>, res: Response) => {
-    const { answers } = req.body
+  async (req: Request<SessionRequestParams, {}, Answers>, res: Response) => {
     const { sessionId } = req.params
 
-    if (!answers) {
+    if (!req.body) {
       return res.status(400).json({ message: "Missing answers data." })
     }
 
@@ -149,7 +139,7 @@ app.patch(
         return res.status(404).json({ message: "Invalid or expired session." })
       }
 
-      updateSession(sessionId, { answers: answers, completed: true })
+      updateSession(sessionId, { answers: req.body, completed: true })
 
       res.status(201).json(sessions[sessionId])
     } catch (error) {
@@ -189,8 +179,10 @@ app.use((req: Request, res: Response) => {
   res.status(404).json({ message: "Not found" })
 })
 
-app.listen(3000, () => {
-  console.log("Server listening on port 3000")
+const PORT = process.env.PORT || 3000
+
+app.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}`)
 
   initSessionCleanup()
 })
