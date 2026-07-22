@@ -223,100 +223,92 @@
     {
       "id": 33,
       "question": "True or False: In 'Sholay', Jai's coin that he uses to make decisions actually has 'Heads' on both sides.",
-      "type": "BOOLEAN",
-      "options": ["True", "False"]
+      "type": "Boolean"
     },
     {
       "id": 34,
       "question": "True or False: A.R. Rahman won two Academy Awards (Oscars) for his work on the movie 'Slumdog Millionaire'.",
-      "type": "BOOLEAN",
-      "options": ["True", "False"]
+      "type": "Boolean"
     },
     {
       "id": 35,
       "question": "True or False: The famous song 'Why This Kolaveri Di' was originally sung by Rajinikanth.",
-      "type": "BOOLEAN",
-      "options": ["True", "False"]
+      "type": "Boolean"
     },
     {
       "id": 36,
       "question": "True or False: In 'Kabhi Khushi Kabhie Gham', Kareena Kapoor's iconic character is named 'Poo'.",
-      "type": "BOOLEAN",
-      "options": ["True", "False"]
+      "type": "Boolean"
     },
     {
       "id": 37,
       "question": "True or False: Akshay Kumar is a trained martial artist with a black belt in Taekwondo.",
-      "type": "BOOLEAN",
-      "options": ["True", "False"]
+      "type": "Boolean"
     },
     {
       "id": 38,
       "question": "True or False: The title track of 'Kal Ho Naa Ho' was originally supposed to be composed for 'Kabhi Khushi Kabhie Gham'.",
-      "type": "BOOLEAN",
-      "options": ["True", "False"]
+      "type": "Boolean"
     },
     {
       "id": 39,
       "question": "True or False: Raj Kapoor is widely known as the 'Tragedy King' of Bollywood.",
-      "type": "BOOLEAN",
-      "options": ["True", "False"]
+      "type": "Boolean"
     },
     {
       "id": 40,
       "question": "True or False: Priyanka Chopra was crowned Miss World in the year 2000 before starting her acting career.",
-      "type": "BOOLEAN",
-      "options": ["True", "False"]
+      "type": "Boolean"
     },
     {
       "id": 41,
       "question": "If you could recast the iconic duo of Jai and Veeru from 'Sholay' using any two actors from today's generation, who would you choose and why?",
-      "type": "SUBJECTIVE"
+      "type": "Subjective"
     },
     {
       "id": 42,
       "question": "What is your all-time favorite Bollywood dialogue, and in what real-life situation do you use it?",
-      "type": "SUBJECTIVE"
+      "type": "Subjective"
     },
     {
       "id": 43,
       "question": "If your own life was turned into a Karan Johar directed Bollywood movie, what would the dramatic title be?",
-      "type": "SUBJECTIVE"
+      "type": "Subjective"
     },
     {
       "id": 44,
       "question": "Describe the plot of a quintessential, cliché Bollywood masala movie in exactly three sentences.",
-      "type": "SUBJECTIVE"
+      "type": "Subjective"
     },
     {
       "id": 45,
       "question": "Which Bollywood movie had the most profound impact on your childhood or teenage years?",
-      "type": "SUBJECTIVE"
+      "type": "Subjective"
     },
     {
       "id": 46,
       "question": "In your opinion, who is the most terrifying or well-written villain in the history of Indian cinema?",
-      "type": "SUBJECTIVE"
+      "type": "Subjective"
     },
     {
       "id": 47,
       "question": "If you could spend a single day on the set of any classic Bollywood film during its production, which movie would you choose?",
-      "type": "SUBJECTIVE"
+      "type": "Subjective"
     },
     {
       "id": 48,
       "question": "Which Bollywood movie ending made you cry or feel the most emotional, and why did it hit you so hard?",
-      "type": "SUBJECTIVE"
+      "type": "Subjective"
     },
     {
       "id": 49,
       "question": "If you had to listen to only one Bollywood album for the rest of your life, which movie's soundtrack are you picking?",
-      "type": "SUBJECTIVE"
+      "type": "Subjective"
     },
     {
       "id": 50,
       "question": "Write a short, dramatic two-line monologue for a hero confronting the villain in the climax of an action movie.",
-      "type": "SUBJECTIVE"
+      "type": "Subjective"
     },
     {
       "id": 51,
@@ -511,44 +503,37 @@
     {
       "id": 76,
       "question": "True or False: Amitabh Bachchan played the role of a 12-year-old child suffering from progeria in the movie 'Paa'.",
-      "type": "BOOLEAN",
-      "options": ["True", "False"]
+      "type": "Boolean"
     },
     {
       "id": 77,
       "question": "True or False: 'Dilwale Dulhania Le Jayenge' (DDLJ) is the longest-running film in the history of Indian cinema.",
-      "type": "BOOLEAN",
-      "options": ["True", "False"]
+      "type": "Boolean"
     },
     {
       "id": 78,
       "question": "True or False: Salman Khan's character has been named 'Prem' in over 15 different Bollywood movies.",
-      "type": "BOOLEAN",
-      "options": ["True", "False"]
+      "type": "Boolean"
     },
     {
       "id": 79,
       "question": "True or False: Shah Rukh Khan's debut Bollywood movie was 'Baazigar'.",
-      "type": "BOOLEAN",
-      "options": ["True", "False"]
+      "type": "Boolean"
     },
     {
       "id": 80,
       "question": "True or False: Hrithik Roshan has two thumbs on his right hand.",
-      "type": "BOOLEAN",
-      "options": ["True", "False"]
+      "type": "Boolean"
     },
     {
       "id": 81,
       "question": "True or False: The Oscar-nominated movie 'Lagaan' was entirely shot in a studio in Mumbai.",
-      "type": "BOOLEAN",
-      "options": ["True", "False"]
+      "type": "Boolean"
     },
     {
       "id": 82,
       "question": "True or False: Katrina Kaif's real voice was dubbed by someone else in her early Bollywood movies.",
-      "type": "BOOLEAN",
-      "options": ["True", "False"]
+      "type": "Boolean"
     }
   ],
   "Love": [
@@ -815,76 +800,72 @@
     {
       "id": 37,
       "question": "True or False: It is psychologically possible to be deeply in love with two people at the exact same time.",
-      "type": "BOOLEAN",
-      "options": ["True", "False"]
+      "type": "Boolean"
     },
     {
       "id": 38,
       "question": "True or False: Couples must share common hobbies and interests for a relationship to survive.",
-      "type": "BOOLEAN",
-      "options": ["True", "False"]
+      "type": "Boolean"
     },
     {
       "id": 39,
       "question": "True or False: Celebrating small milestones like 'month-aversaries' is cute, not cringey.",
-      "type": "BOOLEAN",
-      "options": ["True", "False"]
+      "type": "Boolean"
     },
     {
       "id": 40,
       "question": "True or False: Social media has made modern dating significantly harder and more toxic.",
-      "type": "BOOLEAN",
-      "options": ["True", "False"]
+      "type": "Boolean"
     },
     {
       "id": 41,
       "question": "If you could design your absolute dream wedding without worrying about a budget, what are three things that must be there?",
-      "type": "SUBJECTIVE"
+      "type": "Subjective"
     },
     {
       "id": 42,
       "question": "What is the most incredibly romantic or thoughtful thing someone has ever done for you (or that you wish they would do)?",
-      "type": "SUBJECTIVE"
+      "type": "Subjective"
     },
     {
       "id": 43,
       "question": "If you had to define the concept of 'Love' to an alien who had never heard of it, what exactly would you say?",
-      "type": "SUBJECTIVE"
+      "type": "Subjective"
     },
     {
       "id": 44,
       "question": "What is the most valuable lesson a past heartbreak, relationship, or crush has taught you about yourself?",
-      "type": "SUBJECTIVE"
+      "type": "Subjective"
     },
     {
       "id": 45,
       "question": "Describe your perfect, 48-hour weekend getaway with your partner from Friday night to Sunday evening.",
-      "type": "SUBJECTIVE"
+      "type": "Subjective"
     },
     {
       "id": 46,
       "question": "What is a tiny, seemingly insignificant thing a partner could do on a random Tuesday that would make you fall even more in love with them?",
-      "type": "SUBJECTIVE"
+      "type": "Subjective"
     },
     {
       "id": 47,
       "question": "If you had the opportunity to write a letter to your future spouse right now, what would your opening sentence be?",
-      "type": "SUBJECTIVE"
+      "type": "Subjective"
     },
     {
       "id": 48,
       "question": "In your own heart, how do you truly know when you are ready to stop casually dating and commit to a lifelong relationship?",
-      "type": "SUBJECTIVE"
+      "type": "Subjective"
     },
     {
       "id": 49,
       "question": "If you could invent one 'silly' but mandatory rule for your future household with your partner, what would it be?",
-      "type": "SUBJECTIVE"
+      "type": "Subjective"
     },
     {
       "id": 50,
       "question": "If the story of your romantic life was turned into a best-selling novel, what would the title of the book be, and why?",
-      "type": "SUBJECTIVE"
+      "type": "Subjective"
     },
     {
       "id": 51,
@@ -1164,68 +1145,57 @@
     {
       "id": 76,
       "question": "True or False: 'Love at first sight' is a real phenomenon that actually happens.",
-      "type": "BOOLEAN",
-      "options": ["True", "False"]
+      "type": "Boolean"
     },
     {
       "id": 77,
       "question": "True or False: The saying 'Opposites attract' is the secret to a successful long-term relationship.",
-      "type": "BOOLEAN",
-      "options": ["True", "False"]
+      "type": "Boolean"
     },
     {
       "id": 78,
       "question": "True or False: You should never, under any circumstances, go to bed angry at your partner.",
-      "type": "BOOLEAN",
-      "options": ["True", "False"]
+      "type": "Boolean"
     },
     {
       "id": 79,
       "question": "True or False: Long-distance relationships can survive and be just as healthy as local ones.",
-      "type": "BOOLEAN",
-      "options": ["True", "False"]
+      "type": "Boolean"
     },
     {
       "id": 80,
       "question": "True or False: It is perfectly acceptable to keep certain secrets from your long-term partner.",
-      "type": "BOOLEAN",
-      "options": ["True", "False"]
+      "type": "Boolean"
     },
     {
       "id": 81,
       "question": "True or False: Your romantic partner should absolutely be your number one best friend.",
-      "type": "BOOLEAN",
-      "options": ["True", "False"]
+      "type": "Boolean"
     },
     {
       "id": 82,
       "question": "True or False: A little bit of jealousy is actually healthy and shows that you care.",
-      "type": "BOOLEAN",
-      "options": ["True", "False"]
+      "type": "Boolean"
     },
     {
       "id": 83,
       "question": "True or False: Flirting with other people while in a committed relationship counts as cheating.",
-      "type": "BOOLEAN",
-      "options": ["True", "False"]
+      "type": "Boolean"
     },
     {
       "id": 84,
       "question": "True or False: 'Right person, wrong time' is a real thing that ruins potential relationships.",
-      "type": "BOOLEAN",
-      "options": ["True", "False"]
+      "type": "Boolean"
     },
     {
       "id": 85,
       "question": "True or False: True love means you should never have to force a compromise; it should just flow naturally.",
-      "type": "BOOLEAN",
-      "options": ["True", "False"]
+      "type": "Boolean"
     },
     {
       "id": 86,
       "question": "True or False: Taking a 'break' in a relationship is basically just a cowardly way of breaking up.",
-      "type": "BOOLEAN",
-      "options": ["True", "False"]
+      "type": "Boolean"
     }
   ],
   "Brains": [
